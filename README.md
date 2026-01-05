@@ -1,355 +1,355 @@
-# System Design
+# Проектирование системы
 
-Hey, welcome to the course. I hope this course provides a great learning experience.
+Привет, добро пожаловать на курс. Надеюсь, этот курс станет для вас отличным опытом обучения.
 
-_This course is also available on my [website](https://karanpratapsingh.com/courses/system-design) and as an ebook on [leanpub](https://leanpub.com/systemdesign). Please leave a ⭐ as motivation if this was helpful!_
+Этот курс также доступен на моем [веб-сайте](https://karanpratapsingh.com/courses/system-design) и в виде электронной книги на [leanpub](https://leanpub.com/systemdesign). Пожалуйста, поставьте ⭐ в знак мотивации, если это было полезно!
 
-# Table of contents
+# Оглавление
 
-- **Getting Started**
+- **Начиная**
 
-  - [What is system design?](#what-is-system-design)
+  — [Что такое проектирование систем?](#what-is-system-design)
 
-- **Chapter I**
+- **Глава I**
 
   - [IP](#ip)
-  - [OSI Model](#osi-model)
-  - [TCP and UDP](#tcp-and-udp)
-  - [Domain Name System (DNS)](#domain-name-system-dns)
-  - [Load Balancing](#load-balancing)
-  - [Clustering](#clustering)
-  - [Caching](#caching)
-  - [Content Delivery Network (CDN)](#content-delivery-network-cdn)
-  - [Proxy](#proxy)
-  - [Availability](#availability)
-  - [Scalability](#scalability)
-  - [Storage](#storage)
+  - [Модель OSI](#osi-model)
+  - [TCP и UDP](#tcp-and-udp)
+  - [Система доменных имен (DNS)](#domain-name-system-dns)
+  - [Балансировка нагрузки](#балансировка нагрузки)
+  - [Кластеризация](#clustering)
+  - [Кэширование](#кэширование)
+  - [Сеть доставки контента (CDN)](#content-delivery-network-cdn)
+  - [Прокси](#прокси)
+  - [Доступность](#доступность)
+  - [Масштабируемость](#масштабируемость)
+  - [Хранилище](#storage)
 
-- **Chapter II**
+- **Глава II**
 
-  - [Databases and DBMS](#databases-and-dbms)
-  - [SQL databases](#sql-databases)
-  - [NoSQL databases](#nosql-databases)
-  - [SQL vs NoSQL databases](#sql-vs-nosql-databases)
-  - [Database Replication](#database-replication)
-  - [Indexes](#indexes)
-  - [Normalization and Denormalization](#normalization-and-denormalization)
-  - [ACID and BASE consistency models](#acid-and-base-consistency-models)
-  - [CAP theorem](#cap-theorem)
-  - [PACELC Theorem](#pacelc-theorem)
-  - [Transactions](#transactions)
-  - [Distributed Transactions](#distributed-transactions)
-  - [Sharding](#sharding)
-  - [Consistent Hashing](#consistent-hashing)
-  - [Database Federation](#database-federation)
+  - [Базы данных и СУБД](#базы-и-СУБД)
+  - [SQL базы данных](#sql-databases)
+  - [Базы данных NoSQL](#nosql-databases)
+  - [SQL против NoSQL баз данных](#sql-vs-nosql-databases)
+  - [Репликация баз данных](#database-replication)
+  - [Индексы](#индексы)
+  - [Нормализация и денормализация](#нормализация-и-денормализация)
+  - [Модели кислотной и щелочной согласованности](#acid-and-base-consistency-models)
+  - [Теорема CAP](#теорема-cap)
+  - [Теорема PACELC](#pacelc-theorem)
+  - [Транзакции](#транзакции)
+  - [Распределенные транзакции](#distributed-transactions)
+  - [Шардинг](#шардинг)
+  - [Последовательное хеширование](#consistent-hashing)
+  - [Федерация баз данных](#database-federation)
 
-- **Chapter III**
+- **Глава III**
 
-  - [N-tier architecture](#n-tier-architecture)
-  - [Message Brokers](#message-brokers)
-  - [Message Queues](#message-queues)
-  - [Publish-Subscribe](#publish-subscribe)
+  - [Многоуровневая архитектура](#n-tier-architecture)
+  - [Брокеры сообщений](#message-brokers)
+  - [Очереди сообщений](#очереди сообщений)
+  - [Публикация-Подписка](#publish-subscribe)
   - [Enterprise Service Bus (ESB)](#enterprise-service-bus-esb)
-  - [Monoliths and Microservices](#monoliths-and-microservices)
-  - [Event-Driven Architecture (EDA)](#event-driven-architecture-eda)
-  - [Event Sourcing](#event-sourcing)
-  - [Command and Query Responsibility Segregation (CQRS)](#command-and-query-responsibility-segregation-cqrs)
+  - [Монолиты и микросервисы](#monoliths-and-microservices)
+  - [Архитектура, управляемая событиями (EDA)](#event-driven-architecture-eda)
+  - [Организация мероприятий](#event-sourcing)
+  - [Разделение ответственности команд и запросов (CQRS)](#command-and-query-responsibility-segregation-cqrs)
   - [API Gateway](#api-gateway)
   - [REST, GraphQL, gRPC](#rest-graphql-grpc)
-  - [Long polling, WebSockets, Server-Sent Events (SSE)](#long-polling-websockets-server-sent-events-sse)
+  - [Длительное опрос, WebSockets, События, отправляемые сервером (SSE)](#long-polling-websockets-server-sent-events-sse)
 
-- **Chapter IV**
+- **Глава IV**
 
-  - [Geohashing and Quadtrees](#geohashing-and-quadtrees)
-  - [Circuit breaker](#circuit-breaker)
-  - [Rate Limiting](#rate-limiting)
-  - [Service Discovery](#service-discovery)
+  - [Геохеширование и квадродеревья](#geohashing-and-quadtrees)
+  - [Автоматический выключатель](#автоматическийвыключатель)
+  - [Ограничение скорости](#rate-limiting)
+  - [Обнаружение сервисов](#service-discovery)
   - [SLA, SLO, SLI](#sla-slo-sli)
-  - [Disaster recovery](#disaster-recovery)
-  - [Virtual Machines (VMs) and Containers](#virtual-machines-vms-and-containers)
-  - [OAuth 2.0 and OpenID Connect (OIDC)](#oauth-20-and-openid-connect-oidc)
-  - [Single Sign-On (SSO)](#single-sign-on-sso)
+  - [Восстановление после катастрофы](#disaster-recovery)
+  - [Виртуальные машины (ВМ) и контейнеры](#virtual-machines-vms-and-containers)
+  - [OAuth 2.0 и OpenID Connect (OIDC)](#oauth-20-and-openid-connect-oidc)
+  - [Единый вход (SSO)](#single-sign-on-sso)
   - [SSL, TLS, mTLS](#ssl-tls-mtls)
 
-- **Chapter V**
+- **Глава V**
 
-  - [System Design Interviews](#system-design-interviews)
-  - [URL Shortener](#url-shortener)
+  - [Собеседования по системному проектированию](#system-design-interviews)
+  - [Сокращатель URL](#url-shortener)
   - [WhatsApp](#whatsapp)
-  - [Twitter](#twitter)
+  - [Твиттер](#twitter)
   - [Netflix](#netflix)
   - [Uber](#uber)
 
-- **Appendix**
+- **Приложение**
 
-  - [Next Steps](#next-steps)
-  - [References](#references)
+  - [Следующие шаги](#next-steps)
+  - [Ссылки](#references)
 
-# What is system design?
+# Что такое проектирование системы?
 
-Before we start this course, let's talk about what even is system design.
+Прежде чем начать этот курс, давайте поговорим о том, что вообще представляет собой проектирование систем.
 
-System design is the process of defining the architecture, interfaces, and data
-for a system that satisfies specific requirements. System design meets the needs
-of your business or organization through coherent and efficient systems. It requires
-a systematic approach to building and engineering systems. A good system design requires
-us to think about everything, from infrastructure all the way down to the data and how it's stored.
+Проектирование системы — это процесс определения архитектуры, интерфейсов и данных.
+для системы, удовлетворяющей конкретным требованиям. Проектирование системы отвечает потребностям.
+для вашего бизнеса или организации посредством согласованных и эффективных систем. Это требует
+Системный подход к проектированию строительных и инженерных систем. Для качественного проектирования системы требуется...
+Нам необходимо продумать все до мелочей, от инфраструктуры до данных и способов их хранения.
 
-## Why is System Design so important?
+## Почему проектирование систем так важно?
 
-System design helps us define a solution that meets the business requirements. It is
-one of the earliest decisions we can make when building a system. Often it is essential
-to think from a high level as these decisions are very difficult to correct later. It
-also makes it easier to reason about and manage architectural changes as the system evolves.
+Проектирование системы помогает нам определить решение, отвечающее требованиям бизнеса.
+Одно из первых решений, которое мы можем принять при создании системы. Зачастую оно имеет решающее значение.
+Нужно мыслить масштабно, поскольку такие решения очень сложно исправить позже.
+Это также упрощает анализ и управление архитектурными изменениями по мере развития системы.
 
 # IP
 
-An IP address is a unique address that identifies a device on the internet or a local network. IP stands for _"Internet Protocol"_, which is the set of rules governing the format of data sent via the internet or local network.
+IP-адрес — это уникальный адрес, идентифицирующий устройство в интернете или локальной сети. IP расшифровывается как «Интернет-протокол» и представляет собой набор правил, регулирующих формат данных, передаваемых через интернет или локальную сеть.
 
-In essence, IP addresses are the identifier that allows information to be sent between devices on a network. They contain location information and make devices accessible for communication. The internet needs a way to differentiate between different computers, routers, and websites. IP addresses provide a way of doing so and form an essential part of how the internet works.
+По сути, IP-адреса — это идентификаторы, позволяющие передавать информацию между устройствами в сети. Они содержат информацию о местоположении и делают устройства доступными для связи. Интернету необходим способ различения разных компьютеров, маршрутизаторов и веб-сайтов. IP-адреса обеспечивают этот способ и являются неотъемлемой частью работы интернета.
 
-## Versions
+## Версии
 
-Now, let's learn about the different versions of IP addresses:
+Теперь давайте рассмотрим различные типы IP-адресов:
 
 ### IPv4
 
-The original Internet Protocol is IPv4 which uses a 32-bit numeric dot-decimal notation that only allows for around 4 billion IP addresses. Initially, it was more than enough but as internet adoption grew, we needed something better.
+Первоначальный протокол интернета — IPv4, использующий 32-битную десятичную числовую запись, которая позволяет хранить около 4 миллиардов IP-адресов. Изначально этого было более чем достаточно, но по мере распространения интернета нам понадобилось что-то лучшее.
 
-_Example: `102.22.192.181`_
+Пример: `102.22.192.181`
 
 ### IPv6
 
-IPv6 is a new protocol that was introduced in 1998. Deployment commenced in the mid-2000s and since the internet users have grown exponentially, it is still ongoing.
+IPv6 — это новый протокол, представленный в 1998 году. Его внедрение началось в середине 2000-х годов, и, поскольку число пользователей интернета выросло в геометрической прогрессии, оно продолжается до сих пор.
 
-This new protocol uses 128-bit alphanumeric hexadecimal notation. This means that IPv6 can provide about ~340e+36 IP addresses. That's more than enough to meet the growing demand for years to come.
+Новый протокол использует 128-битную буквенно-цифровую шестнадцатеричную запись. Это означает, что IPv6 может предоставить около ~340e+36 IP-адресов. Этого более чем достаточно для удовлетворения растущего спроса в ближайшие годы.
 
-_Example: `2001:0db8:85a3:0000:0000:8a2e:0370:7334`_
+Пример: `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
 
-## Types
+## Типы
 
-Let's discuss types of IP addresses:
+Давайте обсудим типы IP-адресов:
 
-### Public
+### Публичный
 
-A public IP address is an address where one primary address is associated with your whole network. In this type of IP address, each of the connected devices has the same IP address.
+Публичный IP-адрес — это адрес, для которого существует один основной адрес, связанный со всей вашей сетью. В этом типе IP-адреса каждое из подключенных устройств имеет один и тот же IP-адрес.
 
-_Example: IP address provided to your router by the ISP._
+_Пример: IP-адрес, предоставленный вашему маршрутизатору интернет-провайдером._
 
-### Private
+### Частный
 
-A private IP address is a unique IP number assigned to every device that connects to your internet network, which includes devices like computers, tablets, and smartphones, which are used in your household.
+Частный IP-адрес — это уникальный IP-номер, присваиваемый каждому устройству, подключающемуся к вашей интернет-сети, включая такие устройства, как компьютеры, планшеты и смартфоны, используемые в вашем доме.
 
-_Example: IP addresses generated by your home router for your devices._
+_Пример: IP-адреса, сгенерированные вашим домашним маршрутизатором для ваших устройств._
 
-### Static
+### Статический
 
-A static IP address does not change and is one that was manually created, as opposed to having been assigned. These addresses are usually more expensive but are more reliable.
+Статический IP-адрес не меняется и создается вручную, а не назначается автоматически. Такие адреса обычно дороже, но и более надежны.
 
-_Example: They are usually used for important things like reliable geo-location services, remote access, server hosting, etc._
+Например, они обычно используются для важных задач, таких как надежные геолокационные сервисы, удаленный доступ, размещение серверов и т. д.
 
-### Dynamic
+### Динамический
 
-A dynamic IP address changes from time to time and is not always the same. It has been assigned by a [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server. Dynamic IP addresses are the most common type of internet protocol address. They are cheaper to deploy and allow us to reuse IP addresses within a network as needed.
+Динамический IP-адрес периодически меняется и не всегда остается неизменным. Он назначается сервером [DHCP (Dynamic Host Configuration Protocol)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol). Динамические IP-адреса — наиболее распространенный тип адресов интернет-протокола. Их развертывание обходится дешевле, и они позволяют повторно использовать IP-адреса в сети по мере необходимости.
 
-_Example: They are more commonly used for consumer equipment and personal use._
+Например: Чаще всего их используют для бытовой техники и личного пользования.
 
-# OSI Model
+# Модель OSI
 
-The OSI Model is a logical and conceptual model that defines network communication used by systems open to interconnection and communication with other systems. The Open System Interconnection (OSI Model) also defines a logical network and effectively describes computer packet transfer by using various layers of protocols.
+Модель OSI — это логическая и концептуальная модель, определяющая сетевую коммуникацию, используемую системами, открытыми для взаимодействия и обмена данными с другими системами. Модель OSI (Open System Interconnection) также определяет логическую сеть и эффективно описывает передачу компьютерных пакетов с использованием различных уровней протоколов.
 
-The OSI Model can be seen as a universal language for computer networking. It's based on the concept of splitting up a communication system into seven abstract layers, each one stacked upon the last.
+Модель OSI можно рассматривать как универсальный язык для компьютерных сетей. Она основана на концепции разделения системы связи на семь абстрактных уровней, каждый из которых накладывается на предыдущий.
 
-## Why does the OSI model matter?
+## Почему модель OSI важна?
 
-The Open System Interconnection (OSI) model has defined the common terminology used in networking discussions and documentation. This allows us to take a very complex communications process apart and evaluate its components.
+Модель взаимодействия открытых систем (OSI) определила общую терминологию, используемую в обсуждениях и документации по сетевым технологиям. Это позволяет нам разобрать очень сложный коммуникационный процесс и оценить его компоненты.
 
-While this model is not directly implemented in the TCP/IP networks that are most common today, it can still help us do so much more, such as:
+Хотя эта модель напрямую не реализована в наиболее распространенных сегодня сетях TCP/IP, она все же может помочь нам в гораздо большем, например:
 
-- Make troubleshooting easier and help identify threats across the entire stack.
-- Encourage hardware manufacturers to create networking products that can communicate with each other over the network.
-- Essential for developing a security-first mindset.
-- Separate a complex function into simpler components.
+- Упрощает поиск и устранение неисправностей и помогает выявлять угрозы во всей системе.
+- Побуждать производителей оборудования создавать сетевые продукты, способные взаимодействовать друг с другом по сети.
+- Крайне важно для формирования мышления, ориентированного прежде всего на безопасность.
+- Разделить сложную функцию на более простые компоненты.
 
-## Layers
+## Слои
 
-The seven abstraction layers of the OSI model can be defined as follows, from top to bottom:
+Семь уровней абстракции модели OSI можно определить следующим образом, сверху вниз:
 
 ![osi-model](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/osi-model/osi-model.png)
 
-### Application
+### Приложение
 
-This is the only layer that directly interacts with data from the user. Software applications like web browsers and email clients rely on the application layer to initiate communication. But it should be made clear that client software applications are not part of the application layer, rather the application layer is responsible for the protocols and data manipulation that the software relies on to present meaningful data to the user. Application layer protocols include HTTP as well as SMTP.
+Это единственный уровень, который напрямую взаимодействует с данными пользователя. Программные приложения, такие как веб-браузеры и почтовые клиенты, полагаются на прикладной уровень для инициирования связи. Однако следует уточнить, что клиентские программные приложения не являются частью прикладного уровня; скорее, прикладной уровень отвечает за протоколы и обработку данных, которые программное обеспечение использует для предоставления пользователю осмысленных данных. К протоколам прикладного уровня относятся HTTP и SMTP.
 
-### Presentation
+### Презентация
 
-The presentation layer is also called the Translation layer. The data from the application layer is extracted here and manipulated as per the required format to transmit over the network. The functions of the presentation layer are translation, encryption/decryption, and compression.
+Уровень представления также называется уровнем трансляции. Здесь данные с прикладного уровня извлекаются и обрабатываются в соответствии с требуемым форматом для передачи по сети. Функции уровня представления включают трансляцию, шифрование/дешифрование и сжатие.
 
-### Session
+### Сессия
 
-This is the layer responsible for opening and closing communication between the two devices. The time between when the communication is opened and closed is known as the session. The session layer ensures that the session stays open long enough to transfer all the data being exchanged, and then promptly closes the session in order to avoid wasting resources. The session layer also synchronizes data transfer with checkpoints.
+Это уровень, отвечающий за открытие и закрытие связи между двумя устройствами. Время между открытием и закрытием связи называется сессией. Уровень сессии гарантирует, что сессия остается открытой достаточно долго для передачи всех обмениваемых данных, а затем оперативно закрывает сессию, чтобы избежать нерационального использования ресурсов. Уровень сессии также синхронизирует передачу данных с контрольными точками.
 
-### Transport
+### Транспорт
 
-The transport layer (also known as layer 4) is responsible for end-to-end communication between the two devices. This includes taking data from the session layer and breaking it up into chunks called segments before sending it to the Network layer (layer 3). It is also responsible for reassembling the segments on the receiving device into data the session layer can consume.
+Транспортный уровень (также известный как уровень 4) отвечает за сквозную связь между двумя устройствами. Это включает в себя получение данных с сеансового уровня и их разбиение на фрагменты, называемые сегментами, перед отправкой на сетевой уровень (уровень 3). Он также отвечает за сборку сегментов на принимающем устройстве в данные, которые может обрабатывать сеансовый уровень.
 
-### Network
+### Сеть
 
-The network layer is responsible for facilitating data transfer between two different networks. The network layer breaks up segments from the transport layer into smaller units, called packets, on the sender's device, and reassembles these packets on the receiving device. The network layer also finds the best physical path for the data to reach its destination this is known as routing. If the two devices communicating are on the same network, then the network layer is unnecessary.
+Сетевой уровень отвечает за обеспечение передачи данных между двумя различными сетями. На устройстве отправителя сетевой уровень разбивает сегменты транспортного уровня на более мелкие единицы, называемые пакетами, а на устройстве получателя эти пакеты собираются заново. Сетевой уровень также находит оптимальный физический путь для передачи данных к месту назначения — это называется маршрутизацией. Если два взаимодействующих устройства находятся в одной сети, то сетевой уровень не требуется.
 
-### Data Link
+### Канал передачи данных
 
-The data link layer is very similar to the network layer, except the data link layer facilitates data transfer between two devices on the same network. The data link layer takes packets from the network layer and breaks them into smaller pieces called frames.
+Канальный уровень очень похож на сетевой уровень, за исключением того, что канальный уровень обеспечивает передачу данных между двумя устройствами в одной сети. Канальный уровень принимает пакеты от сетевого уровня и разбивает их на более мелкие части, называемые кадрами.
 
-### Physical
+### Физический
 
-This layer includes the physical equipment involved in the data transfer, such as the cables and switches. This is also the layer where the data gets converted into a bit stream, which is a string of 1s and 0s. The physical layer of both devices must also agree on a signal convention so that the 1s can be distinguished from the 0s on both devices.
+Этот уровень включает в себя физическое оборудование, участвующее в передаче данных, такое как кабели и коммутаторы. Здесь же данные преобразуются в битовый поток, представляющий собой последовательность единиц и нулей. Физический уровень обоих устройств должен также согласовать соглашение о передаче сигналов, чтобы единицы можно было отличать от нулей на обоих устройствах.
 
-# TCP and UDP
+# TCP и UDP
 
 ## TCP
 
-Transmission Control Protocol (TCP) is connection-oriented, meaning once a connection has been established, data can be transmitted in both directions. TCP has built-in systems to check for errors and to guarantee data will be delivered in the order it was sent, making it the perfect protocol for transferring information like still images, data files, and web pages.
+Протокол TCP (Transmission Control Protocol) является протоколом, ориентированным на установление соединения, то есть после установления соединения данные могут передаваться в обоих направлениях. TCP имеет встроенные системы для проверки ошибок и гарантирования доставки данных в порядке их отправки, что делает его идеальным протоколом для передачи такой информации, как статичные изображения, файлы данных и веб-страницы.
 
 ![tcp](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/tcp-and-udp/tcp.png)
 
-But while TCP is instinctively reliable, its feedback mechanisms also result in a larger overhead, translating to greater use of the available bandwidth on the network.
+Однако, несмотря на то, что протокол TCP интуитивно надежен, его механизмы обратной связи также приводят к увеличению накладных расходов, что выражается в более интенсивном использовании доступной полосы пропускания в сети.
 
 ## UDP
 
-User Datagram Protocol (UDP) is a simpler, connectionless internet protocol in which error-checking and recovery services are not required. With UDP, there is no overhead for opening a connection, maintaining a connection, or terminating a connection. Data is continuously sent to the recipient, whether or not they receive it.
+Протокол UDP (User Datagram Protocol) — это более простой, не требующий установления соединения интернет-протокол, в котором не требуются проверки ошибок и службы восстановления. При использовании UDP отсутствуют накладные расходы на открытие, поддержание или завершение соединения. Данные непрерывно передаются получателю независимо от того, получил он их или нет.
 
 ![udp](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/tcp-and-udp/udp.png)
 
-It is largely preferred for real-time communications like broadcast or multicast network transmission. We should use UDP over TCP when we need the lowest latency and late data is worse than the loss of data.
+UDP предпочтительнее для связи в реальном времени, например, для широковещательной или многоадресной передачи данных по сети. Использовать UDP вместо TCP следует, когда необходима минимальная задержка, а задержка передачи данных хуже, чем их потеря.
 
-## TCP vs UDP
+## TCP против UDP
 
-TCP is a connection-oriented protocol, whereas UDP is a connectionless protocol. A key difference between TCP and UDP is speed, as TCP is comparatively slower than UDP. Overall, UDP is a much faster, simpler, and more efficient protocol, however, retransmission of lost data packets is only possible with TCP.
+TCP — это протокол, ориентированный на установление соединения, тогда как UDP — протокол без установления соединения. Ключевое различие между TCP и UDP заключается в скорости, поскольку TCP сравнительно медленнее, чем UDP. В целом, UDP — гораздо более быстрый, простой и эффективный протокол, однако повторная передача потерянных пакетов данных возможна только с TCP.
 
-TCP provides ordered delivery of data from user to server (and vice versa), whereas UDP is not dedicated to end-to-end communications, nor does it check the readiness of the receiver.
+TCP обеспечивает упорядоченную доставку данных от пользователя к серверу (и наоборот), тогда как UDP не предназначен для сквозной связи и не проверяет готовность получателя.
 
-| Feature             | TCP                                         | UDP                                |
+| Функция | TCP | UDP |
 | ------------------- | ------------------------------------------- | ---------------------------------- |
-| Connection          | Requires an established connection          | Connectionless protocol            |
-| Guaranteed delivery | Can guarantee delivery of data              | Cannot guarantee delivery of data  |
-| Re-transmission     | Re-transmission of lost packets is possible | No re-transmission of lost packets |
-| Speed               | Slower than UDP                             | Faster than TCP                    |
-| Broadcasting        | Does not support broadcasting               | Supports broadcasting              |
-| Use cases           | HTTPS, HTTP, SMTP, POP, FTP, etc            | Video streaming, DNS, VoIP, etc    |
+| Соединение | Требуется установленное соединение | Протокол без установления соединения |
+| Гарантированная доставка | Могу гарантировать доставку данных | Не могу гарантировать доставку данных |
+| Повторная передача | Повторная передача потерянных пакетов возможна | Повторная передача потерянных пакетов невозможна |
+| Скорость | Медленнее, чем UDP | Быстрее, чем TCP |
+| Вещание | Не поддерживает вещание | Поддерживает вещание |
+| Примеры использования | HTTPS, HTTP, SMTP, POP, FTP и т. д. | Видеостриминг, DNS, VoIP и т. д. |
 
-# Domain Name System (DNS)
+# Система доменных имен (DNS)
 
-Earlier we learned about IP addresses that enable every machine to connect with other machines. But as we know humans are more comfortable with names than numbers. It's easier to remember a name like `google.com` than something like `122.250.192.232`.
+Ранее мы узнали об IP-адресах, которые позволяют каждой машине подключаться к другим машинам. Но, как известно, людям удобнее запоминать имена, чем числа. Запомнить имя типа `google.com` проще, чем что-то вроде `122.250.192.232`.
 
-This brings us to Domain Name System (DNS) which is a hierarchical and decentralized naming system used for translating human-readable domain names to IP addresses.
+Это подводит нас к системе доменных имен (DNS), которая представляет собой иерархическую и децентрализованную систему именования, используемую для преобразования удобочитаемых доменных имен в IP-адреса.
 
-## How DNS works
+## Как работает DNS
 
 ![how-dns-works](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/domain-name-system/how-dns-works.png)
 
-DNS lookup involves the following eight steps:
+Поиск DNS включает в себя следующие восемь шагов:
 
-1. A client types [example.com](http://example.com) into a web browser, the query travels to the internet and is received by a DNS resolver.
-2. The resolver then recursively queries a DNS root nameserver.
-3. The root server responds to the resolver with the address of a Top-Level Domain (TLD).
-4. The resolver then makes a request to the `.com` TLD.
-5. The TLD server then responds with the IP address of the domain's nameserver, [example.com](http://example.com).
-6. Lastly, the recursive resolver sends a query to the domain's nameserver.
-7. The IP address for [example.com](http://example.com) is then returned to the resolver from the nameserver.
-8. The DNS resolver then responds to the web browser with the IP address of the domain requested initially.
+1. Клиент вводит [example.com](http://example.com) в веб-браузер, запрос отправляется в интернет и принимается DNS-сервером.
+2. Затем резолвер рекурсивно запрашивает корневой DNS-сервер.
+3. Корневой сервер отвечает резолверу адресом домена верхнего уровня (TLD).
+4. Затем резолвер отправляет запрос к домену верхнего уровня `.com`.
+5. Затем сервер верхнего уровня отвечает IP-адресом сервера имен домена, [example.com](http://example.com).
+6. Наконец, рекурсивный резолвер отправляет запрос на сервер имен домена.
+7. Затем IP-адрес для [example.com](http://example.com) возвращается резолверу с сервера имен.
+8. Затем DNS-сервер отправляет веб-браузеру IP-адрес домена, запрошенного изначально.
 
-Once the IP address has been resolved, the client should be able to request content from the resolved IP address. For example, the resolved IP may return a webpage to be rendered in the browser.
+После определения IP-адреса клиент сможет запрашивать контент с этого IP-адреса. Например, полученный IP-адрес может вернуть веб-страницу для отображения в браузере.
 
-## Server types
+## Типы серверов
 
-Now, let's look at the four key groups of servers that make up the DNS infrastructure.
+Теперь давайте рассмотрим четыре ключевые группы серверов, составляющие инфраструктуру DNS.
 
-### DNS Resolver
+### DNS-резолвер
 
-A DNS resolver (also known as a DNS recursive resolver) is the first stop in a DNS query. The recursive resolver acts as a middleman between a client and a DNS nameserver. After receiving a DNS query from a web client, a recursive resolver will either respond with cached data, or send a request to a root nameserver, followed by another request to a TLD nameserver, and then one last request to an authoritative nameserver. After receiving a response from the authoritative nameserver containing the requested IP address, the recursive resolver then sends a response to the client.
+DNS-резолвер (также известный как рекурсивный DNS-резолвер) — это первый этап DNS-запроса. Рекурсивный резолвер выступает в качестве посредника между клиентом и DNS-сервером. После получения DNS-запроса от веб-клиента рекурсивный резолвер либо отвечает кэшированными данными, либо отправляет запрос корневому серверу имен, затем еще один запрос к серверу имен верхнего уровня (TLD) и, наконец, последний запрос к авторитетному серверу имен. После получения ответа от авторитетного сервера имен, содержащего запрошенный IP-адрес, рекурсивный резолвер отправляет ответ клиенту.
 
-### DNS root server
+### Корневой DNS-сервер
 
-A root server accepts a recursive resolver's query which includes a domain name, and the root nameserver responds by directing the recursive resolver to a TLD nameserver, based on the extension of that domain (`.com`, `.net`, `.org`, etc.). The root nameservers are overseen by a nonprofit called the [Internet Corporation for Assigned Names and Numbers (ICANN)](https://www.icann.org).
+Корневой сервер принимает запрос рекурсивного резолвера, включающий доменное имя, и отвечает, направляя рекурсивный резолвер на сервер имен верхнего уровня (TLD) в зависимости от расширения этого домена (`.com`, `.net`, `.org` и т. д.). Управление корневыми серверами имен осуществляет некоммерческая организация [Internet Corporation for Assigned Names and Numbers (ICANN)](https://www.icann.org).
 
-There are 13 DNS root nameservers known to every recursive resolver. Note that while there are 13 root nameservers, that doesn't mean that there are only 13 machines in the root nameserver system. There are 13 types of root nameservers, but there are multiple copies of each one all over the world, which use [Anycast routing](https://en.wikipedia.org/wiki/Anycast) to provide speedy responses.
+Каждому рекурсивному резолверу известно 13 корневых DNS-серверов. Следует отметить, что наличие 13 корневых DNS-серверов не означает, что в системе корневых DNS-серверов всего 13 машин. Существует 13 типов корневых DNS-серверов, но по всему миру существует множество копий каждого из них, которые используют маршрутизацию Anycast для обеспечения быстрых ответов.
 
-### TLD nameserver
+### Сервер имен верхнего уровня
 
-A TLD nameserver maintains information for all the domain names that share a common domain extension, such as `.com`, `.net`, or whatever comes after the last dot in a URL.
+Сервер имен верхнего уровня (TLD) хранит информацию обо всех доменных именах, имеющих общее расширение, например, `.com`, `.net` или любое другое расширение, следующее за последней точкой в ​​URL-адресе.
 
-Management of TLD nameservers is handled by the [Internet Assigned Numbers Authority (IANA)](https://www.iana.org), which is a branch of [ICANN](https://www.icann.org). The IANA breaks up the TLD servers into two main groups:
+Управление серверами имен TLD осуществляется [Управлением по присвоению номеров в интернете (IANA)](https://www.iana.org), которое является подразделением [ICANN](https://www.icann.org). IANA делит серверы TLD на две основные группы:
 
-- **Generic top-level domains**: These are domains like `.com`, `.org`, `.net`, `.edu`, and `.gov`.
-- **Country code top-level domains**: These include any domains that are specific to a country or state. Examples include `.uk`, `.us`, `.ru`, and `.jp`.
+- **Общие домены верхнего уровня**: это такие домены, как `.com`, `.org`, `.net`, `.edu` и `.gov`.
+- **Домены верхнего уровня с кодом страны**: Сюда входят любые домены, специфичные для определенной страны или штата. Примеры: `.uk`, `.us`, `.ru` и `.jp`.
 
-### Authoritative DNS server
+### Авторитетный DNS-сервер
 
-The authoritative nameserver is usually the resolver's last step in the journey for an IP address. The authoritative nameserver contains information specific to the domain name it serves (e.g. [google.com](http://google.com)) and it can provide a recursive resolver with the IP address of that server found in the DNS A record, or if the domain has a CNAME record (alias) it will provide the recursive resolver with an alias domain, at which point the recursive resolver will have to perform a whole new DNS lookup to procure a record from an authoritative nameserver (often an A record containing an IP address). If it cannot find the domain, returns the NXDOMAIN message.
+Авторитетный сервер имен обычно является последним этапом в процессе получения IP-адреса резолвером. Авторитетный сервер имен содержит информацию, специфичную для обслуживаемого им доменного имени (например, [google.com](http://google.com)), и может предоставить рекурсивному резолверу IP-адрес этого сервера, найденный в записи DNS A, или, если домен имеет запись CNAME (псевдоним), он предоставит рекурсивному резолверу псевдоним домена, после чего рекурсивному резолверу придется выполнить совершенно новый поиск DNS, чтобы получить запись от авторитетного сервера имен (часто это запись A, содержащая IP-адрес). Если он не может найти домен, возвращает сообщение NXDOMAIN.
 
-## Query Types
+## Типы запросов
 
-There are three types of queries in a DNS system:
+В системе DNS существует три типа запросов:
 
-### Recursive
+### Рекурсивный
 
-In a recursive query, a DNS client requires that a DNS server (typically a DNS recursive resolver) will respond to the client with either the requested resource record or an error message if the resolver can't find the record.
+В рекурсивном запросе DNS-клиент требует, чтобы DNS-сервер (обычно рекурсивный DNS-резолвер) ответил клиенту либо запрошенной записью ресурса, либо сообщением об ошибке, если резолвер не может найти запись.
 
-### Iterative
+### Итеративный
 
-In an iterative query, a DNS client provides a hostname, and the DNS Resolver returns the best answer it can. If the DNS resolver has the relevant DNS records in its cache, it returns them. If not, it refers the DNS client to the Root Server or another Authoritative Name Server that is nearest to the required DNS zone. The DNS client must then repeat the query directly against the DNS server it was referred.
+В итеративном запросе DNS-клиент предоставляет имя хоста, а DNS-резолвер возвращает наилучший из возможных ответов. Если DNS-резолвер имеет соответствующие DNS-записи в своем кэше, он возвращает их. В противном случае он перенаправляет DNS-клиента на корневой сервер или другой авторитетный сервер имен, ближайший к требуемой DNS-зоне. Затем DNS-клиент должен повторить запрос непосредственно к DNS-серверу, на который он был направлен.
 
-### Non-recursive
+### Нерекурсивный
 
-A non-recursive query is a query in which the DNS Resolver already knows the answer. It either immediately returns a DNS record because it already stores it in a local cache, or queries a DNS Name Server which is authoritative for the record, meaning it definitely holds the correct IP for that hostname. In both cases, there is no need for additional rounds of queries (like in recursive or iterative queries). Rather, a response is immediately returned to the client.
+Нерекурсивный запрос — это запрос, в котором DNS-резолвер уже знает ответ. Он либо немедленно возвращает DNS-запись, поскольку она уже хранится в локальном кэше, либо запрашивает DNS-сервер имен, который является авторитетным для этой записи, то есть он точно содержит правильный IP-адрес для данного имени хоста. В обоих случаях нет необходимости в дополнительных раундах запросов (как в рекурсивных или итеративных запросах). Вместо этого клиенту немедленно возвращается ответ.
 
-## Record Types
+## Типы записей
 
-DNS records (aka zone files) are instructions that live in authoritative DNS servers and provide information about a domain including what IP address is associated with that domain and how to handle requests for that domain.
+DNS-записи (также известные как файлы зон) — это инструкции, хранящиеся на авторитетных DNS-серверах и предоставляющие информацию о домене, включая IP-адрес, связанный с этим доменом, и способ обработки запросов к этому домену.
 
-These records consist of a series of text files written in what is known as _DNS syntax_. DNS syntax is just a string of characters used as commands that tell the DNS server what to do. All DNS records also have a _"TTL"_, which stands for time-to-live, and indicates how often a DNS server will refresh that record.
+Эти записи представляют собой серию текстовых файлов, написанных на языке, известном как синтаксис DNS. Синтаксис DNS — это просто строка символов, используемая в качестве команд, которые указывают DNS-серверу, что делать. Все записи DNS также имеют значение "TTL", что означает "время жизни" и указывает, как часто DNS-сервер будет обновлять эту запись.
 
-There are more record types but for now, let's look at some of the most commonly used ones:
+Существует множество других типов записей, но сейчас давайте рассмотрим некоторые из наиболее часто используемых:
 
-- **A (Address record)**: This is the record that holds the IP address of a domain.
-- **AAAA (IP Version 6 Address record)**: The record that contains the IPv6 address for a domain (as opposed to A records, which stores the IPv4 address).
-- **CNAME (Canonical Name record)**: Forwards one domain or subdomain to another domain, does NOT provide an IP address.
-- **MX (Mail exchanger record)**: Directs mail to an email server.
-- **TXT (Text Record)**: This record lets an admin store text notes in the record. These records are often used for email security.
-- **NS (Name Server records)**: Stores the name server for a DNS entry.
-- **SOA (Start of Authority)**: Stores admin information about a domain.
-- **SRV (Service Location record)**: Specifies a port for specific services.
-- **PTR (Reverse-lookup Pointer record)**: Provides a domain name in reverse lookups.
-- **CERT (Certificate record)**: Stores public key certificates.
+- **A (Запись адреса)**: Это запись, содержащая IP-адрес домена.
+- **AAAA (запись IP-адреса версии 6)**: запись, содержащая IPv6-адрес для домена (в отличие от записей A, которые хранят IPv4-адрес).
+- **CNAME (каноническая запись имени)**: перенаправляет запрос с одного домена или поддомена на другой домен, НЕ предоставляет IP-адрес.
+- **MX (запись обмена почтой)**: Направляет почту на почтовый сервер.
+- **TXT (текстовая запись)**: Эта запись позволяет администратору хранить текстовые заметки. Такие записи часто используются для обеспечения безопасности электронной почты.
+- **NS (записи серверов имен)**: хранит сервер имен для записи DNS.
+- **SOA (Start of Authority)**: хранит административную информацию о домене.
+- **SRV (запись местоположения службы)**: указывает порт для конкретных служб.
+- **PTR (Reverse-lookup Pointer record)**: Предоставляет доменное имя при обратном поиске.
+- **CERT (Certificate record)**: хранит сертификаты открытых ключей.
 
-## Subdomains
+## Поддомены
 
-A subdomain is an additional part of our main domain name. It is commonly used to logically separate a website into sections. We can create multiple subdomains or child domains on the main domain.
+Поддомен — это дополнительная часть основного доменного имени. Он обычно используется для логического разделения веб-сайта на разделы. На основе основного домена можно создать несколько поддоменов или дочерних доменов.
 
-For example, `blog.example.com` where `blog` is the subdomain, `example` is the primary domain and `.com` is the top-level domain (TLD). Similar examples can be `support.example.com` or `careers.example.com`.
+Например, `blog.example.com`, где `blog` — это поддомен, `example` — основной домен, а `.com` — домен верхнего уровня (TLD). Аналогичные примеры могут быть `support.example.com` или `careers.example.com`.
 
-## DNS Zones
+## Зоны DNS
 
-A DNS zone is a distinct part of the domain namespace which is delegated to a legal entity like a person, organization, or company, who is responsible for maintaining the DNS zone. A DNS zone is also an administrative function, allowing for granular control of DNS components, such as authoritative name servers.
+DNS-зона — это отдельная часть пространства доменных имен, которая делегируется юридическому лицу, такому как физическое лицо, организация или компания, ответственному за поддержание DNS-зоны. DNS-зона также выполняет административную функцию, позволяя осуществлять детальный контроль над компонентами DNS, такими как авторитетные серверы имен.
 
-## DNS Caching
+## Кэширование DNS
 
-A DNS cache (sometimes called a DNS resolver cache) is a temporary database, maintained by a computer's operating system, that contains records of all the recent visits and attempted visits to websites and other internet domains. In other words, a DNS cache is just a memory of recent DNS lookups that our computer can quickly refer to when it's trying to figure out how to load a website.
+Кэш DNS (иногда называемый кэшем DNS-резолвера) — это временная база данных, поддерживаемая операционной системой компьютера, которая содержит записи обо всех недавних посещениях и попытках посещения веб-сайтов и других интернет-доменов. Другими словами, кэш DNS — это просто память о недавних запросах DNS, к которой наш компьютер может быстро обратиться, когда пытается определить, как загрузить веб-сайт.
 
-The Domain Name System implements a time-to-live (TTL) on every DNS record. TTL specifies the number of seconds the record can be cached by a DNS client or server. When the record is stored in a cache, whatever TTL value came with it gets stored as well. The server continues to update the TTL of the record stored in the cache, counting down every second. When it hits zero, the record is deleted or purged from the cache. At that point, if a query for that record is received, the DNS server has to start the resolution process.
+Система доменных имен (DNS) устанавливает время жизни (TTL) для каждой DNS-записи. TTL определяет количество секунд, в течение которых запись может храниться в кэше DNS-клиентом или сервером. Когда запись сохраняется в кэше, значение TTL, присвоенное ей при создании записи, также сохраняется. Сервер продолжает обновлять значение TTL для записи, хранящейся в кэше, отсчитывая его каждую секунду. Когда значение достигает нуля, запись удаляется из кэша. В этот момент, если поступает запрос на эту запись, DNS-сервер должен начать процесс разрешения.
 
-## Reverse DNS
+## Обратное DNS
 
-A reverse DNS lookup is a DNS query for the domain name associated with a given IP address. This accomplishes the opposite of the more commonly used forward DNS lookup, in which the DNS system is queried to return an IP address. The process of reverse resolving an IP address uses PTR records. If the server does not have a PTR record, it cannot resolve a reverse lookup.
+Обратный DNS-запрос — это DNS-запрос к доменному имени, связанному с заданным IP-адресом. Это противоположно более распространенному прямому DNS-запросу, при котором система DNS запрашивает IP-адрес. Процесс обратного разрешения IP-адреса использует записи PTR. Если у сервера нет записи PTR, он не может выполнить обратный поиск.
 
-Reverse lookups are commonly used by email servers. Email servers check and see if an email message came from a valid server before bringing it onto their network. Many email servers will reject messages from any server that does not support reverse lookups or from a server that is highly unlikely to be legitimate.
+Обратный поиск широко используется почтовыми серверами. Прежде чем передать электронное письмо в свою сеть, почтовые серверы проверяют, поступило ли оно с действительного сервера. Многие почтовые серверы отклоняют сообщения от любого сервера, который не поддерживает обратный поиск, или от сервера, который с высокой долей вероятности не является легитимным.
 
-_Note: Reverse DNS lookups are not universally adopted as they are not critical to the normal function of the internet._
+Примечание: Обратный DNS-запрос не получил повсеместного распространения, поскольку не является критически важным для нормального функционирования интернета.
 
-## Examples
+## Примеры
 
-These are some widely used managed DNS solutions:
+Вот некоторые широко используемые решения для управляемого DNS:
 
 - [Route53](https://aws.amazon.com/route53)
 - [Cloudflare DNS](https://www.cloudflare.com/dns)
@@ -357,1551 +357,1551 @@ These are some widely used managed DNS solutions:
 - [Azure DNS](https://azure.microsoft.com/en-in/services/dns)
 - [NS1](https://ns1.com/products/managed-dns)
 
-# Load Balancing
+# Балансировка нагрузки
 
-Load balancing lets us distribute incoming network traffic across multiple resources ensuring high availability and reliability by sending requests only to resources that are online. This provides the flexibility to add or subtract resources as demand dictates.
+Балансировка нагрузки позволяет распределять входящий сетевой трафик между несколькими ресурсами, обеспечивая высокую доступность и надежность за счет отправки запросов только к тем ресурсам, которые находятся в сети. Это обеспечивает гибкость в добавлении или удалении ресурсов в зависимости от спроса.
 
 ![load-balancing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/load-balancing/load-balancer.png)
 
-For additional scalability and redundancy, we can try to load balance at each layer of our system:
+Для повышения масштабируемости и отказоустойчивости мы можем попробовать балансировать нагрузку на каждом уровне нашей системы:
 
 ![load-balancing-layers](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/load-balancing/load-balancer-layers.png)
 
-## But why?
+## Но почему?
 
-Modern high-traffic websites must serve hundreds of thousands, if not millions, of concurrent requests from users or clients. To cost-effectively scale to meet these high volumes, modern computing best practice generally requires adding more servers.
+Современные веб-сайты с высокой посещаемостью должны обрабатывать сотни тысяч, если не миллионы, одновременных запросов от пользователей или клиентов. Для экономически эффективного масштабирования в соответствии с такими большими объемами, согласно передовым методам вычислительной техники, обычно требуется добавление большего количества серверов.
 
-A load balancer can sit in front of the servers and route client requests across all servers capable of fulfilling those requests in a manner that maximizes speed and capacity utilization. This ensures that no single server is overworked, which could degrade performance. If a single server goes down, the load balancer redirects traffic to the remaining online servers. When a new server is added to the server group, the load balancer automatically starts sending requests to it.
+Балансировщик нагрузки может располагаться перед серверами и направлять запросы клиентов между всеми серверами, способными обрабатывать эти запросы, таким образом, чтобы максимизировать скорость и использование ресурсов. Это гарантирует, что ни один сервер не будет перегружен, что может ухудшить производительность. Если один из серверов выходит из строя, балансировщик нагрузки перенаправляет трафик на оставшиеся работающие серверы. Когда в группу серверов добавляется новый сервер, балансировщик нагрузки автоматически начинает отправлять на него запросы.
 
-## Workload distribution
+## Распределение рабочей нагрузки
 
-This is the core functionality provided by a load balancer and has several common variations:
+Это основная функциональность, предоставляемая балансировщиком нагрузки, и она имеет несколько распространенных вариаций:
 
-- **Host-based**: Distributes requests based on the requested hostname.
-- **Path-based**: Using the entire URL to distribute requests as opposed to just the hostname.
-- **Content-based**: Inspects the message content of a request. This allows distribution based on content such as the value of a parameter.
+- **Распределение запросов на основе имени хоста**: Распределяет запросы в зависимости от запрошенного имени хоста.
+- **На основе пути**: Использование всего URL-адреса для распределения запросов, а не только имени хоста.
+- **На основе содержимого**: Анализирует содержимое сообщения запроса. Это позволяет распределять данные на основе содержимого, например, значения параметра.
 
-## Layers
+## Слои
 
-Generally speaking, load balancers operate at one of the two levels:
+В целом, балансировщики нагрузки работают на одном из двух уровней:
 
-### Network layer
+### Сетевой уровень
 
-This is the load balancer that works at the network's transport layer, also known as layer 4. This performs routing based on networking information such as IP addresses and is not able to perform content-based routing. These are often dedicated hardware devices that can operate at high speed.
+Это балансировщик нагрузки, работающий на транспортном уровне сети, также известном как уровень 4. Он выполняет маршрутизацию на основе сетевой информации, такой как IP-адреса, и не способен выполнять маршрутизацию на основе содержимого. Зачастую это специализированные аппаратные устройства, способные работать на высоких скоростях.
 
-### Application layer
+### Прикладной уровень
 
-This is the load balancer that operates at the application layer, also known as layer 7. Load balancers can read requests in their entirety and perform content-based routing. This allows the management of load based on a full understanding of traffic.
+Это балансировщик нагрузки, работающий на уровне приложений, также известном как уровень 7. Балансировщики нагрузки могут считывать запросы целиком и выполнять маршрутизацию на основе содержимого. Это позволяет управлять нагрузкой, имея полное представление о трафике.
 
-## Types
+## Типы
 
-Let's look at different types of load balancers:
+Рассмотрим различные типы балансировщиков нагрузки:
 
-### Software
+### Программное обеспечение
 
-Software load balancers usually are easier to deploy than hardware versions. They also tend to be more cost-effective and flexible, and they are used in conjunction with software development environments. The software approach gives us the flexibility of configuring the load balancer to our environment's specific needs. The boost in flexibility may come at the cost of having to do more work to set up the load balancer. Compared to hardware versions, which offer more of a closed-box approach, software balancers give us more freedom to make changes and upgrades.
+Программные балансировщики нагрузки обычно проще в развертывании, чем аппаратные версии. Они также, как правило, более экономичны и гибки, и используются в сочетании со средами разработки программного обеспечения. Программный подход дает нам гибкость в настройке балансировщика нагрузки в соответствии со специфическими потребностями нашей среды. Повышение гибкости может сопровождаться необходимостью выполнения большего объема работы по настройке балансировщика нагрузки. По сравнению с аппаратными версиями, которые предлагают более закрытый подход, программные балансировщики дают нам больше свободы для внесения изменений и обновлений.
 
-Software load balancers are widely used and are available either as installable solutions that require configuration and management or as a managed cloud service.
+Программные балансировщики нагрузки широко используются и доступны либо в виде устанавливаемых решений, требующих настройки и управления, либо в виде управляемого облачного сервиса.
 
-### Hardware
+### Аппаратное обеспечение
 
-As the name implies, a hardware load balancer relies on physical, on-premises hardware to distribute application and network traffic. These devices can handle a large volume of traffic but often carry a hefty price tag and are fairly limited in terms of flexibility.
+Как следует из названия, аппаратный балансировщик нагрузки использует физическое оборудование, расположенное на территории предприятия, для распределения трафика приложений и сети. Эти устройства могут обрабатывать большие объемы трафика, но часто имеют высокую стоимость и довольно ограничены в плане гибкости.
 
-Hardware load balancers include proprietary firmware that requires maintenance and updates as new versions, and security patches are released.
+Аппаратные балансировщики нагрузки содержат проприетарное программное обеспечение, требующее обслуживания и обновлений по мере выхода новых версий и исправлений безопасности.
 
 ### DNS
 
-DNS load balancing is the practice of configuring a domain in the Domain Name System (DNS) such that client requests to the domain are distributed across a group of server machines.
+Балансировка нагрузки DNS — это практика настройки домена в системе доменных имен (DNS) таким образом, чтобы запросы клиентов к домену распределялись между группой серверных машин.
 
-Unfortunately, DNS load balancing has inherent problems limiting its reliability and efficiency. Most significantly, DNS does not check for server and network outages, or errors. It always returns the same set of IP addresses for a domain even if servers are down or inaccessible.
+К сожалению, балансировка нагрузки DNS имеет присущие ей проблемы, ограничивающие её надёжность и эффективность. Наиболее существенная из них — DNS не проверяет наличие сбоев или ошибок на серверах и в сети. Она всегда возвращает один и тот же набор IP-адресов для домена, даже если серверы не работают или недоступны.
 
-## Routing Algorithms
+## Алгоритмы маршрутизации
 
-Now, let's discuss commonly used routing algorithms:
+Теперь давайте обсудим наиболее часто используемые алгоритмы маршрутизации:
 
-- **Round-robin**: Requests are distributed to application servers in rotation.
-- **Weighted Round-robin**: Builds on the simple Round-robin technique to account for differing server characteristics such as compute and traffic handling capacity using weights that can be assigned via DNS records by the administrator.
-- **Least Connections**: A new request is sent to the server with the fewest current connections to clients. The relative computing capacity of each server is factored into determining which one has the least connections.
-- **Least Response Time**: Sends requests to the server selected by a formula that combines the fastest response time and fewest active connections.
-- **Least Bandwidth**: This method measures traffic in megabits per second (Mbps), sending client requests to the server with the least Mbps of traffic.
-- **Hashing**: Distributes requests based on a key we define, such as the client IP address or the request URL.
+- **Круговое распределение**: Запросы распределяются между серверами приложений поочередно.
+- **Взвешенное круговое распределение**: Основывается на простой методике кругового распределения и учитывает различные характеристики серверов, такие как вычислительная мощность и пропускная способность для обработки трафика, используя весовые коэффициенты, которые могут быть назначены администратором через DNS-записи.
+- **Наименьшее количество подключений**: Новый запрос отправляется на сервер с наименьшим количеством текущих подключений к клиентам. При определении того, какой из серверов имеет наименьшее количество подключений, учитывается относительная вычислительная мощность каждого сервера.
+- **Наименьшее время ответа**: Отправляет запросы на сервер, выбранный по формуле, которая объединяет самое быстрое время ответа и наименьшее количество активных соединений.
+- **Минимальная пропускная способность**: Этот метод измеряет трафик в мегабитах в секунду (Мбит/с), отправляя запросы клиентов на сервер с наименьшим объемом трафика в Мбит/с.
+- **Хэширование**: Распределяет запросы на основе заданного нами ключа, например, IP-адреса клиента или URL-адреса запроса.
 
-## Advantages
+## Преимущества
 
-Load balancing also plays a key role in preventing downtime, other advantages of load balancing include the following:
+Балансировка нагрузки также играет ключевую роль в предотвращении простоев; к другим преимуществам балансировки нагрузки относятся следующие:
 
-- Scalability
-- Redundancy
-- Flexibility
-- Efficiency
+- Масштабируемость
+- Избыточность
+- Гибкость
+- Эффективность
 
-## Redundant load balancers
+## Резервные балансировщики нагрузки
 
-As you must've already guessed, the load balancer itself can be a single point of failure. To overcome this, a second or `N` number of load balancers can be used in a cluster mode.
+Как вы, наверное, уже догадались, сам балансировщик нагрузки может быть единственной точкой отказа. Для решения этой проблемы можно использовать второй или N-й балансировщики нагрузки в кластерном режиме.
 
-And, if there's a failure detection and the _active_ load balancer fails, another _passive_ load balancer can take over which will make our system more fault-tolerant.
+А если произойдет обнаружение сбоя и _активный_ балансировщик нагрузки выйдет из строя, другой _пассивный_ балансировщик нагрузки сможет взять на себя его функции, что повысит отказоустойчивость нашей системы.
 
 ![redundant-load-balancing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/load-balancing/redundant-load-balancer.png)
 
-## Features
+## Функции
 
-Here are some commonly desired features of load balancers:
+Вот некоторые наиболее востребованные функции балансировщиков нагрузки:
 
-- **Autoscaling**: Starting up and shutting down resources in response to demand conditions.
-- **Sticky sessions**: The ability to assign the same user or device to the same resource in order to maintain the session state on the resource.
-- **Healthchecks**: The ability to determine if a resource is down or performing poorly in order to remove the resource from the load balancing pool.
-- **Persistence connections**: Allowing a server to open a persistent connection with a client such as a WebSocket.
-- **Encryption**: Handling encrypted connections such as TLS and SSL.
-- **Certificates**: Presenting certificates to a client and authentication of client certificates.
-- **Compression**: Compression of responses.
-- **Caching**: An application-layer load balancer may offer the ability to cache responses.
-- **Logging**: Logging of request and response metadata can serve as an important audit trail or source for analytics data.
-- **Request tracing**: Assigning each request a unique id for the purposes of logging, monitoring, and troubleshooting.
-- **Redirects**: The ability to redirect an incoming request based on factors such as the requested path.
-- **Fixed response**: Returning a static response for a request such as an error message.
+- **Автомасштабирование**: Запуск и остановка ресурсов в зависимости от спроса.
+- **Сохранение состояния сессии**: Возможность назначать одного и того же пользователя или устройство одному и тому же ресурсу для поддержания состояния сессии на этом ресурсе.
+- **Проверки работоспособности**: Возможность определить, недоступен ли ресурс или работает ли он плохо, чтобы удалить его из пула балансировки нагрузки.
+- **Постоянные соединения**: Позволяют серверу устанавливать постоянное соединение с клиентом, например, через WebSocket.
+- **Шифрование**: Обработка зашифрованных соединений, таких как TLS и SSL.
+- **Сертификаты**: Предоставление сертификатов клиенту и аутентификация сертификатов клиента.
+- **Сжатие**: Сжатие ответов.
+- **Кэширование**: Балансировщик нагрузки на уровне приложений может предоставлять возможность кэширования ответов.
+- **Ведение журналов**: Ведение журналов метаданных запросов и ответов может служить важным аудиторским следом или источником аналитических данных.
+- **Трассировка запросов**: присвоение каждому запросу уникального идентификатора для целей регистрации, мониторинга и устранения неполадок.
+- **Перенаправления**: Возможность перенаправлять входящий запрос на основе таких факторов, как запрошенный путь.
+- **Фиксированный ответ**: Возвращает статический ответ на запрос, например, сообщение об ошибке.
 
-## Examples
+## Примеры
 
-Following are some of the load balancing solutions commonly used in the industry:
+Ниже приведены некоторые из решений по балансировке нагрузки, широко используемых в отрасли:
 
 - [Amazon Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing)
-- [Azure Load Balancing](https://azure.microsoft.com/en-in/services/load-balancer)
-- [GCP Load Balancing](https://cloud.google.com/load-balancing)
-- [DigitalOcean Load Balancer](https://www.digitalocean.com/products/load-balancer)
+- [Балансировка нагрузки Azure](https://azure.microsoft.com/en-in/services/load-balancer)
+- [Балансировка нагрузки GCP](https://cloud.google.com/load-balancing)
+- [Балансировщик нагрузки DigitalOcean](https://www.digitalocean.com/products/load-balancer)
 - [Nginx](https://www.nginx.com)
 - [HAProxy](http://www.haproxy.org)
 
-# Clustering
+# Кластеризация
 
-At a high level, a computer cluster is a group of two or more computers, or nodes, that run in parallel to achieve a common goal. This allows workloads consisting of a high number of individual, parallelizable tasks to be distributed among the nodes in the cluster. As a result, these tasks can leverage the combined memory and processing power of each computer to increase overall performance.
+В общих чертах, компьютерный кластер — это группа из двух или более компьютеров, или узлов, работающих параллельно для достижения общей цели. Это позволяет распределять между узлами кластера рабочие нагрузки, состоящие из большого количества отдельных, параллельно выполняемых задач. В результате эти задачи могут использовать объединенную память и вычислительную мощность каждого компьютера для повышения общей производительности.
 
-To build a computer cluster, the individual nodes should be connected to a network to enable internode communication. The software can then be used to join the nodes together and form a cluster. It may have a shared storage device and/or local storage on each node.
+Для создания компьютерного кластера отдельные узлы должны быть подключены к сети для обеспечения межузлового обмена данными. Затем программное обеспечение может использоваться для объединения узлов и формирования кластера. На каждом узле может быть установлено общее устройство хранения данных и/или локальное хранилище.
 
 ![cluster](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/clustering/cluster.png)
 
-Typically, at least one node is designated as the leader node and acts as the entry point to the cluster. The leader node may be responsible for delegating incoming work to the other nodes and, if necessary, aggregating the results and returning a response to the user.
+Как правило, по крайней мере один узел назначается ведущим узлом и выступает в качестве точки входа в кластер. Ведущий узел может отвечать за распределение входящей работы между другими узлами и, при необходимости, за агрегирование результатов и отправку ответа пользователю.
 
-Ideally, a cluster functions as if it were a single system. A user accessing the cluster should not need to know whether the system is a cluster or an individual machine. Furthermore, a cluster should be designed to minimize latency and prevent bottlenecks in node-to-node communication.
+В идеале кластер функционирует как единая система. Пользователю, обращающемуся к кластеру, не нужно знать, является ли система кластером или отдельной машиной. Кроме того, кластер должен быть спроектирован таким образом, чтобы минимизировать задержки и предотвратить узкие места в обмене данными между узлами.
 
-## Types
+## Типы
 
-Computer clusters can generally be categorized into three types:
+Компьютерные кластеры, как правило, можно разделить на три типа:
 
-- Highly available or fail-over
-- Load balancing
-- High-performance computing
+- Высокая доступность или отказоустойчивость
+- Балансировка нагрузки
+- Высокопроизводительные вычисления
 
-## Configurations
+## Конфигурации
 
-The two most commonly used high availability (HA) clustering configurations are active-active and active-passive.
+Две наиболее часто используемые конфигурации кластеризации с высокой доступностью (HA) — это активный-активный и активный-пассивный режимы.
 
-### Active-Active
+### Активный-Активный
 
 ![active-active](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/clustering/active-active.png)
 
-An active-active cluster is typically made up of at least two nodes, both actively running the same kind of service simultaneously. The main purpose of an active-active cluster is to achieve load balancing. A load balancer distributes workloads across all nodes to prevent any single node from getting overloaded. Because there are more nodes available to serve, there will also be an improvement in throughput and response times.
+Кластер типа «активный-активный» обычно состоит как минимум из двух узлов, на каждом из которых одновременно выполняется один и тот же тип сервиса. Главная цель кластера «активный-активный» — балансировка нагрузки. Балансировщик нагрузки распределяет рабочие нагрузки между всеми узлами, чтобы предотвратить перегрузку какого-либо отдельного узла. Благодаря увеличению количества доступных для обслуживания узлов, также повышается пропускная способность и время отклика.
 
-### Active-Passive
+### Активный-пассивный
 
 ![active-passive](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/clustering/active-passive.png)
 
-Like the active-active cluster configuration, an active-passive cluster also consists of at least two nodes. However, as the name _active-passive_ implies, not all nodes are going to be active. For example, in the case of two nodes, if the first node is already active, then the second node must be passive or on standby.
+Подобно конфигурации кластера «активный-активный», кластер «активный-пассивный» также состоит как минимум из двух узлов. Однако, как следует из названия «активный-пассивный», не все узлы будут активными. Например, в случае двух узлов, если первый узел уже активен, то второй узел должен быть пассивным или находиться в режиме ожидания.
 
-## Advantages
+## Преимущества
 
-Four key advantages of cluster computing are as follows:
+Вот четыре ключевых преимущества кластерных вычислений:
 
-- High availability
-- Scalability
-- Performance
-- Cost-effective
+- Высокая доступность
+- Масштабируемость
+- Производительность
+- Экономически выгодно
 
-## Load balancing vs Clustering
+## Балансировка нагрузки против кластеризации
 
-Load balancing shares some common traits with clustering, but they are different processes. Clustering provides redundancy and boosts capacity and availability. Servers in a cluster are aware of each other and work together toward a common purpose. But with load balancing, servers are not aware of each other. Instead, they react to the requests they receive from the load balancer.
+Балансировка нагрузки имеет некоторые общие черты с кластеризацией, но это разные процессы. Кластеризация обеспечивает избыточность и повышает производительность и доступность. Серверы в кластере знают друг о друге и работают вместе для достижения общей цели. Но при балансировке нагрузки серверы не знают друг о друге. Вместо этого они реагируют на запросы, которые получают от балансировщика нагрузки.
 
-We can employ load balancing in conjunction with clustering, but it also is applicable in cases involving independent servers that share a common purpose such as to run a website, business application, web service, or some other IT resource.
+Балансировку нагрузки можно использовать в сочетании с кластеризацией, но она также применима в случаях, когда речь идет о независимых серверах, выполняющих общую функцию, например, запускающих веб-сайт, бизнес-приложение, веб-сервис или другой ИТ-ресурс.
 
-## Challenges
+## Задачи
 
-The most obvious challenge clustering presents is the increased complexity of installation and maintenance. An operating system, the application, and its dependencies must each be installed and updated on every node.
+Наиболее очевидная проблема, связанная с кластеризацией, — это возросшая сложность установки и обслуживания. Операционная система, приложение и их зависимости должны быть установлены и обновлены на каждом узле.
 
-This becomes even more complicated if the nodes in the cluster are not homogeneous. Resource utilization for each node must also be closely monitored, and logs should be aggregated to ensure that the software is behaving correctly.
+Ситуация еще больше осложняется, если узлы в кластере неоднородны. Необходимо также тщательно отслеживать использование ресурсов каждым узлом, а журналы следует агрегировать, чтобы убедиться в корректной работе программного обеспечения.
 
-Additionally, storage becomes more difficult to manage, a shared storage device must prevent nodes from overwriting one another and distributed data stores have to be kept in sync.
+Кроме того, становится сложнее управлять хранилищем: устройство общего хранения должно предотвращать перезапись данных узлами друг друга, а распределенные хранилища данных необходимо синхронизировать.
 
-## Examples
+## Примеры
 
-Clustering is commonly used in the industry, and often many technologies offer some sort of clustering mode. For example:
+Кластеризация широко используется в отрасли, и зачастую многие технологии предлагают тот или иной режим кластеризации. Например:
 
-- Containers (e.g. [Kubernetes](https://kubernetes.io), [Amazon ECS](https://aws.amazon.com/ecs))
-- Databases (e.g. [Cassandra](https://cassandra.apache.org/_/index.html), [MongoDB](https://www.mongodb.com))
-- Cache (e.g. [Redis](https://redis.io/docs/manual/scaling))
+- Контейнеры (например, [Kubernetes](https://kubernetes.io), [Amazon ECS](https://aws.amazon.com/ecs))
+- Базы данных (например, [Cassandra](https://cassandra.apache.org/_/index.html), [MongoDB](https://www.mongodb.com))
+- Кэш (например, [Redis](https://redis.io/docs/manual/scaling))
 
-# Caching
+# Кэширование
 
-_"There are only two hard things in Computer Science: cache invalidation and naming things." - Phil Karlton_
+«В информатике есть только две сложные вещи: аннулирование кэша и именование вещей». — Фил Карлтон
 
 ![caching](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/caching.png)
 
-A cache's primary purpose is to increase data retrieval performance by reducing the need to access the underlying slower storage layer. Trading off capacity for speed, a cache typically stores a subset of data transiently, in contrast to databases whose data is usually complete and durable.
+Основная цель кэша — повышение производительности извлечения данных за счет уменьшения необходимости обращения к более медленному нижележащему уровню хранения. В отличие от баз данных, данные в которых обычно являются полными и надежными, кэш, как правило, хранит временно подмножество данных, жертвуя при этом объемом и скоростью.
 
-Caches take advantage of the locality of reference principle _"recently requested data is likely to be requested again"._
+Кэширование использует принцип локальности ссылок: «недавно запрошенные данные, скорее всего, будут запрошены снова».
 
-## Caching and Memory
+## Кэширование и память
 
-Like a computer's memory, a cache is a compact, fast-performing memory that stores data in a hierarchy of levels, starting at level one, and progressing from there sequentially. They are labeled as L1, L2, L3, and so on. A cache also gets written if requested, such as when there has been an update and new content needs to be saved to the cache, replacing the older content that was saved.
+Подобно компьютерной памяти, кэш — это компактная, быстродействующая память, которая хранит данные в иерархической структуре уровней, начиная с первого уровня и последовательно продвигаясь дальше. Они обозначаются как L1, L2, L3 и так далее. Запись в кэш также производится по запросу, например, при обновлении, когда необходимо сохранить в кэш новое содержимое, заменив им старое.
 
-No matter whether the cache is read or written, it's done one block at a time. Each block also has a tag that includes the location where the data was stored in the cache. When data is requested from the cache, a search occurs through the tags to find the specific content that's needed in level one (L1) of the memory. If the correct data isn't found, more searches are conducted in L2.
+Независимо от того, считывается или записывается данные в кэш, это происходит по одному блоку за раз. Каждый блок также имеет метку, указывающую место хранения данных в кэше. При запросе данных из кэша выполняется поиск по меткам для нахождения необходимого содержимого на первом уровне (L1) памяти. Если нужные данные не найдены, выполняется дополнительный поиск на втором уровне (L2).
 
-If the data isn't found there, searches are continued in L3, then L4, and so on until it has been found, then, it's read and loaded. If the data isn't found in the cache at all, then it's written into it for quick retrieval the next time.
+Если данные не найдены, поиск продолжается в кэше L3, затем в L4 и так далее, пока они не будут найдены, после чего они считываются и загружаются. Если данные вообще не найдены в кэше, то они записываются в него для быстрого извлечения в следующий раз.
 
-## Cache hit and Cache miss
+## Попадание в кэш и промах кэша
 
-### Cache hit
+### Попадание в кэш
 
-A cache hit describes the situation where content is successfully served from the cache. The tags are searched in the memory rapidly, and when the data is found and read, it's considered a cache hit.
+Попадание в кэш описывает ситуацию, когда контент успешно предоставляется из кэша. Теги быстро ищутся в памяти, и когда данные найдены и прочитаны, это считается попаданием в кэш.
 
-**Cold, Warm, and Hot Caches**
+**Холодные, теплые и горячие тайники**
 
-A cache hit can also be described as cold, warm, or hot. In each of these, the speed at which the data is read is described.
+Попадание в кэш также можно описать как холодное, теплое или горячее. В каждом из этих случаев описывается скорость чтения данных.
 
-A hot cache is an instance where data was read from the memory at the _fastest_ possible rate. This happens when the data is retrieved from L1.
+Горячий кэш — это ситуация, когда данные считываются из памяти с максимально возможной скоростью. Это происходит при извлечении данных из кэша L1.
 
-A cold cache is the _slowest_ possible rate for data to be read, though, it's still successful so it's still considered a cache hit. The data is just found lower in the memory hierarchy such as in L3, or lower.
+Холодный кэш — это _самая медленная_ скорость чтения данных, однако, даже при успешном выполнении операции, она всё равно считается попаданием в кэш. Данные просто находятся ниже в иерархии памяти, например, в кэше L3 или ниже.
 
-A warm cache is used to describe data that's found in L2 or L3. It's not as fast as a hot cache, but it's still faster than a cold cache. Generally, calling a cache warm is used to express that it's slower and closer to a cold cache than a hot one.
+Термин «теплый кэш» используется для описания данных, хранящихся в кэшах второго или третьего уровня (L2 или L3). Он не такой быстрый, как «горячий кэш», но все же быстрее, чем «холодный кэш». Обычно термин «теплый кэш» используется для обозначения того, что он медленнее и ближе к «холодному кэшу», чем к «горячему».
 
-### Cache miss
+### Промах кэша
 
-A cache miss refers to the instance when the memory is searched, and the data isn't found. When this happens, the content is transferred and written into the cache.
+Промах кэша — это ситуация, когда при поиске в памяти данные не обнаруживаются. В этом случае содержимое кэша передается и записывается в него.
 
-## Cache Invalidation
+## Аннулирование кэша
 
-Cache invalidation is a process where the computer system declares the cache entries as invalid and removes or replaces them. If the data is modified, it should be invalidated in the cache, if not, this can cause inconsistent application behavior. There are three kinds of caching systems:
+Аннулирование кэша — это процесс, при котором компьютерная система объявляет записи кэша недействительными и удаляет или заменяет их. Если данные изменяются, они должны быть аннулированы в кэше; в противном случае это может привести к несогласованному поведению приложения. Существует три типа систем кэширования:
 
-### Write-through cache
+### Кэш с записью насквозь
 
 ![write-through-cache](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/write-through-cache.png)
 
-Data is written into the cache and the corresponding database simultaneously.
+Данные записываются одновременно в кэш и соответствующую базу данных.
 
-**Pro**: Fast retrieval, complete data consistency between cache and storage.
+**Преимущества**: Быстрое извлечение данных, полная согласованность данных между кэшем и хранилищем.
 
-**Con**: Higher latency for write operations.
+**Недостаток**: Более высокая задержка при операциях записи.
 
-### Write-around cache
+### Кэш с возможностью записи
 
 ![write-around-cache](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/write-around-cache.png)
 
-Where write directly goes to the database or permanent storage, bypassing the cache.
+При этом запись осуществляется непосредственно в базу данных или постоянное хранилище, минуя кэш.
 
-**Pro**: This may reduce latency.
+**Плюс**: Это может уменьшить задержку.
 
-**Con**: It increases cache misses because the cache system has to read the information from the database in case of a cache miss. As a result, this can lead to higher read latency in the case of applications that write and re-read the information quickly. Read happen from slower back-end storage and experiences higher latency.
+**Недостаток**: Это увеличивает количество промахов кэша, поскольку в случае промаха кэша системе кэширования приходится считывать информацию из базы данных. В результате это может привести к увеличению задержки чтения в приложениях, которые быстро записывают и повторно считывают информацию. Чтение происходит из более медленного хранилища данных и сопровождается большей задержкой.
 
-### Write-back cache
+### Кэш обратной записи
 
 ![write-back-cache](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/write-back-cache.png)
 
-Where the write is only done to the caching layer and the write is confirmed as soon as the write to the cache completes. The cache then asynchronously syncs this write to the database.
+При этом запись выполняется только в кэширующий слой, и подтверждение записи происходит сразу после завершения записи в кэш. Затем кэш асинхронно синхронизирует эту запись с базой данных.
 
-**Pro**: This would lead to reduced latency and high throughput for write-intensive applications.
+**Преимущество**: Это позволит снизить задержку и повысить пропускную способность для приложений, интенсивно использующих запись данных.
 
-**Con**: There is a risk of data loss in case the caching layer crashes. We can improve this by having more than one replica acknowledging the write in the cache.
+**Недостаток**: Существует риск потери данных в случае сбоя кэширующего слоя. Эту проблему можно решить, обеспечив подтверждение записи в кэш несколькими репликами.
 
-## Eviction policies
+## Политика выселения
 
-Following are some of the most common cache eviction policies:
+Ниже приведены некоторые из наиболее распространенных политик удаления кэшированных данных:
 
-- **First In First Out (FIFO)**: The cache evicts the first block accessed first without any regard to how often or how many times it was accessed before.
-- **Last In First Out (LIFO)**: The cache evicts the block accessed most recently first without any regard to how often or how many times it was accessed before.
-- **Least Recently Used (LRU)**: Discards the least recently used items first.
-- **Most Recently Used (MRU)**: Discards, in contrast to LRU, the most recently used items first.
-- **Least Frequently Used (LFU)**: Counts how often an item is needed. Those that are used least often are discarded first.
-- **Random Replacement (RR)**: Randomly selects a candidate item and discards it to make space when necessary.
+- **Первым вошел — первым вышел (FIFO)**: кэш удаляет первый блок, к которому был осуществлен доступ, независимо от того, как часто или сколько раз к нему обращались ранее.
+- **Последний вошел — первый вышел (LIFO)**: кэш удаляет блок, к которому обращались чаще всего, в первую очередь, независимо от того, как часто или сколько раз к нему обращались ранее.
+- **Наименее часто используемые элементы (LRU)**: Отбрасывает в первую очередь наименее часто используемые элементы.
+- **Наиболее часто используемые (MRU)**: В отличие от LRU, отбрасывает сначала наиболее часто используемые элементы.
+- **Наименее часто используемые (LFU)**: Подсчитывает, как часто нужен тот или иной предмет. Те, которые используются реже всего, выбрасываются в первую очередь.
+- **Случайная замена (СЗ)**: Случайным образом выбирается подходящий элемент, и при необходимости он отбрасывается, чтобы освободить место.
 
-## Distributed Cache
+## Распределенный кэш
 
 ![distributed-cache](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/distributed-cache.png)
 
-A distributed cache is a system that pools together the random-access memory (RAM) of multiple networked computers into a single in-memory data store used as a data cache to provide fast access to data. While most caches are traditionally in one physical server or hardware component, a distributed cache can grow beyond the memory limits of a single computer by linking together multiple computers.
+Распределенный кэш — это система, которая объединяет оперативную память (ОЗУ) нескольких компьютеров, объединенных в сеть, в единое хранилище данных в оперативной памяти, используемое в качестве кэша данных для обеспечения быстрого доступа к данным. В то время как большинство кэшей традиционно размещаются на одном физическом сервере или аппаратном компоненте, распределенный кэш может выходить за пределы возможностей памяти одного компьютера за счет объединения нескольких компьютеров.
 
-## Global Cache
+## Глобальный кэш
 
 ![global-cache](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/global-cache.png)
 
-As the name suggests, we will have a single shared cache that all the application nodes will use. When the requested data is not found in the global cache, it's the responsibility of the cache to find out the missing piece of data from the underlying data store.
+Как следует из названия, у нас будет единый общий кэш, который будут использовать все узлы приложения. Если запрошенные данные не найдены в глобальном кэше, задача кэша — найти недостающую часть данных в базовом хранилище данных.
 
-## Use cases
+## Варианты использования
 
-Caching can have many real-world use cases such as:
+Кэширование может иметь множество практических применений, например:
 
-- Database Caching
-- Content Delivery Network (CDN)
-- Domain Name System (DNS) Caching
-- API Caching
+- Кэширование базы данных
+- Сеть доставки контента (CDN)
+- Кэширование системы доменных имен (DNS)
+- Кэширование API
 
-**When not to use caching?**
+**В каких случаях не следует использовать кэширование?**
 
-Let's also look at some scenarios where we should not use cache:
+Рассмотрим также несколько сценариев, в которых нам не следует использовать кэш:
 
-- Caching isn't helpful when it takes just as long to access the cache as it does to access the primary data store.
-- Caching doesn't work as well when requests have low repetition (higher randomness), because caching performance comes from repeated memory access patterns.
-- Caching isn't helpful when the data changes frequently, as the cached version gets out of sync, and the primary data store must be accessed every time.
+— Кэширование бесполезно, если доступ к кэшу занимает столько же времени, сколько и доступ к основному хранилищу данных.
+- Кэширование работает хуже, когда запросы имеют низкую частоту повторений (высокую степень случайности), поскольку эффективность кэширования зависит от повторяющихся обращений к памяти.
+- Кэширование бесполезно, когда данные часто меняются, поскольку кэшированная версия теряет синхронизацию, и каждый раз приходится обращаться к основному хранилищу данных.
 
-_It's important to note that a cache should not be used as permanent data storage. They are almost always implemented in volatile memory because it is faster, and thus should be considered transient._
+Важно отметить, что кэш не следует использовать в качестве постоянного хранилища данных. Практически всегда он реализуется в энергозависимой памяти, поскольку это быстрее, и поэтому его следует рассматривать как временное хранилище.
 
-## Advantages
+## Преимущества
 
-Below are some advantages of caching:
+Ниже перечислены некоторые преимущества кэширования:
 
-- Improves performance
-- Reduce latency
-- Reduce load on the database
-- Reduce network cost
-- Increase Read Throughput
+- Улучшает производительность
+- Снижение задержки
+- Снижение нагрузки на базу данных
+- Снижение сетевых затрат
+- Повышение пропускной способности чтения
 
-## Examples
+## Примеры
 
-Here are some commonly used technologies for caching:
+Вот некоторые распространенные технологии кэширования:
 
 - [Redis](https://redis.io)
 - [Memcached](https://memcached.org)
 - [Amazon Elasticache](https://aws.amazon.com/elasticache)
 - [Aerospike](https://aerospike.com)
 
-# Content Delivery Network (CDN)
+# Сеть доставки контента (CDN)
 
-A content delivery network (CDN) is a geographically distributed group of servers that work together to provide fast delivery of internet content. Generally, static files such as HTML/CSS/JS, photos, and videos are served from CDN.
+Сеть доставки контента (CDN) — это географически распределенная группа серверов, работающих вместе для обеспечения быстрой доставки интернет-контента. Как правило, статические файлы, такие как HTML/CSS/JS, фотографии и видео, обслуживаются через CDN.
 
 ![cdn-map](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/content-delivery-network/cdn-map.png)
 
-## Why use a CDN?
+## Зачем использовать CDN?
 
-Content Delivery Network (CDN) increases content availability and redundancy while reducing bandwidth costs and improving security. Serving content from CDNs can significantly improve performance as users receive content from data centers close to them and our servers do not have to serve requests that the CDN fulfills.
+Сети доставки контента (CDN) повышают доступность и отказоустойчивость контента, одновременно снижая затраты на пропускную способность и повышая безопасность. Доставка контента через CDN может значительно улучшить производительность, поскольку пользователи получают контент из расположенных рядом центров обработки данных, и нашим серверам не нужно обрабатывать запросы, которые выполняет CDN.
 
-## How does a CDN work?
+## Как работает CDN?
 
 ![cdn](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/content-delivery-network/cdn.png)
 
-In a CDN, the origin server contains the original versions of the content while the edge servers are numerous and distributed across various locations around the world.
+В сети CDN исходный сервер содержит оригинальные версии контента, в то время как граничные серверы многочисленны и распределены по различным точкам мира.
 
-To minimize the distance between the visitors and the website's server, a CDN stores a cached version of its content in multiple geographical locations known as edge locations. Each edge location contains several caching servers responsible for content delivery to visitors within its proximity.
+Чтобы минимизировать расстояние между посетителями и сервером веб-сайта, CDN хранит кэшированную версию своего контента в нескольких географических точках, известных как периферийные узлы. Каждый периферийный узел содержит несколько кэширующих серверов, отвечающих за доставку контента посетителям, находящимся в непосредственной близости от него.
 
-Once the static assets are cached on all the CDN servers for a particular location, all subsequent website visitor requests for static assets will be delivered from these edge servers instead of the origin, thus reducing the origin load and improving scalability.
+После того как статические ресурсы будут кэшированы на всех CDN-серверах для конкретного местоположения, все последующие запросы посетителей сайта к статическим ресурсам будут обрабатываться этими граничными серверами, а не исходным сервером, что снизит нагрузку на исходный сервер и повысит масштабируемость.
 
-For example, when someone in the UK requests our website which might be hosted in the USA, they will be served from the closest edge location such as the London edge location. This is much quicker than having the visitor make a complete request to the origin server which will increase the latency.
+Например, когда кто-то из Великобритании запрашивает наш веб-сайт, который может быть размещен в США, его запрос будет отправлен с ближайшего периферийного сервера, например, с лондонского. Это намного быстрее, чем если бы посетитель отправлял полный запрос на исходный сервер, что увеличило бы задержку.
 
-## Types
+## Типы
 
-CDNs are generally divided into two types:
+Сети доставки контента (CDN) обычно делятся на два типа:
 
-### Push CDNs
+### Доставка CDN
 
-Push CDNs receive new content whenever changes occur on the server. We take full responsibility for providing content, uploading directly to the CDN, and rewriting URLs to point to the CDN. We can configure when content expires and when it is updated. Content is uploaded only when it is new or changed, minimizing traffic, but maximizing storage.
+CDN-сети, использующие механизм Push-уведомлений, получают новый контент всякий раз, когда происходят изменения на сервере. Мы берем на себя полную ответственность за предоставление контента, его прямую загрузку в CDN и переадресацию URL-адресов для указания на CDN. Мы можем настроить, когда контент устаревает и когда обновляется. Контент загружается только тогда, когда он новый или измененный, что минимизирует трафик, но максимизирует объем хранилища.
 
-Sites with a small amount of traffic or sites with content that isn't often updated work well with push CDNs. Content is placed on the CDNs once, instead of being re-pulled at regular intervals.
+Сайты с небольшим трафиком или сайты с редко обновляемым контентом хорошо подходят для CDN с функцией push-уведомлений. Контент размещается на CDN один раз, а не загружается повторно через регулярные интервалы.
 
-### Pull CDNs
+### Загрузка CDN
 
-In a Pull CDN situation, the cache is updated based on request. When the client sends a request that requires static assets to be fetched from the CDN if the CDN doesn't have it, then it will fetch the newly updated assets from the origin server and populate its cache with this new asset, and then send this new cached asset to the user.
+В случае использования CDN с функцией Pull CDN, кэш обновляется на основе запроса. Когда клиент отправляет запрос, требующий загрузки статических ресурсов из CDN, если они отсутствуют на CDN, он получает обновленные ресурсы с исходного сервера, заполняет свой кэш этими новыми ресурсами, а затем отправляет эти новые кэшированные ресурсы пользователю.
 
-Contrary to the Push CDN, this requires less maintenance because cache updates on CDN nodes are performed based on requests from the client to the origin server. Sites with heavy traffic work well with pull CDNs, as traffic is spread out more evenly with only recently-requested content remaining on the CDN.
+В отличие от Push CDN, этот подход требует меньше обслуживания, поскольку обновления кэша на узлах CDN выполняются на основе запросов от клиента к исходному серверу. Сайты с интенсивным трафиком хорошо работают с Pull CDN, поскольку трафик распределяется более равномерно, и на CDN остается только недавно запрошенный контент.
 
-## Disadvantages
+## Недостатки
 
-As we all know good things come with extra costs, so let's discuss some disadvantages of CDNs:
+Как известно, за хорошие вещи приходится платить, поэтому давайте обсудим некоторые недостатки CDN:
 
-- **Extra charges**: It can be expensive to use a CDN, especially for high-traffic services.
-- **Restrictions**: Some organizations and countries have blocked the domains or IP addresses of popular CDNs.
-- **Location**: If most of our audience is located in a country where the CDN has no servers, the data on our website may have to travel further than without using any CDN.
+- **Дополнительные расходы**: Использование CDN может быть дорогостоящим, особенно для сервисов с высокой посещаемостью.
+- **Ограничения**: Некоторые организации и страны заблокировали домены или IP-адреса популярных CDN.
+- **Местоположение**: Если большая часть нашей аудитории находится в стране, где у CDN нет серверов, данные на нашем веб-сайте могут передаваться на большее расстояние, чем без использования CDN.
 
-## Examples
+## Примеры
 
-Here are some widely used CDNs:
+Вот несколько широко используемых CDN:
 
 - [Amazon CloudFront](https://aws.amazon.com/cloudfront)
 - [Google Cloud CDN](https://cloud.google.com/cdn)
 - [Cloudflare CDN](https://www.cloudflare.com/cdn)
 - [Fastly](https://www.fastly.com/products/cdn)
 
-# Proxy
+# Прокси
 
-A proxy server is an intermediary piece of hardware/software sitting between the client and the backend server. It receives requests from clients and relays them to the origin servers. Typically, proxies are used to filter requests, log requests, or sometimes transform requests (by adding/removing headers, encrypting/decrypting, or compression).
+Прокси-сервер — это промежуточное устройство (аппаратное или программное обеспечение), расположенное между клиентом и бэкэнд-сервером. Он принимает запросы от клиентов и перенаправляет их на исходные серверы. Как правило, прокси используются для фильтрации запросов, регистрации запросов или иногда для преобразования запросов (путем добавления/удаления заголовков, шифрования/дешифрования или сжатия).
 
-## Types
+## Типы
 
-There are two types of proxies:
+Существует два типа прокси-серверов:
 
-### Forward Proxy
+### Прокси-сервер переадресации
 
-A forward proxy, often called a proxy, proxy server, or web proxy is a server that sits in front of a group of client machines. When those computers make requests to sites and services on the internet, the proxy server intercepts those requests and then communicates with web servers on behalf of those clients, like a middleman.
+Прокси-сервер, часто называемый веб-прокси, — это сервер, расположенный перед группой клиентских машин. Когда эти компьютеры отправляют запросы к сайтам и сервисам в интернете, прокси-сервер перехватывает эти запросы и затем взаимодействует с веб-серверами от имени этих клиентов, выступая в роли посредника.
 
 ![forward-proxy](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/proxy/forward-proxy.png)
 
-**Advantages**
+**Преимущества**
 
-Here are some advantages of a forward proxy:
+Вот некоторые преимущества прямого прокси-сервера:
 
-- Block access to certain content
-- Allows access to [geo-restricted](https://en.wikipedia.org/wiki/Geo-blocking) content
-- Provides anonymity
-- Avoid other browsing restrictions
+- Блокировка доступа к определенному контенту
+- Предоставляет доступ к контенту с географическими ограничениями (Geo-blocked) (https://en.wikipedia.org/wiki/Geo-blocking).
+- Обеспечивает анонимность
+- Избегайте других ограничений при просмотре веб-страниц
 
-Although proxies provide the benefits of anonymity, they can still track our personal information. Setup and maintenance of a proxy server can be costly and requires configurations.
+Хотя прокси-серверы обеспечивают преимущества анонимности, они все же могут отслеживать нашу личную информацию. Настройка и обслуживание прокси-сервера могут быть дорогостоящими и требуют соответствующей конфигурации.
 
-### Reverse Proxy
+### Обратный прокси
 
-A reverse proxy is a server that sits in front of one or more web servers, intercepting requests from clients. When clients send requests to the origin server of a website, those requests are intercepted by the reverse proxy server.
+Обратный прокси-сервер — это сервер, расположенный перед одним или несколькими веб-серверами и перехватывающий запросы от клиентов. Когда клиенты отправляют запросы на исходный сервер веб-сайта, эти запросы перехватываются обратным прокси-сервером.
 
-The difference between a forward and reverse proxy is subtle but important. A simplified way to sum it up would be to say that a forward proxy sits in front of a client and ensures that no origin server ever communicates directly with that specific client. On the other hand, a reverse proxy sits in front of an origin server and ensures that no client ever communicates directly with that origin server.
+Разница между прямым и обратным прокси-сервером невелика, но важна. Проще говоря, прямой прокси-сервер находится перед клиентом и гарантирует, что ни один исходный сервер никогда не будет напрямую взаимодействовать с этим конкретным клиентом. С другой стороны, обратный прокси-сервер находится перед исходным сервером и гарантирует, что ни один клиент никогда не будет напрямую взаимодействовать с этим исходным сервером.
 
 ![reverse-proxy](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/proxy/reverse-proxy.png)
 
-Introducing reverse proxy results in increased complexity. A single reverse proxy is a single point of failure, configuring multiple reverse proxies (i.e. a failover) further increases complexity.
+Внедрение обратного прокси-сервера приводит к увеличению сложности. Один обратный прокси-сервер представляет собой единую точку отказа, а настройка нескольких обратных прокси-серверов (т.е. резервирование) еще больше усложняет задачу.
 
-**Advantages**
+**Преимущества**
 
-Here are some advantages of using a reverse proxy:
+Вот некоторые преимущества использования обратного прокси:
 
-- Improved security
-- Caching
-- SSL encryption
-- Load balancing
-- Scalability and flexibility
+- Улучшенная безопасность
+- Кэширование
+- SSL-шифрование
+- Балансировка нагрузки
+- Масштабируемость и гибкость
 
-## Load balancer vs Reverse Proxy
+## Балансировщик нагрузки против обратного прокси
 
-Wait, isn't reverse proxy similar to a load balancer? Well, no as a load balancer is useful when we have multiple servers. Often, load balancers route traffic to a set of servers serving the same function, while reverse proxies can be useful even with just one web server or application server. A reverse proxy can also act as a load balancer but not the other way around.
+Подождите, разве обратный прокси не похож на балансировщик нагрузки? Нет, балансировщик нагрузки полезен, когда у нас несколько серверов. Часто балансировщики нагрузки направляют трафик на набор серверов, выполняющих одну и ту же функцию, в то время как обратные прокси могут быть полезны даже с одним веб-сервером или сервером приложений. Обратный прокси также может выступать в роли балансировщика нагрузки, но не наоборот.
 
-## Examples
+## Примеры
 
-Below are some commonly used proxy technologies:
+Ниже представлены некоторые часто используемые прокси-технологии:
 
 - [Nginx](https://www.nginx.com)
 - [HAProxy](http://www.haproxy.org)
-- [Traefik](https://doc.traefik.io/traefik)
+- [Траефик](https://doc.traefik.io/traefik)
 - [Envoy](https://www.envoyproxy.io)
 
-# Availability
+# Доступность
 
-Availability is the time a system remains operational to perform its required function in a specific period. It is a simple measure of the percentage of time that a system, service, or machine remains operational under normal conditions.
+Доступность — это время, в течение которого система остается работоспособной для выполнения требуемых функций в течение определенного периода. Это простой показатель процента времени, в течение которого система, сервис или машина остаются работоспособными в нормальных условиях.
 
-## The Nine's of availability
+## Девятки доступности
 
-Availability is often quantified by uptime (or downtime) as a percentage of time the service is available. It is generally measured in the number of 9s.
+Доступность часто оценивается по времени безотказной работы (или простою) в процентах от времени, в течение которого сервис доступен. Обычно это измеряется числом девяток.
 
 $$
-Availability = \frac{Uptime}{(Uptime + Downtime)}
+Доступность = \frac{Время работы}{(Время работы + Время простоя)}
 $$
 
-If availability is 99.00% available, it is said to have "2 nines" of availability, and if it is 99.9%, it is called "3 nines", and so on.
+Если доступность составляет 99,00%, говорят, что она "две девятки", если 99,9%, то "три девятки", и так далее.
 
-| Availability (Percent)   | Downtime (Year)    | Downtime (Month)  | Downtime (Week)    |
+| Доступность (в процентах) | Время простоя (в год) | Время простоя (в месяц) | Время простоя (в неделю) |
 | ------------------------ | ------------------ | ----------------- | ------------------ |
-| 90% (one nine)           | 36.53 days         | 72 hours          | 16.8 hours         |
-| 99% (two nines)          | 3.65 days          | 7.20 hours        | 1.68 hours         |
-| 99.9% (three nines)      | 8.77 hours         | 43.8 minutes      | 10.1 minutes       |
-| 99.99% (four nines)      | 52.6 minutes       | 4.32 minutes      | 1.01 minutes       |
-| 99.999% (five nines)     | 5.25 minutes       | 25.9 seconds      | 6.05 seconds       |
-| 99.9999% (six nines)     | 31.56 seconds      | 2.59 seconds      | 604.8 milliseconds |
-| 99.99999% (seven nines)  | 3.15 seconds       | 263 milliseconds  | 60.5 milliseconds  |
-| 99.999999% (eight nines) | 315.6 milliseconds | 26.3 milliseconds | 6 milliseconds     |
-| 99.9999999% (nine nines) | 31.6 milliseconds  | 2.6 milliseconds  | 0.6 milliseconds   |
+| 90% (одна девятка) | 36,53 дня | 72 часа | 16,8 часа |
+| 99% (две девятки) | 3,65 дня | 7,20 часа | 1,68 часа |
+| 99,9% (три девятки) | 8,77 часа | 43,8 минуты | 10,1 минуты |
+| 99,99% (четыре девятки) | 52,6 минуты | 4,32 минуты | 1,01 минуты |
+| 99,999% (пять девяток) | 5,25 минуты | 25,9 секунды | 6,05 секунды |
+| 99,9999% (шесть девяток) | 31,56 секунды | 2,59 секунды | 604,8 миллисекунды |
+| 99,99999% (семь девяток) | 3,15 секунды | 263 миллисекунды | 60,5 миллисекунд |
+| 99,999999% (восемь девяток) | 315,6 миллисекунд | 26,3 миллисекунд | 6 миллисекунд |
+| 99,9999999% (девять девяток) | 31,6 миллисекунд | 2,6 миллисекунд | 0,6 миллисекунд |
 
-## Availability in Sequence vs Parallel
+## Доступность в последовательном и параллельном режимах
 
-If a service consists of multiple components prone to failure, the service's overall availability depends on whether the components are in sequence or in parallel.
+Если сервис состоит из нескольких компонентов, подверженных сбоям, то общая доступность сервиса зависит от того, работают ли компоненты последовательно или параллельно.
 
-### Sequence
+### Последовательность
 
-Overall availability decreases when two components are in sequence.
-
-$$
-Availability \space (Total) = Availability \space (Foo) * Availability \space (Bar)
-$$
-
-For example, if both `Foo` and `Bar` each had 99.9% availability, their total availability in sequence would be 99.8%.
-
-### Parallel
-
-Overall availability increases when two components are in parallel.
+Общая доступность снижается, когда два компонента расположены последовательно.
 
 $$
-Availability \space (Total) = 1 - (1 - Availability \space (Foo)) * (1 - Availability \space (Bar))
+Доступность (Всего) = Доступность (Фу) * Доступность (Бар)
 $$
 
-For example, if both `Foo` and `Bar` each had 99.9% availability, their total availability in parallel would be 99.9999%.
+Например, если бы и у `Foo`, и у `Bar` была доступность по 99,9%, то их общая доступность в последовательности составила бы 99,8%.
 
-## Availability vs Reliability
+### Параллельный
 
-If a system is reliable, it is available. However, if it is available, it is not necessarily reliable. In other words, high reliability contributes to high availability, but it is possible to achieve high availability even with an unreliable system.
+Общая доступность повышается при параллельной работе двух компонентов.
 
-## High availability vs Fault Tolerance
+$$
+Доступность (Всего) = 1 - (1 - Доступность (Foo)) * (1 - Доступность (Bar))
+$$
 
-Both high availability and fault tolerance apply to methods for providing high uptime levels. However, they accomplish the objective differently.
+Например, если бы и `Foo`, и `Bar` имели доступность по 99,9%, то их общая доступность при параллельном использовании составила бы 99,9999%.
 
-A fault-tolerant system has no service interruption but a significantly higher cost, while a highly available system has minimal service interruption. Fault-tolerance requires full hardware redundancy as if the main system fails, with no loss in uptime, another system should take over.
+## Доступность против надежности
 
-# Scalability
+Если система надежна, она доступна. Однако, если она доступна, это не обязательно означает, что она надежна. Другими словами, высокая надежность способствует высокой доступности, но высокой доступности можно достичь даже с ненадежной системой.
 
-Scalability is the measure of how well a system responds to changes by adding or removing resources to meet demands.
+## Высокая доступность против отказоустойчивости
 
-![scalability](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/scalability/scalability.png)
+И высокая доступность, и отказоустойчивость применимы к методам обеспечения высокого уровня бесперебойной работы. Однако они по-разному достигают этой цели.
 
-Let's discuss different types of scaling:
+Отказоустойчивая система не прерывает работу сервиса, но имеет значительно более высокую стоимость, в то время как высокодоступная система обеспечивает минимальные перебои в работе. Отказоустойчивость требует полного аппаратного резервирования, поскольку в случае отказа основной системы без потери времени безотказной работы, другая система должна взять на себя ее функции.
 
-## Vertical scaling
+# Масштабируемость
 
-Vertical scaling (also known as scaling up) expands a system's scalability by adding more power to an existing machine. In other words, vertical scaling refers to improving an application's capability via increasing hardware capacity.
+Масштабируемость — это показатель того, насколько хорошо система реагирует на изменения, добавляя или удаляя ресурсы для удовлетворения потребностей.
 
-### Advantages
+![масштабируемость](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/scalability/scalability.png)
 
-- Simple to implement
-- Easier to manage
-- Data consistent
+Давайте обсудим различные типы масштабирования:
 
-### Disadvantages
+## Вертикальное масштабирование
 
-- Risk of high downtime
-- Harder to upgrade
-- Can be a single point of failure
+Вертикальное масштабирование (также известное как увеличение мощности) расширяет масштабируемость системы за счет увеличения мощности существующего оборудования. Другими словами, вертикальное масштабирование подразумевает улучшение возможностей приложения за счет увеличения аппаратной мощности.
 
-## Horizontal scaling
+### Преимущества
 
-Horizontal scaling (also known as scaling out) expands a system's scale by adding more machines. It improves the performance of the server by adding more instances to the existing pool of servers, allowing the load to be distributed more evenly.
+- Простота внедрения
+- Проще в управлении
+- Данные согласованы
 
-### Advantages
+### Недостатки
 
-- Increased redundancy
-- Better fault tolerance
-- Flexible and efficient
-- Easier to upgrade
+- Риск длительных простоев
+- Сложнее модернизировать
+- Может представлять собой единую точку отказа.
 
-### Disadvantages
+## Горизонтальное масштабирование
 
-- Increased complexity
-- Data inconsistency
-- Increased load on downstream services
+Горизонтальное масштабирование (также известное как расширение масштаба) увеличивает масштаб системы за счет добавления большего количества машин. Оно повышает производительность сервера, добавляя больше экземпляров к существующему пулу серверов, что позволяет более равномерно распределять нагрузку.
 
-# Storage
+### Преимущества
 
-Storage is a mechanism that enables a system to retain data, either temporarily or permanently. This topic is mostly skipped over in the context of system design, however, it is important to have a basic understanding of some common types of storage techniques that can help us fine-tune our storage components. Let's discuss some important storage concepts:
+- Повышенная избыточность
+- Повышенная отказоустойчивость
+- Гибкий и эффективный
+- Проще обновить
+
+### Недостатки
+
+- Повышенная сложность
+- Несоответствие данных
+- Увеличение нагрузки на нижестоящие сервисы
+
+# Хранилище
+
+Хранение данных — это механизм, позволяющий системе сохранять данные, временно или постоянно. Эта тема часто опускается в контексте проектирования систем, однако важно иметь базовое понимание некоторых распространенных типов методов хранения, которые могут помочь нам оптимизировать компоненты хранения. Давайте обсудим некоторые важные концепции хранения данных:
 
 ## RAID
 
-RAID (Redundant Array of Independent Disks) is a way of storing the same data on multiple hard disks or solid-state drives (SSDs) to protect data in the case of a drive failure.
+RAID (Redundant Array of Independent Disks) — это способ хранения одних и тех же данных на нескольких жестких дисках или твердотельных накопителях (SSD) для защиты данных в случае отказа одного из дисков.
 
-There are different RAID levels, however, and not all have the goal of providing redundancy. Let's discuss some commonly used RAID levels:
+Существуют разные уровни RAID, и не все из них предназначены для обеспечения избыточности. Давайте рассмотрим некоторые часто используемые уровни RAID:
 
-- **RAID 0**: Also known as striping, data is split evenly across all the drives in the array.
-- **RAID 1**: Also known as mirroring, at least two drives contains the exact copy of a set of data. If a drive fails, others will still work.
-- **RAID 5**: Striping with parity. Requires the use of at least 3 drives, striping the data across multiple drives like RAID 0, but also has a parity distributed across the drives.
-- **RAID 6**: Striping with double parity. RAID 6 is like RAID 5, but the parity data are written to two drives.
-- **RAID 10**: Combines striping plus mirroring from RAID 0 and RAID 1. It provides security by mirroring all data on secondary drives while using striping across each set of drives to speed up data transfers.
+- **RAID 0**: Также известный как чередование, данные равномерно распределяются по всем дискам в массиве.
+- **RAID 1**: Также известный как зеркалирование, этот режим предполагает размещение как минимум двух дисков в виде точной копии набора данных. В случае отказа одного диска остальные продолжат работать.
+- **RAID 5**: Чередование данных с контролем четности. Требует использования как минимум 3 дисков, распределяя данные по нескольким дискам, как в RAID 0, но также имеет контроль четности, распределенный по дискам.
+- **RAID 6**: Чередование данных с двойной проверкой четности. RAID 6 похож на RAID 5, но данные четности записываются на два диска.
+- **RAID 10**: Сочетает чередование и зеркалирование данных из RAID 0 и RAID 1. Обеспечивает безопасность за счет зеркалирования всех данных на вторичных дисках, а также использования чередования данных по каждому набору дисков для ускорения передачи данных.
 
-### Comparison
+### Сравнение
 
-Let's compare all the features of different RAID levels:
+Давайте сравним все характеристики различных уровней RAID:
 
-| Features             | RAID 0   | RAID 1               | RAID 5               | RAID 6                      | RAID 10                                  |
+| Характеристики | RAID 0 | RAID 1 | RAID 5 | RAID 6 | RAID 10 |
 | -------------------- | -------- | -------------------- | -------------------- | --------------------------- | ---------------------------------------- |
-| Description          | Striping | Mirroring            | Striping with Parity | Striping with double parity | Striping and Mirroring                   |
-| Minimum Disks        | 2        | 2                    | 3                    | 4                           | 4                                        |
-| Read Performance     | High     | High                 | High                 | High                        | High                                     |
-| Write Performance    | High     | Medium               | High                 | High                        | Medium                                   |
-| Cost                 | Low      | High                 | Low                  | Low                         | High                                     |
-| Fault Tolerance      | None     | Single-drive failure | Single-drive failure | Two-drive failure           | Up to one disk failure in each sub-array |
-| Capacity Utilization | 100%     | 50%                  | 67%-94%              | 50%-80%                     | 50%                                      |
+| Описание | Полосатое отображение | Зеркальное отображение | Полосатое отображение с контролем четности | Полосатое отображение с двойным контролем четности | Полосатое отображение и зеркальное отображение |
+Минимальное количество дисков | 2 | 2 | 3 | 4 | 4 |
+| Производительность чтения | Высокая | Высокая | Высокая | Высокая | Высокая |
+| Производительность записи | Высокая | Средняя | Высокая | Высокая | Средняя |
+| Стоимость | Низкая | Высокая | Низкая | Низкая | Высокая |
+| Отказоустойчивость | Отсутствует | Отказ одного диска | Отказ одного диска | Отказ двух дисков | До одного отказа диска в каждом подмассиве |
+| Коэффициент использования мощностей | 100% | 50% | 67%-94% | 50%-80% | 50% |
 
-## Volumes
+## Тома
 
-Volume is a fixed amount of storage on a disk or tape. The term volume is often used as a synonym for the storage itself, but it is possible for a single disk to contain more than one volume or a volume to span more than one disk.
+Том — это фиксированный объем памяти на диске или ленте. Термин «том» часто используется как синоним самого хранилища, но на одном диске может содержаться более одного тома, или же том может занимать несколько дисков.
 
-## File storage
+## Хранение файлов
 
-File storage is a solution to store data as files and present it to its final users as a hierarchical directories structure. The main advantage is to provide a user-friendly solution to store and retrieve files. To locate a file in file storage, the complete path of the file is required. It is economical and easily structured and is usually found on hard drives, which means that they appear exactly the same for the user and on the hard drive.
+Файловое хранилище — это решение для хранения данных в виде файлов и представления их конечным пользователям в виде иерархической структуры каталогов. Главное преимущество заключается в удобном для пользователя решении для хранения и поиска файлов. Для поиска файла в файловом хранилище требуется полный путь к файлу. Это экономичный и легко структурированный способ, обычно используемый на жестких дисках, что означает, что путь к файлу для пользователя и на жестком диске выглядит одинаково.
 
-Example: [Amazon EFS](https://aws.amazon.com/efs), [Azure files](https://azure.microsoft.com/en-in/services/storage/files), [Google Cloud Filestore](https://cloud.google.com/filestore), etc.
+Пример: [Amazon EFS](https://aws.amazon.com/efs), [Azure files](https://azure.microsoft.com/en-in/services/storage/files), [Google Cloud Filestore](https://cloud.google.com/filestore) и т. д.
 
-## Block storage
+## Блочное хранилище
 
-Block storage divides data into blocks (chunks) and stores them as separate pieces. Each block of data is given a unique identifier, which allows a storage system to place the smaller pieces of data wherever it is most convenient.
+Блочное хранение данных разделяет данные на блоки (фрагменты) и хранит их как отдельные части. Каждому блоку данных присваивается уникальный идентификатор, что позволяет системе хранения размещать более мелкие фрагменты данных там, где это наиболее удобно.
 
-Block storage also decouples data from user environments, allowing that data to be spread across multiple environments. This creates multiple paths to the data and allows the user to retrieve it quickly. When a user or application requests data from a block storage system, the underlying storage system reassembles the data blocks and presents the data to the user or application
+Блочное хранилище также отделяет данные от пользовательской среды, позволяя распределять данные по нескольким средам. Это создает несколько путей доступа к данным и позволяет пользователю быстро их получать. Когда пользователь или приложение запрашивает данные из системы блочного хранения, базовая система хранения собирает блоки данных и предоставляет данные пользователю или приложению.
 
-Example: [Amazon EBS](https://aws.amazon.com/ebs).
+Пример: [Amazon EBS](https://aws.amazon.com/ebs).
 
-## Object Storage
+## Объектное хранилище
 
-Object storage, which is also known as object-based storage, breaks data files up into pieces called objects. It then stores those objects in a single repository, which can be spread out across multiple networked systems.
+Объектное хранилище, также известное как хранилище на основе объектов, разбивает файлы данных на части, называемые объектами. Затем эти объекты хранятся в едином репозитории, который может быть распределен по нескольким сетевым системам.
 
-Example: [Amazon S3](https://aws.amazon.com/s3), [Azure Blob Storage](https://azure.microsoft.com/en-in/services/storage/blobs), [Google Cloud Storage](https://cloud.google.com/storage), etc.
+Пример: [Amazon S3](https://aws.amazon.com/s3), [Azure Blob Storage](https://azure.microsoft.com/en-in/services/storage/blobs), [Google Cloud Storage](https://cloud.google.com/storage) и т. д.
 
 ## NAS
 
-A NAS (Network Attached Storage) is a storage device connected to a network that allows storage and retrieval of data from a central location for authorized network users. NAS devices are flexible, meaning that as we need additional storage, we can add to what we have. It's faster, less expensive, and provides all the benefits of a public cloud on-site, giving us complete control.
+Сетевое хранилище данных (NAS) — это устройство хранения, подключенное к сети, которое позволяет авторизованным пользователям сети хранить и извлекать данные из центрального места. Устройства NAS отличаются гибкостью, то есть по мере необходимости мы можем увеличивать объем хранилища. Это быстрее, дешевле и предоставляет все преимущества локального публичного облака, обеспечивая полный контроль.
 
 ## HDFS
 
-The Hadoop Distributed File System (HDFS) is a distributed file system designed to run on commodity hardware. HDFS is highly fault-tolerant and is designed to be deployed on low-cost hardware. HDFS provides high throughput access to application data and is suitable for applications that have large data sets. It has many similarities with existing distributed file systems.
+Распределенная файловая система Hadoop (HDFS) — это распределенная файловая система, разработанная для работы на стандартном оборудовании. HDFS обладает высокой отказоустойчивостью и предназначена для развертывания на недорогом оборудовании. HDFS обеспечивает высокоскоростной доступ к данным приложений и подходит для приложений, работающих с большими наборами данных. Она имеет много общего с существующими распределенными файловыми системами.
 
-HDFS is designed to reliably store very large files across machines in a large cluster. It stores each file as a sequence of blocks, all blocks in a file except the last block are the same size. The blocks of a file are replicated for fault tolerance.
+HDFS предназначена для надежного хранения очень больших файлов на разных машинах в большом кластере. Она хранит каждый файл как последовательность блоков, причем все блоки в файле, кроме последнего, имеют одинаковый размер. Блоки файла реплицируются для обеспечения отказоустойчивости.
 
-# Databases and DBMS
+# Базы данных и СУБД
 
-## What is a Database?
+## Что такое база данных?
 
-A database is an organized collection of structured information, or data, typically stored electronically in a computer system. A database is usually controlled by a Database Management System (DBMS). Together, the data and the DBMS, along with the applications that are associated with them, are referred to as a database system, often shortened to just database.
+База данных — это организованная совокупность структурированной информации или данных, обычно хранящихся в электронном виде в компьютерной системе. Управление базой данных обычно осуществляется с помощью системы управления базами данных (СУБД). Вместе данные и СУБД, а также связанные с ними приложения, образуют систему баз данных, часто сокращаемую до просто базы данных.
 
-## What is DBMS?
+## Что такое СУБД?
 
-A database typically requires a comprehensive database software program known as a Database Management System (DBMS). A DBMS serves as an interface between the database and its end-users or programs, allowing users to retrieve, update, and manage how the information is organized and optimized. A DBMS also facilitates oversight and control of databases, enabling a variety of administrative operations such as performance monitoring, tuning, and backup and recovery.
+Для работы с базой данных обычно требуется комплексная программная система управления базами данных (СУБД). СУБД служит интерфейсом между базой данных и ее конечными пользователями или программами, позволяя пользователям получать, обновлять и управлять организацией и оптимизацией информации. СУБД также облегчает надзор и контроль за базами данных, обеспечивая выполнение различных административных операций, таких как мониторинг производительности, настройка, резервное копирование и восстановление.
 
-## Components
+## Компоненты
 
-Here are some common components found across different databases:
+Вот некоторые общие компоненты, встречающиеся в разных базах данных:
 
-### Schema
+Схема
 
-The role of a schema is to define the shape of a data structure, and specify what kinds of data can go where. Schemas can be strictly enforced across the entire database, loosely enforced on part of the database, or they might not exist at all.
+Роль схемы заключается в определении структуры данных и указании того, какие типы данных могут куда помещаться. Схемы могут строго соблюдаться во всей базе данных, слабо — в её части, или же они могут отсутствовать вовсе.
 
-### Table
+### Стол
 
-Each table contains various columns just like in a spreadsheet. A table can have as meager as two columns and upwards of a hundred or more columns, depending upon the kind of information being put in the table.
+Каждая таблица содержит множество столбцов, как в электронной таблице. Таблица может иметь всего два столбца, а может содержать до ста и более столбцов, в зависимости от типа информации, которая в нее помещается.
 
-### Column
+### Столбец
 
-A column contains a set of data values of a particular type, one value for each row of the database. A column may contain text values, numbers, enums, timestamps, etc.
+Столбец содержит набор значений данных определенного типа, по одному значению на каждую строку базы данных. Столбец может содержать текстовые значения, числа, перечисления, временные метки и т. д.
 
-### Row
+### Ряд
 
-Data in a table is recorded in rows. There can be thousands or millions of rows in a table having any particular information.
+Данные в таблице записываются в строках. В таблице могут быть тысячи или миллионы строк, содержащих любую конкретную информацию.
 
-## Types
+## Типы
 
 ![database-types](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/databases-and-dbms/database-types.png)
 
-Below are different types of databases:
+Ниже представлены различные типы баз данных:
 
 - **[SQL](https://karanpratapsingh.com/courses/system-design/sql-databases)**
 - **[NoSQL](https://karanpratapsingh.com/courses/system-design/nosql-databases)**
-  - Document
-  - Key-value
-  - Graph
-  - Timeseries
-  - Wide column
-  - Multi-model
+  - Документ
+  - Ключ-значение
+  - График
+  - Временные ряды
+  - Широкая колонна
+  - Многомодельный
 
-SQL and NoSQL databases are broad topics and will be discussed separately in [SQL databases](https://karanpratapsingh.com/courses/system-design/sql-databases) and [NoSQL databases](https://karanpratapsingh.com/courses/system-design/nosql-databases). Learn how they compare to each other in [SQL vs NoSQL databases](https://karanpratapsingh.com/courses/system-design/sql-vs-nosql-databases).
+Базы данных SQL и NoSQL — это обширные темы, которые будут рассмотрены отдельно в разделах [SQL-базы данных](https://karanpratapsingh.com/courses/system-design/sql-databases) и [NoSQL-базы данных](https://karanpratapsingh.com/courses/system-design/nosql-databases). Сравнение этих баз данных можно найти в разделе [SQL vs NoSQL базы данных](https://karanpratapsingh.com/courses/system-design/sql-vs-nosql-databases).
 
-## Challenges
+## Задачи
 
-Some common challenges faced while running databases at scale:
+Некоторые распространенные проблемы, возникающие при работе с базами данных в масштабе предприятия:
 
-- **Absorbing significant increases in data volume**: The explosion of data coming in from sensors, connected machines, and dozens of other sources.
-- **Ensuring data security**: Data breaches are happening everywhere these days, it's more important than ever to ensure that data is secure but also easily accessible to users.
-- **Keeping up with demand**: Companies need real-time access to their data to support timely decision-making and to take advantage of new opportunities.
-- **Managing and maintaining the database and infrastructure**: As databases become more complex and data volumes grow, companies are faced with the expense of hiring additional talent to manage their databases.
-- **Removing limits on scalability**: A business needs to grow if it's going to survive, and its data management must grow along with it. But it's very difficult to predict how much capacity the company will need, particularly with on-premises databases.
-- **Ensuring data residency, data sovereignty, or latency requirements**: Some organizations have use cases that are better suited to run on-premises. In those cases, engineered systems that are pre-configured and pre-optimized for running the database are ideal.
+- **Поглощение значительно возросшего объема данных**: взрывной рост объема данных, поступающих от датчиков, подключенных устройств и десятков других источников.
+- **Обеспечение безопасности данных**: В наши дни утечки данных происходят повсюду, поэтому как никогда важно обеспечить безопасность данных, а также их легкий доступ для пользователей.
+- **Удовлетворение спроса**: Компаниям необходим доступ к своим данным в режиме реального времени для принятия своевременных решений и использования новых возможностей.
+- **Управление и поддержка базы данных и инфраструктуры**: По мере усложнения баз данных и роста объемов данных компании сталкиваются с необходимостью найма дополнительных специалистов для управления своими базами данных.
+- **Снятие ограничений на масштабируемость**: Чтобы выжить, бизнесу необходимо расти, и его система управления данными должна расти вместе с ним. Но предсказать, сколько ресурсов потребуется компании, особенно при использовании локальных баз данных, очень сложно.
+- **Обеспечение соблюдения требований к размещению данных, суверенитету данных или задержке**: В некоторых организациях для решения конкретных задач лучше подходят локальные решения. В таких случаях идеальным вариантом являются инженерные системы, предварительно настроенные и оптимизированные для работы с базой данных.
 
-# SQL databases
+# Базы данных SQL
 
-A SQL (or relational) database is a collection of data items with pre-defined relationships between them. These items are organized as a set of tables with columns and rows. Tables are used to hold information about the objects to be represented in the database. Each column in a table holds a certain kind of data and a field stores the actual value of an attribute. The rows in the table represent a collection of related values of one object or entity.
+SQL-база данных (или реляционная база данных) представляет собой набор элементов данных с предопределенными связями между ними. Эти элементы организованы в виде набора таблиц со столбцами и строками. Таблицы используются для хранения информации об объектах, которые должны быть представлены в базе данных. Каждый столбец в таблице содержит определенный тип данных, а поле хранит фактическое значение атрибута. Строки в таблице представляют собой набор связанных значений одного объекта или сущности.
 
-Each row in a table could be marked with a unique identifier called a primary key, and rows among multiple tables can be made related using foreign keys. This data can be accessed in many different ways without re-organizing the database tables themselves. SQL databases usually follow the [ACID consistency model](https://karanpratapsingh.com/courses/system-design/acid-and-base-consistency-models#acid).
+Каждая строка в таблице может быть помечена уникальным идентификатором, называемым первичным ключом, а строки в нескольких таблицах могут быть связаны с помощью внешних ключей. Доступ к этим данным можно получить различными способами без реорганизации самих таблиц базы данных. Базы данных SQL обычно следуют [модели согласованности ACID](https://karanpratapsingh.com/courses/system-design/acid-and-base-consistency-models#acid).
 
-## Materialized views
+## Материализованные представления
 
-A materialized view is a pre-computed data set derived from a query specification and stored for later use. Because the data is pre-computed, querying a materialized view is faster than executing a query against the base table of the view. This performance difference can be significant when a query is run frequently or is sufficiently complex.
+Материализованное представление — это предварительно вычисленный набор данных, полученный на основе спецификации запроса и сохраненный для последующего использования. Поскольку данные предварительно вычислены, запрос к материализованному представлению выполняется быстрее, чем запрос к базовой таблице представления. Эта разница в производительности может быть существенной, если запрос выполняется часто или достаточно сложен.
 
-It also enables data subsetting and improves the performance of complex queries that run on large data sets which reduces network loads. There are other uses of materialized views, but they are mostly used for performance and replication.
+Это также позволяет выполнять выборочное выделение подмножеств данных и повышает производительность сложных запросов, выполняемых над большими наборами данных, что снижает нагрузку на сеть. Существуют и другие применения материализованных представлений, но в основном они используются для повышения производительности и репликации.
 
-## N+1 query problem
+## Проблема N+1 запросов
 
-The N+1 query problem happens when the data access layer executes N additional SQL statements to fetch the same data that could have been retrieved when executing the primary SQL query. The larger the value of N, the more queries will be executed, the larger the performance impact.
+Проблема N+1 запросов возникает, когда уровень доступа к данным выполняет N дополнительных SQL-запросов для получения тех же данных, которые можно было бы получить при выполнении основного SQL-запроса. Чем больше значение N, тем больше запросов будет выполнено, и тем сильнее будет влияние на производительность.
 
-This is commonly seen in GraphQL and ORM (Object-Relational Mapping) tools and can be addressed by optimizing the SQL query or using a dataloader that batches consecutive requests and makes a single data request under the hood.
+Это часто встречается в GraphQL и инструментах ORM (объектно-реляционное отображение) и может быть решено путем оптимизации SQL-запроса или использования загрузчика данных, который объединяет последовательные запросы в пакеты и выполняет один запрос данных без дополнительных настроек.
 
-## Advantages
+## Преимущества
 
-Let's look at some advantages of using relational databases:
+Рассмотрим некоторые преимущества использования реляционных баз данных:
 
-- Simple and accurate
-- Accessibility
-- Data consistency
-- Flexibility
+- Простой и точный
+- Доступность
+- Согласованность данных
+- Гибкость
 
-## Disadvantages
+## Недостатки
 
-Below are the disadvantages of relational databases:
+Ниже перечислены недостатки реляционных баз данных:
 
-- Expensive to maintain
-- Difficult schema evolution
-- Performance hits (join, denormalization, etc.)
-- Difficult to scale due to poor horizontal scalability
+- Дорогостоящий в обслуживании
+- Сложная эволюция схемы
+- Снижения производительности (объединение, денормализация и т. д.)
+— Сложно масштабировать из-за плохой горизонтальной масштабируемости.
 
-## Examples
+## Примеры
 
-Here are some commonly used relational databases:
+Вот некоторые часто используемые реляционные базы данных:
 
 - [PostgreSQL](https://www.postgresql.org)
 - [MySQL](https://www.mysql.com)
 - [MariaDB](https://mariadb.org)
 - [Amazon Aurora](https://aws.amazon.com/rds/aurora)
 
-# NoSQL databases
+# Базы данных NoSQL
 
-NoSQL is a broad category that includes any database that doesn't use SQL as its primary data access language. These types of databases are also sometimes referred to as non-relational databases. Unlike in relational databases, data in a NoSQL database doesn't have to conform to a pre-defined schema. NoSQL databases follow [BASE consistency model](https://karanpratapsingh.com/courses/system-design/acid-and-base-consistency-models#base).
+NoSQL — это широкая категория, включающая любые базы данных, которые не используют SQL в качестве основного языка доступа к данным. Такие базы данных иногда также называют нереляционными базами данных. В отличие от реляционных баз данных, данные в базе данных NoSQL не обязательно должны соответствовать заранее определенной схеме. Базы данных NoSQL следуют [модели согласованности BASE](https://karanpratapsingh.com/courses/system-design/acid-and-base-consistency-models#base).
 
-Below are different types of NoSQL databases:
+Ниже представлены различные типы баз данных NoSQL:
 
-### Document
+### Документ
 
-A document database (also known as a document-oriented database or a document store) is a database that stores information in documents. They are general-purpose databases that serve a variety of use cases for both transactional and analytical applications.
+Документная база данных (также известная как документоориентированная база данных или хранилище документов) — это база данных, которая хранит информацию в документах. Это базы данных общего назначения, которые подходят для различных сценариев использования как в транзакционных, так и в аналитических приложениях.
 
-**Advantages**
+**Преимущества**
 
-- Intuitive and flexible
-- Easy horizontal scaling
-- Schemaless
+- Интуитивно понятный и гибкий
+- Простое горизонтальное масштабирование
+- Без схемы
 
-**Disadvantages**
+**Недостатки**
 
-- Schemaless
-- Non-relational
+- Без схемы
+- Нереляционный
 
-**Examples**
+**Примеры**
 
 - [MongoDB](https://www.mongodb.com)
 - [Amazon DocumentDB](https://aws.amazon.com/documentdb)
 - [CouchDB](https://couchdb.apache.org)
 
-### Key-value
+### Ключ-значение
 
-One of the simplest types of NoSQL databases, key-value databases save data as a group of key-value pairs made up of two data items each. They're also sometimes referred to as a key-value store.
+Базы данных типа «ключ-значение» — один из простейших типов NoSQL-баз данных, в которых данные хранятся в виде групп пар «ключ-значение», каждая из которых состоит из двух элементов данных. Их также иногда называют хранилищами типа «ключ-значение».
 
-**Advantages**
+**Преимущества**
 
-- Simple and performant
-- Highly scalable for high volumes of traffic
-- Session management
-- Optimized lookups
+- Простой и высокопроизводительный
+- Высокая масштабируемость для больших объемов трафика
+- Управление сессиями
+- Оптимизированные поиски
 
-**Disadvantages**
+**Недостатки**
 
-- Basic CRUD
-- Values can't be filtered
-- Lacks indexing and scanning capabilities
-- Not optimized for complex queries
+- Базовые операции CRUD
+- Значения нельзя фильтровать
+- Отсутствуют возможности индексирования и сканирования.
+- Не оптимизировано для сложных запросов
 
-**Examples**
+**Примеры**
 
 - [Redis](https://redis.io)
 - [Memcached](https://memcached.org)
 - [Amazon DynamoDB](https://aws.amazon.com/dynamodb)
 - [Aerospike](https://aerospike.com)
 
-### Graph
+### График
 
-A graph database is a NoSQL database that uses graph structures for semantic queries with nodes, edges, and properties to represent and store data instead of tables or documents.
+Графовая база данных — это NoSQL-база данных, которая использует графовые структуры для семантических запросов, где узлы, ребра и свойства используются для представления и хранения данных вместо таблиц или документов.
 
-The graph relates the data items in the store to a collection of nodes and edges, the edges representing the relationships between the nodes. The relationships allow data in the store to be linked together directly and, in many cases, retrieved with one operation.
+Граф связывает элементы данных в хранилище с набором узлов и ребер, причем ребра представляют собой отношения между узлами. Эти отношения позволяют напрямую связывать данные в хранилище и во многих случаях извлекать их за одну операцию.
 
-**Advantages**
+**Преимущества**
 
-- Query speed
-- Agile and flexible
-- Explicit data representation
+- Скорость выполнения запросов
+- Гибкий и адаптивный подход
+- Явное представление данных
 
-**Disadvantages**
+**Недостатки**
 
-- Complex
-- No standardized query language
+- Сложный
+- Отсутствует стандартизированный язык запросов
 
-**Use cases**
+**Примеры использования**
 
-- Fraud detection
-- Recommendation engines
-- Social networks
-- Network mapping
+- Выявление мошенничества
+- Системы рекомендаций
+- Социальные сети
+- Составление карты сети
 
-**Examples**
+**Примеры**
 
 - [Neo4j](https://neo4j.com)
 - [ArangoDB](https://www.arangodb.com)
 - [Amazon Neptune](https://aws.amazon.com/neptune)
 - [JanusGraph](https://janusgraph.org)
 
-### Time series
+### Временные ряды
 
-A time-series database is a database optimized for time-stamped, or time series, data.
+База данных временных рядов — это база данных, оптимизированная для данных с временными метками, или временных рядов.
 
-**Advantages**
+**Преимущества**
 
-- Fast insertion and retrieval
-- Efficient data storage
+- Быстрое введение и извлечение
+- Эффективное хранение данных
 
-**Use cases**
+**Примеры использования**
 
-- IoT data
-- Metrics analysis
-- Application monitoring
-- Understand financial trends
+- Данные Интернета вещей
+- Анализ метрик
+- Мониторинг приложений
+- Понимание финансовых тенденций
 
-**Examples**
+**Примеры**
 
 - [InfluxDB](https://www.influxdata.com)
 - [Apache Druid](https://druid.apache.org)
 
-### Wide column
+### Широкая колонна
 
-Wide column databases, also known as wide column stores, are schema-agnostic. Data is stored in column families, rather than in rows and columns.
+Базы данных с широкими столбцами, также известные как хранилища с широкими столбцами, не зависят от схемы. Данные хранятся в семействах столбцов, а не в строках и столбцах.
 
-**Advantages**
+**Преимущества**
 
-- Highly scalable, can handle petabytes of data
-- Ideal for real-time big data applications
+- Высокая масштабируемость, способность обрабатывать петабайты данных.
+- Идеально подходит для приложений обработки больших данных в режиме реального времени.
 
-**Disadvantages**
+**Недостатки**
 
-- Expensive
-- Increased write time
+- Дорогой
+- Увеличенное время записи
 
-**Use cases**
+**Примеры использования**
 
-- Business analytics
-- Attribute-based data storage
+- Бизнес-аналитика
+- Хранение данных на основе атрибутов
 
-**Examples**
+**Примеры**
 
 - [BigTable](https://cloud.google.com/bigtable)
 - [Apache Cassandra](https://cassandra.apache.org)
 - [ScyllaDB](https://www.scylladb.com)
 
-### Multi-model
+### Многомодельный
 
-Multi-model databases combine different database models (i.e. relational, graph, key-value, document, etc.) into a single, integrated backend. This means they can accommodate various data types, indexes, queries, and store data in more than one model.
+Многомодельные базы данных объединяют различные модели баз данных (например, реляционные, графовые, ключ-значение, документные и т. д.) в единую интегрированную структуру. Это означает, что они могут поддерживать различные типы данных, индексы, запросы и хранить данные в нескольких моделях.
 
-**Advantages**
+**Преимущества**
 
-- Flexibility
-- Suitable for complex projects
-- Data consistent
+- Гибкость
+- Подходит для сложных проектов
+- Данные согласованы
 
-**Disadvantages**
+**Недостатки**
 
-- Complex
-- Less mature
+- Сложный
+- Менее зрелый
 
-**Examples**
+**Примеры**
 
 - [ArangoDB](https://www.arangodb.com)
 - [Azure Cosmos DB](https://azure.microsoft.com/en-in/services/cosmos-db)
 - [Couchbase](https://www.couchbase.com)
 
-# SQL vs NoSQL databases
+# Базы данных SQL против NoSQL
 
-In the world of databases, there are two main types of solutions, SQL (relational) and NoSQL (non-relational) databases. Both of them differ in the way they were built, the kind of information they store, and how they store it. Relational databases are structured and have predefined schemas while non-relational databases are unstructured, distributed, and have a dynamic schema.
+В мире баз данных существуют два основных типа решений: SQL (реляционные) и NoSQL (нереляционные). Они различаются по способу построения, типу хранимой информации и методам её хранения. Реляционные базы данных структурированы и имеют предопределённые схемы, в то время как нереляционные базы данных неструктурированы, распределены и имеют динамическую схему.
 
-## High-level differences
+## Различия высокого уровня
 
-Here are some high-level differences between SQL and NoSQL:
+Вот некоторые основные различия между SQL и NoSQL:
 
-### Storage
+### Хранилище
 
-SQL stores data in tables, where each row represents an entity and each column represents a data point about that entity.
+В SQL данные хранятся в таблицах, где каждая строка представляет собой сущность, а каждый столбец — точку данных об этой сущности.
 
-NoSQL databases have different data storage models such as key-value, graph, document, etc.
+NoSQL-базы данных используют различные модели хранения данных, такие как «ключ-значение», графовая, документная и т. д.
 
-### Schema
+Схема
 
-In SQL, each record conforms to a fixed schema, meaning the columns must be decided and chosen before data entry and each row must have data for each column. The schema can be altered later, but it involves modifying the database using migrations.
+В SQL каждая запись соответствует фиксированной схеме, то есть столбцы должны быть определены и выбраны до ввода данных, и каждая строка должна содержать данные для каждого столбца. Схему можно изменить позже, но это предполагает модификацию базы данных с помощью миграций.
 
-Whereas in NoSQL, schemas are dynamic. Fields can be added on the fly, and each _record_ (or equivalent) doesn't have to contain data for each _field_.
+В отличие от NoSQL, где схемы динамические, поля можно добавлять на лету, и каждая запись (или эквивалент) не обязательно должна содержать данные для каждого поля.
 
-### Querying
+### Запросы
 
-SQL databases use SQL (structured query language) for defining and manipulating the data, which is very powerful.
+В базах данных SQL для определения и обработки данных используется язык структурированных запросов (SQL), что делает их очень мощным инструментом.
 
-In a NoSQL database, queries are focused on a collection of documents. Different databases have different syntax for querying.
+В NoSQL-базах данных запросы ориентированы на набор документов. Разные базы данных имеют разный синтаксис для выполнения запросов.
 
-### Scalability
+### Масштабируемость
 
-In most common situations, SQL databases are vertically scalable, which can get very expensive. It is possible to scale a relational database across multiple servers, but this is a challenging and time-consuming process.
+В большинстве распространенных ситуаций базы данных SQL масштабируются вертикально, что может быть очень дорого. Масштабирование реляционной базы данных на нескольких серверах возможно, но это сложный и трудоемкий процесс.
 
-On the other hand, NoSQL databases are horizontally scalable, meaning we can add more servers easily to our NoSQL database infrastructure to handle large traffic. Any cheap commodity hardware or cloud instances can host NoSQL databases, thus making it a lot more cost-effective than vertical scaling. A lot of NoSQL technologies also distribute data across servers automatically.
+С другой стороны, базы данных NoSQL масштабируются горизонтально, то есть мы можем легко добавлять больше серверов в нашу инфраструктуру баз данных NoSQL для обработки больших объемов трафика. Любое недорогое стандартное оборудование или облачные экземпляры могут размещать базы данных NoSQL, что делает их гораздо более экономически выгодными, чем вертикальное масштабирование. Многие технологии NoSQL также автоматически распределяют данные между серверами.
 
-### Reliability
+### Надежность
 
-The vast majority of relational databases are ACID compliant. So, when it comes to data reliability and a safe guarantee of performing transactions, SQL databases are still the better bet.
+Подавляющее большинство реляционных баз данных соответствуют принципам ACID. Поэтому, когда речь идёт о надёжности данных и гарантированном безопасном выполнении транзакций, базы данных SQL по-прежнему остаются лучшим выбором.
 
-Most of the NoSQL solutions sacrifice ACID compliance for performance and scalability.
+Большинство решений NoSQL жертвуют соответствием принципам ACID ради производительности и масштабируемости.
 
-## Reasons
+## Причины
 
-As always we should always pick the technology that fits the requirements better. So, let's look at some reasons for picking SQL or NoSQL based database:
+Как всегда, следует выбирать технологию, которая лучше соответствует требованиям. Итак, давайте рассмотрим несколько причин для выбора баз данных на основе SQL или NoSQL:
 
-**For SQL**
+**Для SQL**
 
-- Structured data with strict schema
-- Relational data
-- Need for complex joins
-- Transactions
-- Lookups by index are very fast
+- Структурированные данные со строгой схемой
+- Реляционные данные
+- Необходимость сложных объединений
+- Транзакции
+- Поиск по индексу выполняется очень быстро.
 
-**For NoSQL**
+**Для NoSQL**
 
-- Dynamic or flexible schema
-- Non-relational data
-- No need for complex joins
-- Very data-intensive workload
-- Very high throughput for IOPS
+- Динамическая или гибкая схема
+- Нереляционные данные
+- Нет необходимости в сложных объединениях.
+- Очень ресурсоемкая работа с данными
+- Очень высокая пропускная способность для операций ввода-вывода.
 
-# Database Replication
+# Репликация базы данных
 
-Replication is a process that involves sharing information to ensure consistency between redundant resources such as multiple databases, to improve reliability, fault-tolerance, or accessibility.
+Репликация — это процесс обмена информацией для обеспечения согласованности между избыточными ресурсами, такими как несколько баз данных, с целью повышения надежности, отказоустойчивости или доступности.
 
-## Master-Slave Replication
+## Репликация "мастер-подчиненный"
 
-The master serves reads and writes, replicating writes to one or more slaves, which serve only reads. Slaves can also replicate additional slaves in a tree-like fashion. If the master goes offline, the system can continue to operate in read-only mode until a slave is promoted to a master or a new master is provisioned.
+Главный сервер обслуживает операции чтения и записи, реплицируя операции записи на один или несколько подчиненных серверов, которые обслуживают только операции чтения. Подчиненные серверы также могут реплицировать данные других подчиненных серверов в древовидной структуре. Если главный сервер отключается, система может продолжать работать в режиме только для чтения до тех пор, пока подчиненный сервер не будет повышен до главного или не будет создан новый главный сервер.
 
 ![master-slave-replication](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/database-replication/master-slave-replication.png)
 
-### Advantages
+### Преимущества
 
-- Backups of the entire database of relatively no impact on the master.
-- Applications can read from the slave(s) without impacting the master.
-- Slaves can be taken offline and synced back to the master without any downtime.
+- Создание резервных копий всей базы данных практически не оказывает влияния на основную базу данных.
+- Приложения могут считывать данные с подчиненного (подчиненных) устройства, не влияя на работу ведущего.
+— Подчиненные устройства можно отключить и синхронизировать с главным устройством без каких-либо простоев.
 
-### Disadvantages
+### Недостатки
 
-- Replication adds more hardware and additional complexity.
-- Downtime and possibly loss of data when a master fails.
-- All writes also have to be made to the master in a master-slave architecture.
-- The more read slaves, the more we have to replicate, which will increase replication lag.
+— Репликация добавляет больше оборудования и усложняет процесс.
+- Простой и возможная потеря данных при сбое основного сервера.
+- В архитектуре "ведущий-ведомый" все операции записи также должны выполняться на ведущем устройстве.
+— Чем больше считываемых подчиненных устройств, тем больше нам приходится реплицировать, что увеличивает задержку репликации.
 
-## Master-Master Replication
+## Репликация "мастер-мастер"
 
-Both masters serve reads/writes and coordinate with each other. If either master goes down, the system can continue to operate with both reads and writes.
+Оба главных узла обеспечивают операции чтения и записи и координируют свои действия. Если один из главных узлов выйдет из строя, система сможет продолжать работу как с операциями чтения, так и с операциями записи.
 
 ![master-master-replication](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/database-replication/master-master-replication.png)
 
-### Advantages
+### Преимущества
 
-- Applications can read from both masters.
-- Distributes write load across both master nodes.
-- Simple, automatic, and quick failover.
+- Приложения могут считывать данные с обоих главных серверов.
+— Распределяет нагрузку по записи между обоими главными узлами.
+— Простое, автоматическое и быстрое переключение на резервный сервер.
 
-### Disadvantages
+### Недостатки
 
-- Not as simple as master-slave to configure and deploy.
-- Either loosely consistent or have increased write latency due to synchronization.
-- Conflict resolution comes into play as more write nodes are added and as latency increases.
+- Настройка и развертывание не так просты, как в режиме "ведущий-ведомый".
+- Либо наблюдается слабая согласованность, либо повышена задержка записи из-за синхронизации.
+— Разрешение конфликтов вступает в действие по мере добавления большего количества узлов записи и увеличения задержки.
 
-## Synchronous vs Asynchronous replication
+## Синхронная и асинхронная репликация
 
-The primary difference between synchronous and asynchronous replication is how the data is written to the replica. In synchronous replication, data is written to primary storage and the replica simultaneously. As such, the primary copy and the replica should always remain synchronized.
+Основное различие между синхронной и асинхронной репликацией заключается в способе записи данных в реплику. При синхронной репликации данные записываются одновременно в основное хранилище и в реплику. Таким образом, основная копия и реплика всегда должны оставаться синхронизированными.
 
-In contrast, asynchronous replication copies the data to the replica after the data is already written to the primary storage. Although the replication process may occur in near-real-time, it is more common for replication to occur on a scheduled basis and it is more cost-effective.
+В отличие от этого, асинхронная репликация копирует данные на реплику после того, как данные уже записаны в основное хранилище. Хотя процесс репликации может происходить практически в режиме реального времени, чаще всего репликация выполняется по расписанию, и это более экономически выгодно.
 
-# Indexes
+# Индексы
 
-Indexes are well known when it comes to databases, they are used to improve the speed of data retrieval operations on the data store. An index makes the trade-offs of increased storage overhead, and slower writes (since we not only have to write the data but also have to update the index) for the benefit of faster reads. Indexes are used to quickly locate data without having to examine every row in a database table. Indexes can be created using one or more columns of a database table, providing the basis for both rapid random lookups and efficient access to ordered records.
+Индексы хорошо известны в контексте баз данных; они используются для повышения скорости операций извлечения данных из хранилища. Индексы идут на компромисс между увеличением накладных расходов на хранение и замедлением операций записи (поскольку нам нужно не только записывать данные, но и обновлять индекс) в пользу более быстрого чтения. Индексы используются для быстрого поиска данных без необходимости проверять каждую строку в таблице базы данных. Индексы могут быть созданы с использованием одного или нескольких столбцов таблицы базы данных, обеспечивая основу как для быстрого произвольного поиска, так и для эффективного доступа к упорядоченным записям.
 
 ![indexes](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/indexes/indexes.png)
 
-An index is a data structure that can be perceived as a table of contents that points us to the location where actual data lives. So when we create an index on a column of a table, we store that column and a pointer to the whole row in the index. Indexes are also used to create different views of the same data. For large data sets, this is an excellent way to specify different filters or sorting schemes without resorting to creating multiple additional copies of the data.
+Индекс — это структура данных, которую можно рассматривать как оглавление, указывающее на место, где хранятся фактические данные. Таким образом, при создании индекса по столбцу таблицы мы сохраняем этот столбец и указатель на всю строку в индексе. Индексы также используются для создания различных представлений одних и тех же данных. Для больших наборов данных это отличный способ задать различные фильтры или схемы сортировки, не прибегая к созданию множества дополнительных копий данных.
 
-One quality that database indexes can have is that they can be **dense** or **sparse**. Each of these index qualities comes with its own trade-offs. Let's look at how each index type would work:
+Одно из свойств индексов баз данных — это их плотность (**плотность**) или разреженность (**разреженность**). Каждое из этих свойств индексов имеет свои компромиссы. Давайте рассмотрим, как работают индексы каждого типа:
 
-## Dense Index
+## Плотный индекс
 
-In a dense index, an index record is created for every row of the table. Records can be located directly as each record of the index holds the search key value and the pointer to the actual record.
+В плотном индексе для каждой строки таблицы создается отдельная индексная запись. Записи можно найти напрямую, поскольку каждая запись индекса содержит значение поискового ключа и указатель на фактическую запись.
 
 ![dense-index](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/indexes/dense-index.png)
 
-Dense indexes require more maintenance than sparse indexes at write-time. Since every row must have an entry, the database must maintain the index on inserts, updates, and deletes. Having an entry for every row also means that dense indexes will require more memory. The benefit of a dense index is that values can be quickly found with just a binary search. Dense indexes also do not impose any ordering requirements on the data.
+Плотные индексы требуют большего обслуживания во время записи, чем разреженные индексы. Поскольку каждая строка должна иметь запись, база данных должна поддерживать индекс при вставках, обновлениях и удалениях. Наличие записи для каждой строки также означает, что плотные индексы потребуют больше памяти. Преимущество плотного индекса заключается в том, что значения можно быстро найти с помощью простого бинарного поиска. Плотные индексы также не накладывают никаких требований к упорядочиванию данных.
 
-## Sparse Index
+## Разреженный индекс
 
-In a sparse index, index records are created only for some of the records.
+В разреженном индексе индексные записи создаются только для некоторых записей.
 
 ![sparse-index](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/indexes/sparse-index.png)
 
-Sparse indexes require less maintenance than dense indexes at write-time since they only contain a subset of the values. This lighter maintenance burden means that inserts, updates, and deletes will be faster. Having fewer entries also means that the index will use less memory. Finding data is slower since a scan across the page typically follows the binary search. Sparse indexes are also optional when working with ordered data.
+Разреженные индексы требуют меньше обслуживания во время записи, чем плотные индексы, поскольку они содержат только подмножество значений. Это снижает нагрузку на обслуживание, что означает более быструю вставку, обновление и удаление данных. Меньшее количество записей также означает, что индекс будет использовать меньше памяти. Поиск данных происходит медленнее, поскольку после бинарного поиска обычно следует сканирование страницы. Разреженные индексы также являются необязательными при работе с упорядоченными данными.
 
-# Normalization and Denormalization
+# Нормализация и денормализация
 
-## Terms
+## Условия
 
-Before we go any further, let's look at some commonly used terms in normalization and denormalization.
+Прежде чем продолжить, давайте рассмотрим некоторые часто используемые термины в нормализации и денормализации.
 
-### Keys
+### Клавиши
 
-**Primary key**: Column or group of columns that can be used to uniquely identify every row of the table.
+**Первичный ключ**: Столбец или группа столбцов, которые используются для однозначной идентификации каждой строки таблицы.
 
-**Composite key**: A primary key made up of multiple columns.
+**Составной ключ**: первичный ключ, состоящий из нескольких столбцов.
 
-**Super key**: Set of all keys that can uniquely identify all the rows present in a table.
+**Суперключ**: Набор всех ключей, которые могут однозначно идентифицировать все строки, присутствующие в таблице.
 
-**Candidate key**: Attributes that identify rows uniquely in a table.
+**Ключевой элемент-кандидат**: Атрибуты, однозначно идентифицирующие строки в таблице.
 
-**Foreign key**: It is a reference to a primary key of another table.
+**Внешний ключ**: это ссылка на первичный ключ другой таблицы.
 
-**Alternate key**: Keys that are not primary keys are known as alternate keys.
+**Альтернативные клавиши**: Клавиши, не являющиеся основными, называются альтернативными клавишами.
 
-**Surrogate key**: A system-generated value that uniquely identifies each entry in a table when no other column was able to hold properties of a primary key.
+**Суррогатный ключ**: Системно сгенерированное значение, которое однозначно идентифицирует каждую запись в таблице, если ни один другой столбец не может содержать свойства первичного ключа.
 
-### Dependencies
+### Зависимости
 
-**Partial dependency**: Occurs when the primary key determines some other attributes.
+**Частичная зависимость**: возникает, когда первичный ключ определяет некоторые другие атрибуты.
 
-**Functional dependency**: It is a relationship that exists between two attributes, typically between the primary key and non-key attribute within a table.
+**Функциональная зависимость**: это взаимосвязь между двумя атрибутами, как правило, между первичным ключом и неключевым атрибутом в таблице.
 
-**Transitive functional dependency**: Occurs when some non-key attribute determines some other attribute.
+**Транзитивная функциональная зависимость**: возникает, когда какой-либо неключевой атрибут определяет какой-либо другой атрибут.
 
-### Anomalies
+### Аномалии
 
-Database anomaly happens when there is a flaw in the database due to incorrect planning or storing everything in a flat database. This is generally addressed by the process of normalization.
+Аномалия базы данных возникает, когда в базе данных есть ошибка из-за неправильного планирования или хранения всех данных в плоской базе данных. Обычно это устраняется путем нормализации.
 
-There are three types of database anomalies:
+Существует три типа аномалий баз данных:
 
-**Insertion anomaly**: Occurs when we are not able to insert certain attributes in the database without the presence of other attributes.
+**Аномалия вставки**: возникает, когда невозможно вставить определенные атрибуты в базу данных без наличия других атрибутов.
 
-**Update anomaly**: Occurs in case of data redundancy and partial update. In other words, a correct update of the database needs other actions such as addition, deletion, or both.
+**Аномалия обновления**: возникает в случае избыточности данных и частичного обновления. Другими словами, для корректного обновления базы данных необходимы другие действия, такие как добавление, удаление или и то, и другое.
 
-**Deletion anomaly**: Occurs where deletion of some data requires deletion of other data.
+**Аномалия удаления**: возникает, когда удаление одних данных требует удаления других данных.
 
-**Example**
+**Пример**
 
-Let's consider the following table which is not normalized:
+Рассмотрим следующую ненормализованную таблицу:
 
-| ID  | Name   | Role              | Team |
+| ID | Имя | Роль | Команда |
 | --- | ------ | ----------------- | ---- |
-| 1   | Peter  | Software Engineer | A    |
-| 2   | Brian  | DevOps Engineer   | B    |
-| 3   | Hailey | Product Manager   | C    |
-| 4   | Hailey | Product Manager   | C    |
-| 5   | Steve  | Frontend Engineer | D    |
+| 1 | Питер | Программист | А |
+| 2 | Брайан | Инженер DevOps | B |
+| 3 | Хейли | Менеджер по продуктам | C |
+| 4 | Хейли | Менеджер по продуктам | C |
+| 5 | Стив | Фронтенд-инженер | D |
 
-Let's imagine, we hired a new person "John" but they might not be assigned a team immediately. This will cause an _insertion anomaly_ as the team attribute is not yet present.
+Представим, что мы приняли на работу нового сотрудника по имени "Джон", но ему могут не сразу назначить команду. Это вызовет "аномалию вставки", поскольку атрибут команды еще не присутствует.
 
-Next, let's say Hailey from Team C got promoted, to reflect that change in the database, we will need to update 2 rows to maintain consistency which can cause an _update anomaly_.
+Далее, предположим, что Хейли из команды C получила повышение. Чтобы отразить это изменение в базе данных, нам потребуется обновить 2 строки для обеспечения согласованности, что может вызвать _аномалию обновления_.
 
-Finally, we would like to remove Team B but to do that we will also need to remove additional information such as name and role, this is an example of a _deletion anomaly_.
+Наконец, мы хотели бы удалить команду B, но для этого нам также потребуется удалить дополнительную информацию, такую ​​как имя и роль; это пример аномалии удаления.
 
-## Normalization
+## Нормализация
 
-Normalization is the process of organizing data in a database. This includes creating tables and establishing relationships between those tables according to rules designed both to protect the data and to make the database more flexible by eliminating redundancy and inconsistent dependency.
+Нормализация — это процесс организации данных в базе данных. Он включает в себя создание таблиц и установление связей между этими таблицами в соответствии с правилами, разработанными как для защиты данных, так и для повышения гибкости базы данных за счет устранения избыточности и несогласованных зависимостей.
 
-### Why do we need normalization?
+### Зачем нам нужна нормализация?
 
-The goal of normalization is to eliminate redundant data and ensure data is consistent. A fully normalized database allows its structure to be extended to accommodate new types of data without changing the existing structure too much. As a result, applications interacting with the database are minimally affected.
+Цель нормализации — устранение избыточных данных и обеспечение их согласованности. Полностью нормализованная база данных позволяет расширять её структуру для размещения новых типов данных без существенного изменения существующей структуры. В результате приложения, взаимодействующие с базой данных, минимально затрагиваются.
 
-### Normal forms
+### Нормальные формы
 
-Normal forms are a series of guidelines to ensure that the database is normalized. Let's discuss some essential normal forms:
+Нормальные формы — это набор правил, обеспечивающих нормализацию базы данных. Давайте обсудим некоторые основные нормальные формы:
 
 **1NF**
 
-For a table to be in the first normal form (1NF), it should follow the following rules:
+Для того чтобы таблица находилась в первой нормальной форме (1НФ), она должна соответствовать следующим правилам:
 
-- Repeating groups are not permitted.
-- Identify each set of related data with a primary key.
-- Set of related data should have a separate table.
-- Mixing data types in the same column is not permitted.
+Повторное заполнение групп не допускается.
+- Каждый набор связанных данных идентифицируется с помощью первичного ключа.
+- Набор связанных данных должен быть представлен в отдельной таблице.
+— Смешивание типов данных в одном столбце не допускается.
 
 **2NF**
 
-For a table to be in the second normal form (2NF), it should follow the following rules:
+Для того чтобы таблица находилась во второй нормальной форме (2НФ), она должна соответствовать следующим правилам:
 
-- Satisfies the first normal form (1NF).
-- Should not have any partial dependency.
+- Соответствует первой нормальной форме (1НФ).
+- Не должно быть никаких частичных зависимостей.
 
 **3NF**
 
-For a table to be in the third normal form (3NF), it should follow the following rules:
+Для того чтобы таблица находилась в третьей нормальной форме (3НФ), она должна соответствовать следующим правилам:
 
-- Satisfies the second normal form (2NF).
-- Transitive functional dependencies are not permitted.
+- Соответствует второй нормальной форме (2NF).
+- Транзитивные функциональные зависимости не допускаются.
 
 **BCNF**
 
-Boyce-Codd normal form (or BCNF) is a slightly stronger version of the third normal form (3NF) used to address certain types of anomalies not dealt with by 3NF as originally defined. Sometimes it is also known as the 3.5 normal form (3.5NF).
+Нормальная форма Бойса-Кодда (или BCNF) — это несколько более сильная версия третьей нормальной формы (3NF), используемая для решения определенных типов аномалий, не рассматриваемых в первоначальном определении 3NF. Иногда её также называют 3,5-й нормальной формой (3,5NF).
 
-For a table to be in the Boyce-Codd normal form (BCNF), it should follow the following rules:
+Для того чтобы таблица находилась в нормальной форме Бойса-Кодда (НБКФ), она должна соответствовать следующим правилам:
 
-- Satisfied the third normal form (3NF).
-- For every functional dependency X → Y, X should be the super key.
+- Соответствует третьей нормальной форме (3НФ).
+- Для каждой функциональной зависимости X → Y, X должен быть суперключом.
 
-_There are more normal forms such as 4NF, 5NF, and 6NF but we won't discuss them here. Check out this [amazing video](https://www.youtube.com/watch?v=GFQaEYEc8_8) that goes into detail._
+Существуют и другие нормальные формы, такие как 4NF, 5NF и 6NF, но мы не будем их здесь обсуждать. Посмотрите это [замечательное видео](https://www.youtube.com/watch?v=GFQaEYEc8_8), где всё подробно объясняется.
 
-In a relational database, a relation is often described as _"normalized"_ if it meets the third normal form. Most 3NF relations are free of insertion, update, and deletion anomalies.
+В реляционной базе данных отношение часто описывается как «нормализованное», если оно соответствует третьей нормальной форме. Большинство отношений в 3НФ не содержат аномалий вставки, обновления и удаления.
 
-As with many formal rules and specifications, real-world scenarios do not always allow for perfect compliance. If you decide to violate one of the first three rules of normalization, make sure that your application anticipates any problems that could occur, such as redundant data and inconsistent dependencies.
+Как и в случае со многими формальными правилами и спецификациями, в реальных условиях идеального соответствия не всегда удается. Если вы решили нарушить одно из первых трех правил нормализации, убедитесь, что ваше приложение предусмотрело любые возможные проблемы, такие как избыточные данные и несогласованные зависимости.
 
-### Advantages
+### Преимущества
 
-Here are some advantages of normalization:
+Вот некоторые преимущества нормализации:
 
-- Reduces data redundancy.
-- Better data design.
-- Increases data consistency.
-- Enforces referential integrity.
+- Уменьшает избыточность данных.
+— Улучшенная структура данных.
+- Повышает согласованность данных.
+- Обеспечивает ссылочную целостность.
 
-### Disadvantages
+### Недостатки
 
-Let's look at some disadvantages of normalization:
+Рассмотрим некоторые недостатки нормализации:
 
-- Data design is complex.
-- Slower performance.
-- Maintenance overhead.
-- Require more joins.
+— Разработка структуры данных — сложный процесс.
+- Более низкая производительность.
+- Накладные расходы на техническое обслуживание.
+— Требуется больше соединений.
 
-## Denormalization
+## Денормализация
 
-Denormalization is a database optimization technique in which we add redundant data to one or more tables. This can help us avoid costly joins in a relational database. It attempts to improve read performance at the expense of some write performance. Redundant copies of the data are written in multiple tables to avoid expensive joins.
+Денормализация — это метод оптимизации баз данных, при котором в одну или несколько таблиц добавляются избыточные данные. Это помогает избежать дорогостоящих объединений в реляционной базе данных. Цель состоит в улучшении производительности чтения за счет снижения производительности записи. Избыточные копии данных записываются в несколько таблиц, чтобы избежать дорогостоящих объединений.
 
-Once data becomes distributed with techniques such as federation and sharding, managing joins across the network further increases complexity. Denormalization might circumvent the need for such complex joins.
+Когда данные распределяются с помощью таких методов, как федерация и шардинг, управление объединениями в сети еще больше усложняется. Денормализация может избавить от необходимости в таких сложных объединениях.
 
-_Note: Denormalization does not mean reversing normalization._
+Примечание: Денормализация не означает обратную нормализацию.
 
-### Advantages
+### Преимущества
 
-Let's look at some advantages of denormalization:
+Рассмотрим некоторые преимущества денормализации:
 
-- Retrieving data is faster.
-- Writing queries is easier.
-- Reduction in number of tables.
-- Convenient to manage.
+— Получение данных происходит быстрее.
+— Писать запросы проще.
+- Сокращение количества таблиц.
+- Удобно в управлении.
 
-### Disadvantages
+### Недостатки
 
-Below are some disadvantages of denormalization:
+Ниже перечислены некоторые недостатки денормализации:
 
-- Expensive inserts and updates.
-- Increases complexity of database design.
-- Increases data redundancy.
-- More chances of data inconsistency.
+- Дорогостоящие вставки и обновления.
+- Усложняет проектирование баз данных.
+- Увеличивает избыточность данных.
+— Повышается вероятность несоответствия данных.
 
-# ACID and BASE consistency models
+# Модели согласованности кислот и оснований
 
-Let's discuss the ACID and BASE consistency models.
+Давайте обсудим модели согласованности ACID и BASE.
 
-## ACID
+## КИСЛОТА
 
-The term ACID stands for Atomicity, Consistency, Isolation, and Durability. ACID properties are used for maintaining data integrity during transaction processing.
+Аббревиатура ACID расшифровывается как атомарность, согласованность, изоляция и долговечность. Свойства ACID используются для поддержания целостности данных во время обработки транзакций.
 
-In order to maintain consistency before and after a transaction relational databases follow ACID properties. Let us understand these terms:
+Для обеспечения согласованности до и после транзакции реляционные базы данных следуют свойствам ACID. Давайте разберемся в этих терминах:
 
-### Atomic
+### Атомный
 
-All operations in a transaction succeed or every operation is rolled back.
+Все операции в рамках транзакции завершаются успешно, либо все операции отменяются.
 
-### Consistent
+### Последовательный
 
-On the completion of a transaction, the database is structurally sound.
+После завершения транзакции база данных считается структурно корректной.
 
-### Isolated
+### Изолированный
 
-Transactions do not contend with one another. Contentious access to data is moderated by the database so that transactions appear to run sequentially.
+Транзакции не конкурируют друг с другом. Конфликтный доступ к данным регулируется базой данных, так что транзакции выглядят как выполняемые последовательно.
 
-### Durable
+### Прочный
 
-Once the transaction has been completed and the writes and updates have been written to the disk, it will remain in the system even if a system failure occurs.
+После завершения транзакции и записи данных на диск, они останутся в системе даже в случае системного сбоя.
 
-## BASE
+## БАЗА
 
-With the increasing amount of data and high availability requirements, the approach to database design has also changed dramatically. To increase the ability to scale and at the same time be highly available, we move the logic from the database to separate servers. In this way, the database becomes more independent and focused on the actual process of storing data.
+С ростом объёма данных и высокими требованиями к доступности подход к проектированию баз данных также претерпел значительные изменения. Для повышения масштабируемости и одновременно обеспечения высокой доступности мы переносим логику из базы данных на отдельные серверы. Таким образом, база данных становится более независимой и ориентированной на сам процесс хранения данных.
 
-In the NoSQL database world, ACID transactions are less common as some databases have loosened the requirements for immediate consistency, data freshness, and accuracy in order to gain other benefits, like scale and resilience.
+В мире баз данных NoSQL транзакции ACID встречаются реже, поскольку некоторые базы данных ослабили требования к мгновенной согласованности, актуальности и точности данных, чтобы получить другие преимущества, такие как масштабируемость и отказоустойчивость.
 
-BASE properties are much looser than ACID guarantees, but there isn't a direct one-for-one mapping between the two consistency models. Let us understand these terms:
+Свойства BASE гораздо менее строгие, чем гарантии ACID, но прямого соответствия между этими двумя моделями согласованности нет. Давайте разберемся в этих терминах:
 
-### Basic Availability
+### Базовая доступность
 
-The database appears to work most of the time.
+База данных, судя по всему, работает в большинстве случаев.
 
-### Soft-state
+### Мягкое состояние
 
-Stores don't have to be write-consistent, nor do different replicas have to be mutually consistent all the time.
+Магазины не обязаны обеспечивать согласованность при записи, и разные реплики не обязаны всегда быть взаимно согласованными.
 
-### Eventual consistency
+### В конечном итоге достигается согласованность
 
-The data might not be consistent immediately but eventually, it becomes consistent. Reads in the system are still possible even though they may not give the correct response due to inconsistency.
+Данные могут быть непоследовательными сразу, но со временем они становятся согласованными. Считывание данных в системе по-прежнему возможно, даже если из-за непоследовательности оно может не давать правильного ответа.
 
-## ACID vs BASE Trade-offs
+## Компромисс между кислотами и основаниями
 
-There's no right answer to whether our application needs an ACID or a BASE consistency model. Both the models have been designed to satisfy different requirements. While choosing a database we need to keep the properties of both the models and the requirements of our application in mind.
+Нет однозначного ответа на вопрос, нужна ли нашему приложению модель согласованности ACID или BASE. Обе модели разработаны для удовлетворения различных требований. При выборе базы данных необходимо учитывать свойства обеих моделей, а также требования нашего приложения.
 
-Given BASE's loose consistency, developers need to be more knowledgeable and rigorous about consistent data if they choose a BASE store for their application. It's essential to be familiar with the BASE behavior of the chosen database and work within those constraints.
+Учитывая нестрогую согласованность данных в BASE, разработчикам, выбравшим хранилище на основе BASE для своего приложения, необходимо обладать более глубокими знаниями и более строгим подходом к обеспечению согласованности данных. Крайне важно быть знакомым с особенностями работы выбранной базы данных в рамках BASE и работать в рамках этих ограничений.
 
-On the other hand, planning around BASE limitations can sometimes be a major disadvantage when compared to the simplicity of ACID transactions. A fully ACID database is the perfect fit for use cases where data reliability and consistency are essential.
+С другой стороны, планирование с учетом ограничений BASE иногда может быть существенным недостатком по сравнению с простотой ACID-транзакций. Полностью ACID-база данных идеально подходит для случаев, когда надежность и согласованность данных имеют первостепенное значение.
 
-# CAP Theorem
+# Теорема CAP
 
-CAP theorem states that a distributed system can deliver only two of the three desired characteristics Consistency, Availability, and Partition tolerance (CAP).
+Теорема CAP утверждает, что распределенная система может обеспечить только две из трех желаемых характеристик: согласованность, доступность и устойчивость к разделению (CAP).
 
 ![cap-theorem](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/cap-theorem/cap-theorem.png)
 
-Let's take a detailed look at the three distributed system characteristics to which the CAP theorem refers.
+Давайте подробно рассмотрим три характеристики распределенных систем, на которые ссылается теорема CAP.
 
-### Consistency
+### Последовательность
 
-Consistency means that all clients see the same data at the same time, no matter which node they connect to. For this to happen, whenever data is written to one node, it must be instantly forwarded or replicated across all the nodes in the system before the write is deemed "successful".
+Согласованность означает, что все клиенты видят одни и те же данные одновременно, независимо от того, к какому узлу они подключаются. Для этого всякий раз, когда данные записываются на один узел, они должны быть мгновенно перенаправлены или реплицированы на все узлы в системе, прежде чем запись будет считаться «успешной».
 
-### Availability
+### Доступность
 
-Availability means that any client making a request for data gets a response, even if one or more nodes are down.
+Доступность означает, что любой клиент, запрашивающий данные, получит ответ, даже если один или несколько узлов не работают.
 
-### Partition tolerance
+### Допуск разделения
 
-Partition tolerance means the system continues to work despite message loss or partial failure. A system that is partition-tolerant can sustain any amount of network failure that doesn't result in a failure of the entire network. Data is sufficiently replicated across combinations of nodes and networks to keep the system up through intermittent outages.
+Устойчивость к разделению сети означает, что система продолжает работать, несмотря на потерю сообщений или частичный сбой. Система, устойчивая к разделению сети, может выдерживать любой уровень сетевых сбоев, не приводящий к отказу всей сети. Данные достаточно реплицируются между различными комбинациями узлов и сетей, чтобы поддерживать работоспособность системы даже при периодических сбоях.
 
-## Consistency-Availability Tradeoff
+## Компромисс между согласованностью и доступностью
 
-We live in a physical world and can't guarantee the stability of a network, so distributed databases must choose Partition Tolerance (P). This implies a tradeoff between Consistency (C) and Availability (A).
+Мы живем в физическом мире и не можем гарантировать стабильность сети, поэтому распределенные базы данных должны выбирать устойчивость к разделению (P). Это подразумевает компромисс между согласованностью (C) и доступностью (A).
 
-### CA database
+### База данных CA
 
-A CA database delivers consistency and availability across all nodes. It can't do this if there is a partition between any two nodes in the system, and therefore can't deliver fault tolerance.
+База данных CA обеспечивает согласованность и доступность на всех узлах. Она не может этого обеспечить, если между любыми двумя узлами в системе существует разделение, и, следовательно, не может обеспечить отказоустойчивость.
 
-**Example**: [PostgreSQL](https://www.postgresql.org), [MariaDB](https://mariadb.org).
+**Пример**: [PostgreSQL](https://www.postgresql.org), [MariaDB](https://mariadb.org).
 
-### CP database
+### База данных CP
 
-A CP database delivers consistency and partition tolerance at the expense of availability. When a partition occurs between any two nodes, the system has to shut down the non-consistent node until the partition is resolved.
+База данных с поддержкой компоновки (CP) обеспечивает согласованность и устойчивость к разделению за счет доступности. При разделении данных между любыми двумя узлами система должна отключить несогласованный узел до тех пор, пока разделение не будет устранено.
 
-**Example**: [MongoDB](https://www.mongodb.com), [Apache HBase](https://hbase.apache.org).
+**Пример**: [MongoDB](https://www.mongodb.com), [Apache HBase](https://hbase.apache.org).
 
-### AP database
+### База данных AP
 
-An AP database delivers availability and partition tolerance at the expense of consistency. When a partition occurs, all nodes remain available but those at the wrong end of a partition might return an older version of data than others. When the partition is resolved, the AP databases typically re-syncs the nodes to repair all inconsistencies in the system.
+База данных AP обеспечивает доступность и устойчивость к разделению за счет согласованности данных. При разделении все узлы остаются доступными, но узлы, находящиеся в неправильной части раздела, могут возвращать более старую версию данных, чем другие. После устранения раздела база данных AP обычно повторно синхронизирует узлы для исправления всех несоответствий в системе.
 
-**Example**: [Apache Cassandra](https://cassandra.apache.org), [CouchDB](https://couchdb.apache.org).
+**Пример**: [Apache Cassandra](https://cassandra.apache.org), [CouchDB](https://couchdb.apache.org).
 
-# PACELC Theorem
+# Теорема PACELC
 
-The PACELC theorem is an extension of the CAP theorem. The CAP theorem states that in the case of network partitioning (P) in a distributed system, one has to choose between Availability (A) and Consistency (C).
+Теорема PACELC является расширением теоремы CAP. Теорема CAP утверждает, что в случае разделения сети (P) в распределенной системе необходимо выбирать между доступностью (A) и согласованностью (C).
 
-PACELC extends the CAP theorem by introducing latency (L) as an additional attribute of a distributed system. The theorem states that else (E), even when the system is running normally in the absence of partitions, one has to choose between latency (L) and consistency (C).
+PACELC расширяет теорему CAP, вводя задержку (L) в качестве дополнительного атрибута распределенной системы. Теорема утверждает, что в противном случае (E), даже если система работает нормально при отсутствии разделений, необходимо выбирать между задержкой (L) и согласованностью (C).
 
-_The PACELC theorem was first described by [Daniel J. Abadi](https://scholar.google.com/citations?user=zxeEF2gAAAAJ)._
+Теорема PACELC была впервые описана [Даниэлем Дж. Абади](https://scholar.google.com/citations?user=zxeEF2gAAAAJ).
 
 ![pacelc-theorem](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/pacelc-theorem/pacelc-theorem.png)
 
-PACELC theorem was developed to address a key limitation of the CAP theorem as it makes no provision for performance or latency.
+Теорема PACELC была разработана для устранения ключевого ограничения теоремы CAP, поскольку она не предусматривает учета производительности или задержки.
 
-For example, according to the CAP theorem, a database can be considered available if a query returns a response after 30 days. Obviously, such latency would be unacceptable for any real-world application.
+Например, согласно теореме CAP, база данных считается доступной, если запрос возвращает ответ через 30 дней. Очевидно, что такая задержка неприемлема для любого реального приложения.
 
-# Transactions
+# Транзакции
 
-A transaction is a series of database operations that are considered to be a _"single unit of work"_. The operations in a transaction either all succeed, or they all fail. In this way, the notion of a transaction supports data integrity when part of a system fails. Not all databases choose to support ACID transactions, usually because they are prioritizing other optimizations that are hard or theoretically impossible to implement together.
+Транзакция — это последовательность операций с базой данных, которые рассматриваются как «единая единица работы». Все операции в транзакции либо успешно завершаются, либо завершаются с ошибкой. Таким образом, понятие транзакции обеспечивает целостность данных при сбое части системы. Не все базы данных поддерживают ACID-транзакции, обычно потому, что они отдают приоритет другим оптимизациям, которые трудно или теоретически невозможно реализовать одновременно.
 
-_Usually, relational databases support ACID transactions, and non-relational databases don't (there are exceptions)._
+Как правило, реляционные базы данных поддерживают ACID-транзакции, а нереляционные — нет (есть исключения).
 
-## States
+## Штаты
 
-A transaction in a database can be in one of the following states:
+Транзакция в базе данных может находиться в одном из следующих состояний:
 
 ![transaction-states](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/transactions/transaction-states.png)
 
-### Active
+### Активный
 
-In this state, the transaction is being executed. This is the initial state of every transaction.
+В этом состоянии транзакция выполняется. Это начальное состояние каждой транзакции.
 
-### Partially Committed
+### Частично подтверждено
 
-When a transaction executes its final operation, it is said to be in a partially committed state.
+Когда транзакция завершает свою операцию, говорят, что она находится в частично зафиксированном состоянии.
 
-### Committed
+### Преданный идее
 
-If a transaction executes all its operations successfully, it is said to be committed. All its effects are now permanently established on the database system.
+Если транзакция успешно выполняет все свои операции, она считается зафиксированной. Все её последствия теперь навсегда занесены в систему базы данных.
 
-### Failed
+### Неуспешный
 
-The transaction is said to be in a failed state if any of the checks made by the database recovery system fails. A failed transaction can no longer proceed further.
+Транзакция считается неудачной, если хотя бы одна из проверок, выполняемых системой восстановления базы данных, не проходит. Неудачная транзакция больше не может быть продолжена.
 
-### Aborted
+### Прервано
 
-If any of the checks fail and the transaction has reached a failed state, then the recovery manager rolls back all its write operations on the database to bring the database back to its original state where it was prior to the execution of the transaction. Transactions in this state are aborted.
+Если какая-либо из проверок не пройдена и транзакция достигла состояния сбоя, менеджер восстановления откатывает все операции записи в базу данных, чтобы вернуть ее в исходное состояние, в котором она находилась до выполнения транзакции. Транзакции в этом состоянии прерываются.
 
-The database recovery module can select one of the two operations after a transaction aborts:
+После прерывания транзакции модуль восстановления базы данных может выбрать одну из двух операций:
 
-- Restart the transaction
-- Kill the transaction
+- Перезапустить транзакцию
+- Прервать транзакцию
 
-### Terminated
+### Завершено
 
-If there isn't any roll-back or the transaction comes from the _committed state_, then the system is consistent and ready for a new transaction and the old transaction is terminated.
+Если откат транзакции не происходит или она поступает из состояния _committed_, то система согласована и готова к новой транзакции, а старая транзакция завершается.
 
-# Distributed Transactions
+# Распределенные транзакции
 
-A distributed transaction is a set of operations on data that is performed across two or more databases. It is typically coordinated across separate nodes connected by a network, but may also span multiple databases on a single server.
+Распределенная транзакция — это набор операций над данными, выполняемых в двух или более базах данных. Как правило, она координируется между отдельными узлами, соединенными сетью, но может также охватывать несколько баз данных на одном сервере.
 
-## Why do we need distributed transactions?
+## Зачем нам нужны распределенные транзакции?
 
-Unlike an ACID transaction on a single database, a distributed transaction involves altering data on multiple databases. Consequently, distributed transaction processing is more complicated, because the database must coordinate the committing or rollback of the changes in a transaction as a self-contained unit.
+В отличие от ACID-транзакций в одной базе данных, распределенные транзакции предполагают изменение данных в нескольких базах данных. Следовательно, обработка распределенных транзакций сложнее, поскольку база данных должна координировать фиксацию или откат изменений в транзакции как самодостаточный блок.
 
-In other words, all the nodes must commit, or all must abort and the entire transaction rolls back. This is why we need distributed transactions.
+Иными словами, все узлы должны подтвердить транзакцию, или все должны прервать её, и вся транзакция будет отменена. Именно поэтому нам нужны распределённые транзакции.
 
-Now, let's look at some popular solutions for distributed transactions:
+Теперь давайте рассмотрим несколько популярных решений для распределенных транзакций:
 
-## Two-Phase commit
+## Двухфазная фиксация
 
 ![two-phase-commit](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/distributed-transactions/two-phase-commit.png)
 
-The two-phase commit (2PC) protocol is a distributed algorithm that coordinates all the processes that participate in a distributed transaction on whether to commit or abort (roll back) the transaction.
+Протокол двухфазной фиксации (2PC) — это распределенный алгоритм, который координирует все процессы, участвующие в распределенной транзакции, в решении вопроса о том, следует ли фиксировать или прерывать (откатывать) транзакцию.
 
-This protocol achieves its goal even in many cases of temporary system failure and is thus widely used. However, it is not resilient to all possible failure configurations, and in rare cases, manual intervention is needed to remedy an outcome.
+Этот протокол достигает своей цели даже во многих случаях временных сбоев системы и поэтому широко используется. Однако он не устойчив ко всем возможным конфигурациям сбоев, и в редких случаях для исправления ситуации требуется ручное вмешательство.
 
-This protocol requires a coordinator node, which basically coordinates and oversees the transaction across different nodes. The coordinator tries to establish the consensus among a set of processes in two phases, hence the name.
+Этот протокол требует наличия узла-координатора, который, по сути, координирует и контролирует транзакции между различными узлами. Координатор пытается установить консенсус между набором процессов в два этапа, отсюда и название.
 
-### Phases
+### Фазы
 
-Two-phase commit consists of the following phases:
+Двухфазная фиксация состоит из следующих этапов:
 
-**Prepare phase**
+**Этап подготовки**
 
-The prepare phase involves the coordinator node collecting consensus from each of the participant nodes. The transaction will be aborted unless each of the nodes responds that they're _prepared_.
+На этапе подготовки узел-координатор собирает согласованные данные от каждого из узлов-участников. Транзакция будет прервана, если ни один из узлов не подтвердит свою готовность.
 
-**Commit phase**
+**Этап подтверждения**
 
-If all participants respond to the coordinator that they are _prepared_, then the coordinator asks all the nodes to commit the transaction. If a failure occurs, the transaction will be rolled back.
+Если все участники ответят координатору, что они _готовы_, то координатор запросит у всех узлов подтверждение транзакции. В случае сбоя транзакция будет отменена.
 
-### Problems
+### Проблемы
 
-Following problems may arise in the two-phase commit protocol:
+В протоколе двухфазной фиксации могут возникнуть следующие проблемы:
 
-- What if one of the nodes crashes?
-- What if the coordinator itself crashes?
-- It is a blocking protocol.
+— Что произойдет, если один из узлов выйдет из строя?
+— А что, если сам координатор выйдет из строя?
+— Это блокирующий протокол.
 
-## Three-phase commit
+## Трехфазная фиксация
 
 ![three-phase-commit](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/distributed-transactions/three-phase-commit.png)
 
-Three-phase commit (3PC) is an extension of the two-phase commit where the commit phase is split into two phases. This helps with the blocking problem that occurs in the two-phase commit protocol.
+Трехфазная фиксация (3PC) — это расширение двухфазной фиксации, в котором фаза фиксации разделена на две части. Это помогает решить проблему блокировки, возникающую в двухфазном протоколе фиксации.
 
-### Phases
+### Фазы
 
-Three-phase commit consists of the following phases:
+Трехфазная фиксация состоит из следующих этапов:
 
-**Prepare phase**
+**Этап подготовки**
 
-This phase is the same as the two-phase commit.
+Этот этап аналогичен двухфазной фиксации изменений.
 
-**Pre-commit phase**
+**Этап предварительного подтверждения**
 
-Coordinator issues the pre-commit message and all the participating nodes must acknowledge it. If a participant fails to receive this message in time, then the transaction is aborted.
+Координатор отправляет предварительное сообщение, и все участвующие узлы должны его подтвердить. Если участник не получит это сообщение вовремя, транзакция будет прервана.
 
-**Commit phase**
+**Этап подтверждения**
 
-This step is also similar to the two-phase commit protocol.
+Этот шаг также аналогичен двухфазному протоколу подтверждения.
 
-### Why is the Pre-commit phase helpful?
+### Почему фаза предварительного подтверждения полезна?
 
-The pre-commit phase accomplishes the following:
+На этапе предварительного подтверждения выполняются следующие действия:
 
-- If the participant nodes are found in this phase, that means that _every_ participant has completed the first phase. The completion of prepare phase is guaranteed.
-- Every phase can now time out and avoid indefinite waits.
+— Если узлы-участники обнаружены на этом этапе, это означает, что _каждый_ участник завершил первый этап. Завершение этапа подготовки гарантировано.
+— Теперь каждый этап может завершаться по истечении определенного времени, что позволяет избежать бесконечных ожиданий.
 
-## Sagas
+## Саги
 
 ![sagas](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/distributed-transactions/sagas.png)
 
-A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.
+Сага — это последовательность локальных транзакций. Каждая локальная транзакция обновляет базу данных и публикует сообщение или событие, запускающее следующую локальную транзакцию в саге. Если локальная транзакция завершается неудачей из-за нарушения бизнес-правила, сага выполняет серию компенсирующих транзакций, которые отменяют изменения, внесенные предыдущими локальными транзакциями.
 
-### Coordination
+### Координация
 
-There are two common implementation approaches:
+Существует два распространенных подхода к реализации:
 
-- **Choreography**: Each local transaction publishes domain events that trigger local transactions in other services.
-- **Orchestration**: An orchestrator tells the participants what local transactions to execute.
+- **Хореография**: Каждая локальная транзакция публикует события домена, которые запускают локальные транзакции в других сервисах.
+- **Оркестровка**: Оркестратор указывает участникам, какие локальные транзакции необходимо выполнить.
 
-### Problems
+### Проблемы
 
-- The Saga pattern is particularly hard to debug.
-- There's a risk of cyclic dependency between saga participants.
-- Lack of participant data isolation imposes durability challenges.
-- Testing is difficult because all services must be running to simulate a transaction.
+— Паттерн «Сага» особенно сложно отлаживать.
+— Существует риск циклической зависимости между участниками саги.
+- Отсутствие изоляции данных участников создает проблемы с обеспечением их надежности.
+Тестирование затруднено, поскольку для имитации транзакции необходимо, чтобы все сервисы работали.
 
-# Sharding
+# Шардинг
 
-Before we discuss sharding, let's talk about data partitioning:
+Прежде чем обсуждать шардинг, давайте поговорим о разделении данных:
 
-## Data Partitioning
+## Разделение данных
 
-Data partitioning is a technique to break up a database into many smaller parts. It is the process of splitting up a database or a table across multiple machines to improve the manageability, performance, and availability of a database.
+Разделение данных на части — это метод, позволяющий разбить базу данных на множество более мелких частей. Это процесс разделения базы данных или таблицы на несколько машин для повышения управляемости, производительности и доступности базы данных.
 
-### Methods
+### Методы
 
-There are many different ways one could use to decide how to break up an application database into multiple smaller DBs. Below are two of the most popular methods used by various large-scale applications:
+Существует множество различных способов разбить базу данных приложения на несколько меньших баз данных. Ниже приведены два наиболее популярных метода, используемых в различных крупномасштабных приложениях:
 
-**Horizontal Partitioning (or Sharding)**
+**Горизонтальное разбиение (или сегментирование)**
 
-In this strategy, we split the table data horizontally based on the range of values defined by the _partition key_. It is also referred to as **_database sharding_**.
+В этой стратегии мы разделяем данные таблицы горизонтально на основе диапазона значений, определенного ключом раздела. Это также называется **шардингом базы данных**.
 
-**Vertical Partitioning**
+**Вертикальное разделение**
 
-In vertical partitioning, we partition the data vertically based on columns. We divide tables into relatively smaller tables with few elements, and each part is present in a separate partition.
+При вертикальном секционировании мы разделяем данные вертикально на основе столбцов. Мы делим таблицы на относительно меньшие таблицы с небольшим количеством элементов, и каждая часть находится в отдельном разделе.
 
-In this tutorial, we will specifically focus on sharding.
+В этом уроке мы сосредоточимся именно на сегментировании данных.
 
-## What is sharding?
+## Что такое шардинг?
 
-Sharding is a database architecture pattern related to _horizontal partitioning_, which is the practice of separating one table's rows into multiple different tables, known as _partitions_ or _shards_. Each partition has the same schema and columns, but also a subset of the shared data. Likewise, the data held in each is unique and independent of the data held in other partitions.
+Шардинг — это архитектурный шаблон базы данных, связанный с горизонтальным секционированием, то есть практикой разделения строк одной таблицы на несколько разных таблиц, известных как разделы или шарды. Каждый раздел имеет одинаковую схему и столбцы, но также и подмножество общих данных. Аналогично, данные, хранящиеся в каждом разделе, уникальны и независимы от данных, хранящихся в других разделах.
 
-![sharding](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/sharding/sharding.png)
+![шардинг](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/sharding/sharding.png)
 
-The justification for data sharding is that, after a certain point, it is cheaper and more feasible to scale horizontally by adding more machines than to scale it vertically by adding powerful servers. Sharding can be implemented at both application or the database level.
+Обоснование сегментирования данных заключается в том, что после определенного момента горизонтальное масштабирование за счет добавления большего количества машин становится дешевле и целесообразнее, чем вертикальное масштабирование за счет добавления мощных серверов. Сегментирование может быть реализовано как на уровне приложения, так и на уровне базы данных.
 
-## Partitioning criteria
+## Критерии разделения
 
-There are a large number of criteria available for data partitioning. Some most commonly used criteria are:
+Существует большое количество критериев для разделения данных на разделы. Наиболее часто используемые критерии:
 
-### Hash-Based
+### На основе хеширования
 
-This strategy divides the rows into different partitions based on a hashing algorithm rather than grouping database rows based on continuous indexes.
+Эта стратегия разделяет строки на различные разделы на основе алгоритма хеширования, а не группирует строки базы данных на основе непрерывных индексов.
 
-The disadvantage of this method is that dynamically adding/removing database servers becomes expensive.
+Недостатком этого метода является то, что динамическое добавление/удаление серверов баз данных становится дорогостоящим процессом.
 
-### List-Based
+### На основе списков
 
-In list-based partitioning, each partition is defined and selected based on the list of values on a column rather than a set of contiguous ranges of values.
+При секционировании на основе списков каждая секция определяется и выбирается на основе списка значений в столбце, а не набора смежных диапазонов значений.
 
-### Range Based
+### На основе диапазона
 
-Range partitioning maps data to various partitions based on ranges of values of the partitioning key. In other words, we partition the table in such a way that each partition contains rows within a given range defined by the partition key.
+Диапазонное секционирование сопоставляет данные с различными разделами на основе диапазонов значений ключа секционирования. Другими словами, мы разделяем таблицу таким образом, чтобы каждый раздел содержал строки в пределах заданного диапазона, определенного ключом секционирования.
 
-Ranges should be contiguous but not overlapping, where each range specifies a non-inclusive lower and upper bound for a partition. Any partitioning key values equal to or higher than the upper bound of the range are added to the next partition.
+Диапазоны должны быть смежными, но не перекрывающимися, при этом каждый диапазон задает не включающую нижнюю и верхнюю границы для раздела. Любые значения ключа раздела, равные или превышающие верхнюю границу диапазона, добавляются к следующему разделу.
 
-### Composite
+### Композитный
 
-As the name suggests, composite partitioning partitions the data based on two or more partitioning techniques. Here we first partition the data using one technique, and then each partition is further subdivided into sub-partitions using the same or some other method.
+Как следует из названия, композитное разбиение разделяет данные на основе двух или более методов разбиения. В данном случае мы сначала разбиваем данные, используя один метод, а затем каждый раздел дополнительно подразделяется на подразделы, используя тот же или другой метод.
 
-## Advantages
+## Преимущества
 
-But why do we need sharding? Here are some advantages:
+Но зачем нам нужно сегментирование? Вот некоторые преимущества:
 
-- **Availability**: Provides logical independence to the partitioned database, ensuring the high availability of our application. Here individual partitions can be managed independently.
-- **Scalability**: Proves to increase scalability by distributing the data across multiple partitions.
-- **Security**: Helps improve the system's security by storing sensitive and non-sensitive data in different partitions. This could provide better manageability and security to sensitive data.
-- **Query Performance**: Improves the performance of the system. Instead of querying the whole database, now the system has to query only a smaller partition.
-- **Data Manageability**: Divides tables and indexes into smaller and more manageable units.
+- **Доступность**: Обеспечивает логическую независимость секционированной базы данных, гарантируя высокую доступность нашего приложения. Здесь отдельные разделы могут управляться независимо.
+- **Масштабируемость**: Обеспечивает повышение масштабируемости за счет распределения данных по нескольким разделам.
+- **Безопасность**: Способствует повышению безопасности системы за счет хранения конфиденциальных и неконфиденциальных данных в разных разделах. Это обеспечивает лучшую управляемость и безопасность конфиденциальных данных.
+- **Повышение производительности запросов**: Улучшает производительность системы. Вместо запроса ко всей базе данных, теперь системе достаточно запросить только меньший раздел.
+- **Управляемость данных**: Разделяет таблицы и индексы на более мелкие и удобные для управления единицы.
 
-## Disadvantages
+## Недостатки
 
-- **Complexity**: Sharding increases the complexity of the system in general.
-- **Joins across shards**: Once a database is partitioned and spread across multiple machines it is often not feasible to perform joins that span multiple database shards. Such joins will not be performance efficient since data has to be retrieved from multiple servers.
-- **Rebalancing**: If the data distribution is not uniform or there is a lot of load on a single shard, in such cases, we have to rebalance our shards so that the requests are as equally distributed among the shards as possible.
+- **Сложность**: Шардинг увеличивает сложность системы в целом.
+- **Объединения между сегментами**: После того, как база данных разделена на разделы и распределена по нескольким машинам, часто становится нецелесообразным выполнять объединения, охватывающие несколько сегментов базы данных. Такие объединения не будут эффективными с точки зрения производительности, поскольку данные необходимо получать с нескольких серверов.
+- **Перебалансировка**: Если распределение данных неравномерно или на один сегмент приходится большая нагрузка, в таких случаях необходимо перебалансировать сегменты таким образом, чтобы запросы были максимально равномерно распределены между ними.
 
-## When to use sharding?
+## Когда следует использовать шардинг?
 
-Here are some reasons why sharding might be the right choice:
+Вот несколько причин, почему шардинг может быть правильным выбором:
 
-- Leveraging existing hardware instead of high-end machines.
-- Maintain data in distinct geographic regions.
-- Quickly scale by adding more shards.
-- Better performance as each machine is under less load.
-- When more concurrent connections are required.
+- Использование существующего оборудования вместо высокопроизводительных машин.
+- Поддерживать актуальность данных в различных географических регионах.
+- Быстрое масштабирование за счет добавления новых осколков.
+- Более высокая производительность, поскольку каждая машина работает под меньшей нагрузкой.
+- Когда требуется больше одновременных подключений.
 
-# Consistent Hashing
+# Последовательное хеширование
 
-Let's first understand the problem we're trying to solve.
+Давайте сначала разберемся, какую проблему мы пытаемся решить.
 
-## Why do we need this?
+## Зачем нам это нужно?
 
-In traditional hashing-based distribution methods, we use a hash function to hash our partition keys (i.e. request ID or IP). Then if we use the modulo against the total number of nodes (server or databases). This will give us the node where we want to route our request.
+В традиционных методах распределения на основе хеширования мы используем хеш-функцию для хеширования ключей раздела (например, идентификатора запроса или IP-адреса). Затем, если мы используем остаток от деления на общее количество узлов (серверов или баз данных), это даст нам узел, на который мы хотим направить наш запрос.
 
 ![simple-hashing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/consistent-hashing/simple-hashing.png)
 
 $$
 \begin{align*}
-& Hash(key_1) \to H_1 \bmod N = Node_0 \\
-& Hash(key_2) \to H_2 \bmod N = Node_1 \\
-& Hash(key_3) \to H_3 \bmod N = Node_2 \\
+& Хэш(ключ_1) \to H_1 \bmod N = Node_0 \\
+& Хэш(ключ_2) \to H_2 \bmod N = Node_1 \\
+& Хэш(ключ_3) \to H_3 \bmod N = Node_2 \\
 & ... \\
 & Hash(key_n) \to H_n \bmod N = Node_{n-1}
 \end{align*}
 $$
 
-Where,
+Где,
 
-`key`: Request ID or IP.
+`key`: Идентификатор запроса или IP-адрес.
 
-`H`: Hash function result.
+`H`: Результат хеш-функции.
 
-`N`: Total number of nodes.
+`N`: Общее количество узлов.
 
-`Node`: The node where the request will be routed.
+`Узел`: Узел, через который будет перенаправлен запрос.
 
-The problem with this is if we add or remove a node, it will cause `N` to change, meaning our mapping strategy will break as the same requests will now map to a different server. As a consequence, the majority of requests will need to be redistributed which is very inefficient.
+Проблема в том, что добавление или удаление узла приведет к изменению `N`, а это значит, что наша стратегия сопоставления нарушится, поскольку те же самые запросы теперь будут сопоставляться с другим сервером. В результате большинство запросов придется перераспределять, что крайне неэффективно.
 
-We want to uniformly distribute requests among different nodes such that we should be able to add or remove nodes with minimal effort. Hence, we need a distribution scheme that does not depend directly on the number of nodes (or servers), so that, when adding or removing nodes, the number of keys that need to be relocated is minimized.
+Мы хотим равномерно распределять запросы между различными узлами таким образом, чтобы добавление или удаление узлов осуществлялось с минимальными усилиями. Следовательно, нам нужна схема распределения, которая не зависит напрямую от количества узлов (или серверов), чтобы при добавлении или удалении узлов количество ключей, которые необходимо переместить, было сведено к минимуму.
 
-Consistent hashing solves this horizontal scalability problem by ensuring that every time we scale up or down, we do not have to re-arrange all the keys or touch all the servers.
+Последовательное хеширование решает проблему горизонтальной масштабируемости, гарантируя, что при каждом увеличении или уменьшении масштаба нам не придется перестраивать все ключи или затрагивать все серверы.
 
-Now that we understand the problem, let's discuss consistent hashing in detail.
+Теперь, когда мы понимаем проблему, давайте подробно обсудим согласованное хеширование.
 
-## How does it work
+Как это работает?
 
-Consistent Hashing is a distributed hashing scheme that operates independently of the number of nodes in a distributed hash table by assigning them a position on an abstract circle, or hash ring. This allows servers and objects to scale without affecting the overall system.
+Последовательное хеширование — это распределенная схема хеширования, которая работает независимо от количества узлов в распределенной хеш-таблице, назначая им позицию на абстрактном круге, или хеш-кольце. Это позволяет масштабировать серверы и объекты без влияния на общую систему.
 
 ![consistent-hashing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/consistent-hashing/consistent-hashing.png)
 
-Using consistent hashing, only `K/N` data would require re-distributing.
+При использовании согласованного хеширования перераспределение потребуется только для данных типа `K/N`.
 
 $$
 R = K/N
 $$
 
-Where,
+Где,
 
-`R`: Data that would require re-distribution.
+`R`: Данные, которые потребуют повторного распространения.
 
-`K`: Number of partition keys.
+`K`: Количество ключей раздела.
 
-`N`: Number of nodes.
+`N`: Количество узлов.
 
-The output of the hash function is a range let's say `0...m-1` which we can represent on our hash ring. We hash the requests and distribute them on the ring depending on what the output was. Similarly, we also hash the node and distribute them on the same ring as well.
+Выход хеш-функции — это диапазон, скажем, `0...m-1`, который мы можем представить на нашем хеш-кольце. Мы хешируем запросы и распределяем их по кольцу в зависимости от полученного результата. Аналогичным образом мы также хешируем узлы и распределяем их по тому же кольцу.
 
 $$
 \begin{align*}
-& Hash(key_1) = P_1 \\
-& Hash(key_2) = P_2 \\
-& Hash(key_3) = P_3 \\
+& Хэш(ключ_1) = P_1 \\
+& Хэш(ключ_2) = P_2 \\
+& Хэш(ключ_3) = P_3 \\
 & ... \\
-& Hash(key_n) = P_{m-1}
+& Хэш(ключ_n) = P_{m-1}
 \end{align*}
 $$
 
-Where,
+Где,
 
-`key`: Request/Node ID or IP.
+`key`: Идентификатор запроса/узла или IP-адрес.
 
-`P`: Position on the hash ring.
+`P`: Позиция на хеш-кольце.
 
-`m`: Total range of the hash ring.
+`m`: Общий диапазон хеш-кольца.
 
-Now, when the request comes in we can simply route it to the closest node in a clockwise (can be counterclockwise as well) manner. This means that if a new node is added or removed, we can use the nearest node and only a _fraction_ of the requests need to be re-routed.
+Теперь, когда поступает запрос, мы можем просто перенаправить его на ближайший узел по часовой стрелке (можно и против часовой стрелки). Это означает, что если добавляется или удаляется новый узел, мы можем использовать ближайший узел, и перенаправлять нужно будет лишь _небольшую_ часть запросов.
 
-In theory, consistent hashing should distribute the load evenly however it doesn't happen in practice. Usually, the load distribution is uneven and one server may end up handling the majority of the request becoming a _hotspot_, essentially a bottleneck for the system. We can fix this by adding extra nodes but that can be expensive.
+Теоретически, согласованное хеширование должно равномерно распределять нагрузку, однако на практике это не происходит. Обычно распределение нагрузки неравномерно, и один сервер может обрабатывать большую часть запросов, становясь, по сути, «горячей точкой», узким местом для системы. Мы можем решить эту проблему, добавив дополнительные узлы, но это может быть дорого.
 
-Let's see how we can address these issues.
+Давайте посмотрим, как мы можем решить эти проблемы.
 
-## Virtual Nodes
+## Виртуальные узлы
 
-In order to ensure a more evenly distributed load, we can introduce the idea of a virtual node, sometimes also referred to as a VNode.
+Для обеспечения более равномерного распределения нагрузки можно ввести понятие виртуального узла, иногда также называемого VNode.
 
-Instead of assigning a single position to a node, the hash range is divided into multiple smaller ranges, and each physical node is assigned several of these smaller ranges. Each of these subranges is considered a VNode. Hence, virtual nodes are basically existing physical nodes mapped multiple times across the hash ring to minimize changes to a node's assigned range.
+Вместо того чтобы назначать узлу одну позицию, диапазон хеша делится на несколько меньших диапазонов, и каждому физическому узлу назначается несколько из этих меньших диапазонов. Каждый из этих поддиапазонов считается виртуальным узлом (VNode). Таким образом, виртуальные узлы — это, по сути, существующие физические узлы, многократно отображаемые в хеш-кольце для минимизации изменений в назначенном узлу диапазоне.
 
 ![virtual-nodes](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/consistent-hashing/virtual-nodes.png)
 
-For this, we can use `k` number of hash functions.
+Для этого мы можем использовать `k` хеш-функций.
 
 $$
 \begin{align*}
@@ -1913,558 +1913,558 @@ $$
 \end{align*}
 $$
 
-Where,
+Где,
 
-`key`: Request/Node ID or IP.
+`key`: Идентификатор запроса/узла или IP-адрес.
 
-`k`: Number of hash functions.
+`k`: Количество хеш-функций.
 
-`P`: Position on the hash ring.
+`P`: Позиция на хеш-кольце.
 
-`m`: Total range of the hash ring.
+`m`: Общий диапазон хеш-кольца.
 
-As VNodes help spread the load more evenly across the physical nodes on the cluster by dividing the hash ranges into smaller subranges, this speeds up the re-balancing process after adding or removing nodes. This also helps us reduce the probability of hotspots.
+Поскольку виртуальные узлы (VNodes) помогают более равномерно распределять нагрузку между физическими узлами кластера, разделяя диапазоны хешей на более мелкие поддиапазоны, это ускоряет процесс перебалансировки после добавления или удаления узлов. Это также помогает снизить вероятность возникновения «горячих точек».
 
-## Data Replication
+## Репликация данных
 
-To ensure high availability and durability, consistent hashing replicates each data item on multiple `N` nodes in the system where the value `N` is equivalent to the _replication factor_.
+Для обеспечения высокой доступности и надежности согласованное хеширование реплицирует каждый элемент данных на нескольких узлах системы со значением `N`, где значение `N` эквивалентно _коэффициенту репликации_.
 
-The replication factor is the number of nodes that will receive the copy of the same data. In eventually consistent systems, this is done asynchronously.
+Коэффициент репликации — это количество узлов, которые получат копию одних и тех же данных. В системах с гарантированной согласованностью данных это происходит асинхронно.
 
-## Advantages
+## Преимущества
 
-Let's look at some advantages of consistent hashing:
+Рассмотрим некоторые преимущества согласованного хеширования:
 
-- Makes rapid scaling up and down more predictable.
-- Facilitates partitioning and replication across nodes.
-- Enables scalability and availability.
-- Reduces hotspots.
+- Делает быстрое масштабирование вверх и вниз более предсказуемым.
+- Обеспечивает разделение и репликацию данных между узлами.
+- Обеспечивает масштабируемость и доступность.
+- Уменьшает количество зон перегрева.
 
-## Disadvantages
+## Недостатки
 
-Below are some disadvantages of consistent hashing:
+Ниже перечислены некоторые недостатки согласованного хеширования:
 
-- Increases complexity.
-- Cascading failures.
-- Load distribution can still be uneven.
-- Key management can be expensive when nodes transiently fail.
+- Усложняет процесс.
+- Каскадные сбои.
+- Распределение нагрузки по-прежнему может быть неравномерным.
+- Управление ключами может быть дорогостоящим, когда узлы временно выходят из строя.
 
-## Examples
+## Примеры
 
-Let's look at some examples where consistent hashing is used:
+Рассмотрим несколько примеров использования согласованного хеширования:
 
-- Data partitioning in [Apache Cassandra](https://cassandra.apache.org).
-- Load distribution across multiple storage hosts in [Amazon DynamoDB](https://aws.amazon.com/dynamodb).
+- Разделение данных в [Apache Cassandra](https://cassandra.apache.org).
+- Распределение нагрузки между несколькими хостами хранения в [Amazon DynamoDB](https://aws.amazon.com/dynamodb).
 
-# Database Federation
+# Федерация баз данных
 
-Federation (or functional partitioning) splits up databases by function. The federation architecture makes several distinct physical databases appear as one logical database to end-users.
+Федерация (или функциональное разделение) разделяет базы данных по функциям. Федеративная архитектура позволяет конечным пользователям воспринимать несколько отдельных физических баз данных как одну логическую базу данных.
 
-All of the components in a federation are tied together by one or more federal schemas that express the commonality of data throughout the federation. These federated schemas are used to specify the information that can be shared by the federation components and to provide a common basis for communication among them.
+Все компоненты федерации связаны между собой одной или несколькими федеральными схемами, которые выражают общность данных во всей федерации. Эти федеративные схемы используются для определения информации, которая может быть доступна компонентам федерации, и для обеспечения общей основы для обмена данными между ними.
 
 ![database-federation](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/database-federation/database-federation.png)
 
-Federation also provides a cohesive, unified view of data derived from multiple sources. The data sources for federated systems can include databases and various other forms of structured and unstructured data.
+Федерация также обеспечивает целостное, единое представление данных, полученных из множества источников. Источниками данных для федеративных систем могут быть базы данных и различные другие формы структурированных и неструктурированных данных.
 
-## Characteristics
+## Характеристики
 
-Let's look at some key characteristics of a federated database:
+Рассмотрим некоторые ключевые характеристики федеративной базы данных:
 
-- **Transparency**: Federated database masks user differences and implementations of underlying data sources. Therefore, the users do not need to be aware of where the data is stored.
-- **Heterogeneity**: Data sources can differ in many ways. A federated database system can handle different hardware, network protocols, data models, etc.
-- **Extensibility**: New sources may be needed to meet the changing needs of the business. A good federated database system needs to make it easy to add new sources.
-- **Autonomy**: A Federated database does not change existing data sources, interfaces should remain the same.
-- **Data integration**: A federated database can integrate data from different protocols, database management systems, etc.
+- **Прозрачность**: Федеративная база данных скрывает различия в использовании данных пользователями и способах их реализации. Поэтому пользователям не нужно знать, где хранятся данные.
+- **Гетерогенность**: Источники данных могут различаться по многим параметрам. Федеративная система баз данных может обрабатывать различное оборудование, сетевые протоколы, модели данных и т. д.
+- **Расширяемость**: Для удовлетворения меняющихся потребностей бизнеса могут потребоваться новые источники. Хорошая федеративная система баз данных должна упрощать добавление новых источников.
+- **Автономия**: Федеративная база данных не изменяет существующие источники данных, интерфейсы должны оставаться неизменными.
+- **Интеграция данных**: Федеративная база данных может интегрировать данные из различных протоколов, систем управления базами данных и т. д.
 
-## Advantages
+## Преимущества
 
-Here are some advantages of federated databases:
+Вот некоторые преимущества федеративных баз данных:
 
-- Flexible data sharing.
-- Autonomy among the database components.
-- Access heterogeneous data in a unified way.
-- No tight coupling of applications with legacy databases.
+- Гибкий обмен данными.
+- Автономия между компонентами базы данных.
+- Обеспечивать единый доступ к разнородным данным.
+- Отсутствие тесной связи приложений с устаревшими базами данных.
 
-## Disadvantages
+## Недостатки
 
-Below are some disadvantages of federated databases:
+Ниже перечислены некоторые недостатки федеративных баз данных:
 
-- Adds more hardware and additional complexity.
-- Joining data from two databases is complex.
-- Dependence on autonomous data sources.
-- Query performance and scalability.
+- Добавляет больше оборудования и усложняет конструкцию.
+— Объединение данных из двух баз данных — сложная задача.
+- Зависимость от автономных источников данных.
+- Производительность и масштабируемость запросов.
 
-# N-tier architecture
+# Многоуровневая архитектура
 
-N-tier architecture divides an application into logical layers and physical tiers. Layers are a way to separate responsibilities and manage dependencies. Each layer has a specific responsibility. A higher layer can use services in a lower layer, but not the other way around.
+Многоуровневая архитектура делит приложение на логические и физические уровни. Уровни — это способ разделения обязанностей и управления зависимостями. Каждый уровень выполняет определенную функцию. Более высокий уровень может использовать сервисы более низкого уровня, но не наоборот.
 
 ![n-tier-architecture](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/n-tier-architecture/n-tier-architecture.png)
 
-Tiers are physically separated, running on separate machines. A tier can call to another tier directly, or use asynchronous messaging. Although each layer might be hosted in its own tier, that's not required. Several layers might be hosted on the same tier. Physically separating the tiers improves scalability and resiliency and adds latency from the additional network communication.
+Уровни физически разделены и работают на отдельных машинах. Один уровень может напрямую обращаться к другому уровню или использовать асинхронный обмен сообщениями. Хотя каждый уровень может размещаться на своем собственном уровне, это не обязательно. Несколько уровней могут размещаться на одном уровне. Физическое разделение уровней повышает масштабируемость и отказоустойчивость, а также увеличивает задержку из-за дополнительной сетевой связи.
 
-An N-tier architecture can be of two types:
+Многоуровневая архитектура может быть двух типов:
 
-- In a closed layer architecture, a layer can only call the next layer immediately down.
-- In an open layer architecture, a layer can call any of the layers below it.
+- В замкнутой многоуровневой архитектуре слой может вызывать следующий слой только непосредственно ниже по иерархии.
+- В открытой слоёвой архитектуре слой может вызывать любой из нижележащих слоёв.
 
-A closed-layer architecture limits the dependencies between layers. However, it might create unnecessary network traffic, if one layer simply passes requests along to the next layer.
+Архитектура с замкнутым слоем ограничивает зависимости между слоями. Однако она может создавать излишний сетевой трафик, если один слой просто перенаправляет запросы на следующий слой.
 
-## Types of N-Tier architectures
+## Типы многоуровневых архитектур
 
-Let's look at some examples of N-Tier architecture:
+Рассмотрим несколько примеров многоуровневой архитектуры (N-Tier):
 
-### 3-Tier architecture
+### Трехуровневая архитектура
 
-3-Tier is widely used and consists of the following different layers:
+Трехуровневая архитектура широко используется и состоит из следующих различных слоев:
 
-- **Presentation layer**: Handles user interactions with the application.
-- **Business Logic layer**: Accepts the data from the application layer, validates it as per business logic and passes it to the data layer.
-- **Data Access layer**: Receives the data from the business layer and performs the necessary operation on the database.
+- **Уровень представления**: обрабатывает взаимодействие пользователя с приложением.
+- **Уровень бизнес-логики**: принимает данные из уровня приложения, проверяет их в соответствии с бизнес-логикой и передает на уровень данных.
+- **Уровень доступа к данным**: получает данные от бизнес-уровня и выполняет необходимые операции с базой данных.
 
-### 2-Tier architecture
+### Двухуровневая архитектура
 
-In this architecture, the presentation layer runs on the client and communicates with a data store. There is no business logic layer or immediate layer between client and server.
+В этой архитектуре уровень представления работает на стороне клиента и взаимодействует с хранилищем данных. Между клиентом и сервером отсутствует уровень бизнес-логики или непосредственный уровень.
 
-### Single Tier or 1-Tier architecture
+### Одноуровневая или 1-уровневая архитектура
 
-It is the simplest one as it is equivalent to running the application on a personal computer. All of the required components for an application to run are on a single application or server.
+Это самый простой вариант, поскольку он эквивалентен запуску приложения на персональном компьютере. Все необходимые компоненты для работы приложения находятся на одном приложении или сервере.
 
-## Advantages
+## Преимущества
 
-Here are some advantages of using N-tier architecture:
+Вот некоторые преимущества использования многоуровневой архитектуры:
 
-- Can improve availability.
-- Better security as layers can behave like a firewall.
-- Separate tiers allow us to scale them as needed.
-- Improve maintenance as different people can manage different tiers.
+- Может улучшить доступность.
+- Повышенная безопасность, поскольку многоуровневая защита может функционировать как межсетевой экран.
+- Раздельные уровни позволяют масштабировать систему по мере необходимости.
+- Улучшить техническое обслуживание, поскольку разные люди могут управлять разными уровнями.
 
-## Disadvantages
+## Недостатки
 
-Below are some disadvantages of N-tier architecture:
+Ниже перечислены некоторые недостатки многоуровневой архитектуры:
 
-- Increased complexity of the system as a whole.
-- Increased network latency as the number of tiers increases.
-- Expensive as every tier will have its own hardware cost.
-- Difficult to manage network security.
+- Увеличение сложности системы в целом.
+- Увеличение задержки сети по мере увеличения количества уровней.
+- Дороговато, так как каждый уровень будет иметь свою стоимость оборудования.
+- Сложно обеспечить безопасность сети.
 
-# Message Brokers
+# Брокеры сообщений
 
-A message broker is a software that enables applications, systems, and services to communicate with each other and exchange information. The message broker does this by translating messages between formal messaging protocols. This allows interdependent services to _"talk"_ with one another directly, even if they were written in different languages or implemented on different platforms.
+Брокер сообщений — это программное обеспечение, позволяющее приложениям, системам и сервисам взаимодействовать друг с другом и обмениваться информацией. Брокер сообщений делает это, преобразуя сообщения между формальными протоколами обмена сообщениями. Это позволяет взаимозависимым сервисам «общаться» друг с другом напрямую, даже если они написаны на разных языках или реализованы на разных платформах.
 
 ![message-broker](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/message-brokers/message-broker.png)
 
-Message brokers can validate, store, route, and deliver messages to the appropriate destinations. They serve as intermediaries between other applications, allowing senders to issue messages without knowing where the receivers are, whether or not they are active, or how many of them there are. This facilitates the decoupling of processes and services within systems.
+Брокеры сообщений могут проверять, хранить, маршрутизировать и доставлять сообщения соответствующим получателям. Они выступают в качестве посредников между другими приложениями, позволяя отправителям отправлять сообщения, не зная, где находятся получатели, активны ли они и сколько их. Это способствует разделению процессов и сервисов внутри систем.
 
-## Models
+## Модели
 
-Message brokers offer two basic message distribution patterns or messaging styles:
+Брокеры сообщений предлагают два основных шаблона распространения сообщений или стиля обмена сообщениями:
 
-- **[Point-to-Point messaging](https://karanpratapsingh.com/courses/system-design/message-queues)**: This is the distribution pattern utilized in message queues with a one-to-one relationship between the message's sender and receiver.
-- **[Publish-Subscribe messaging](https://karanpratapsingh.com/courses/system-design/publish-subscribe)**: In this message distribution pattern, often referred to as _"pub/sub"_, the producer of each message publishes it to a topic, and multiple message consumers subscribe to topics from which they want to receive messages.
+- **[Точечный обмен сообщениями](https://karanpratapsingh.com/courses/system-design/message-queues)**: Это схема распределения, используемая в очередях сообщений, где между отправителем и получателем сообщения существует отношение «один к одному».
+- **[Система обмена сообщениями «публикация-подписка»](https://karanpratapsingh.com/courses/system-design/publish-subscribe)**: В этой схеме распространения сообщений, часто называемой «публикация/подписка», отправитель каждого сообщения публикует его в тему, а несколько получателей сообщений подписываются на темы, из которых они хотят получать сообщения.
 
-_We will discuss these messaging patterns in detail in the later tutorials._
+Подробно эти шаблоны обмена сообщениями мы обсудим в последующих уроках.
 
-## Message brokers vs Event streaming
+## Брокеры сообщений против потоковой передачи событий
 
-Message brokers can support two or more messaging patterns, including message queues and pub/sub, while event streaming platforms only offer pub/sub-style distribution patterns. Designed for use with high volumes of messages, event streaming platforms are readily scalable. They're capable of ordering streams of records into categories called _topics_ and storing them for a predetermined amount of time. Unlike message brokers, however, event streaming platforms cannot guarantee message delivery or track which consumers have received the messages.
+Брокеры сообщений могут поддерживать два или более шаблона обмена сообщениями, включая очереди сообщений и модель публикации/подписки, в то время как платформы потоковой обработки событий предлагают только шаблоны распределения типа «публикация/подписка». Платформы потоковой обработки событий, разработанные для работы с большими объемами сообщений, легко масштабируются. Они способны упорядочивать потоки записей по категориям, называемым «темами», и хранить их в течение заданного периода времени. Однако, в отличие от брокеров сообщений, платформы потоковой обработки событий не могут гарантировать доставку сообщений или отслеживать, какие потребители получили сообщения.
 
-Event streaming platforms offer more scalability than message brokers but fewer features that ensure fault tolerance like message resending, as well as more limited message routing and queueing capabilities.
+Платформы потоковой передачи событий обеспечивают большую масштабируемость, чем брокеры сообщений, но имеют меньше функций, обеспечивающих отказоустойчивость, таких как повторная отправка сообщений, а также более ограниченные возможности маршрутизации и постановки сообщений в очередь.
 
-## Message brokers vs Enterprise Service Bus (ESB)
+## Брокеры сообщений против корпоративной сервисной шины (ESB)
 
-[Enterprise Service Bus (ESB)](https://karanpratapsingh.com/courses/system-design/enterprise-service-bus) infrastructure is complex and can be challenging to integrate and expensive to maintain. It's difficult to troubleshoot them when problems occur in production environments, they're not easy to scale, and updating is tedious.
+Инфраструктура [корпоративной сервисной шины (ESB)](https://karanpratapsingh.com/courses/system-design/enterprise-service-bus) сложна, её интеграция может быть непростой задачей, а обслуживание — дорогостоящим. Устранение неполадок в производственных средах затруднено, масштабируемость невелика, а обновление — трудоемкий процесс.
 
-Whereas message brokers are a _"lightweight"_ alternative to ESBs that provide similar functionality, a mechanism for inter-service communication, at a lower cost. They're well-suited for use in the [microservices architectures](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices) that have become more prevalent as ESBs have fallen out of favor.
+В то время как брокеры сообщений представляют собой «легковесную» альтернативу ESB, предоставляющую аналогичную функциональность, механизм межсервисного взаимодействия, по более низкой цене, они хорошо подходят для использования в микросервисных архитектурах, которые стали более распространены после того, как популярность ESB снизилась.
 
-## Examples
+## Примеры
 
-Here are some commonly used message brokers:
+Вот несколько часто используемых брокеров сообщений:
 
 - [NATS](https://nats.io)
 - [Apache Kafka](https://kafka.apache.org)
 - [RabbitMQ](https://www.rabbitmq.com)
 - [ActiveMQ](https://activemq.apache.org)
 
-# Message Queues
+# Очереди сообщений
 
-A message queue is a form of service-to-service communication that facilitates asynchronous communication. It asynchronously receives messages from producers and sends them to consumers.
+Очередь сообщений — это форма связи между сервисами, обеспечивающая асинхронную коммуникацию. Она асинхронно принимает сообщения от отправителей и отправляет их потребителям.
 
-Queues are used to effectively manage requests in large-scale distributed systems. In small systems with minimal processing loads and small databases, writes can be predictably fast. However, in more complex and large systems writes can take an almost non-deterministic amount of time.
+Очереди используются для эффективного управления запросами в крупномасштабных распределенных системах. В небольших системах с минимальной вычислительной нагрузкой и небольшими базами данных операции записи могут выполняться предсказуемо быстро. Однако в более сложных и крупных системах время записи может быть практически непредсказуемым.
 
 ![message-queue](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/message-queues/message-queue.png)
 
-## Working
+## Работающий
 
-Messages are stored in the queue until they are processed and deleted. Each message is processed only once by a single consumer. Here's how it works:
+Сообщения хранятся в очереди до тех пор, пока не будут обработаны и удалены. Каждое сообщение обрабатывается только один раз одним потребителем. Вот как это работает:
 
-- A producer publishes a job to the queue, then notifies the user of the job status.
-- A consumer picks up the job from the queue, processes it, then signals that the job is complete.
+- Производитель отправляет задание в очередь, а затем уведомляет пользователя о статусе задания.
+— Потребитель забирает задание из очереди, обрабатывает его, а затем подает сигнал о завершении задания.
 
-## Advantages
+## Преимущества
 
-Let's discuss some advantages of using a message queue:
+Давайте обсудим некоторые преимущества использования очереди сообщений:
 
-- **Scalability**: Message queues make it possible to scale precisely where we need to. When workloads peak, multiple instances of our application can add all requests to the queue without the risk of collision.
-- **Decoupling**: Message queues remove dependencies between components and significantly simplify the implementation of decoupled applications.
-- **Performance**: Message queues enable asynchronous communication, which means that the endpoints that are producing and consuming messages interact with the queue, not each other. Producers can add requests to the queue without waiting for them to be processed.
-- **Reliability**: Queues make our data persistent, and reduce the errors that happen when different parts of our system go offline.
+- **Масштабируемость**: Очереди сообщений позволяют масштабировать систему именно там, где это необходимо. При пиковых нагрузках несколько экземпляров нашего приложения могут добавлять все запросы в очередь без риска конфликтов.
+- **Разделение зависимостей**: Очереди сообщений устраняют зависимости между компонентами и значительно упрощают реализацию приложений с разделением зависимостей.
+- **Производительность**: Очереди сообщений обеспечивают асинхронную связь, что означает, что конечные точки, которые создают и потребляют сообщения, взаимодействуют с очередью, а не друг с другом. Производители могут добавлять запросы в очередь, не дожидаясь их обработки.
+- **Надежность**: Очереди обеспечивают сохранение данных и уменьшают количество ошибок, возникающих при отключении различных частей системы.
 
-## Features
+## Функции
 
-Now, let's discuss some desired features of message queues:
+Теперь давайте обсудим некоторые желаемые характеристики очередей сообщений:
 
-### Push or Pull Delivery
+### Доставка методом «толкания» или «тяги»
 
-Most message queues provide both push and pull options for retrieving messages. Pull means continuously querying the queue for new messages. Push means that a consumer is notified when a message is available. We can also use long-polling to allow pulls to wait a specified amount of time for new messages to arrive.
+Большинство очередей сообщений предоставляют как опцию «push», так и опцию «pull» для получения сообщений. «Pull» означает непрерывный запрос к очереди на наличие новых сообщений. «Push» означает, что потребитель получает уведомление, когда сообщение становится доступным. Мы также можем использовать «long-polling», чтобы позволить запросам на получение сообщений ожидать поступления новых сообщений в течение определенного времени.
 
-### FIFO (First-In-First-Out) Queues
+### Очереди FIFO (первым пришел — первым вышел)
 
-In these queues, the oldest (or first) entry, sometimes called the _"head"_ of the queue, is processed first.
+В таких очередях сначала обрабатывается самая старая (или первая) запись, которую иногда называют «головой» очереди.
 
-### Schedule or Delay Delivery
+### Запланировать или отложить доставку
 
-Many message queues support setting a specific delivery time for a message. If we need to have a common delay for all messages, we can set up a delay queue.
+Многие очереди сообщений позволяют устанавливать конкретное время доставки сообщения. Если нам нужна общая задержка для всех сообщений, мы можем настроить очередь с задержкой.
 
-### At-Least-Once Delivery
+### Доставка как минимум один раз
 
-Message queues may store multiple copies of messages for redundancy and high availability, and resend messages in the event of communication failures or errors to ensure they are delivered at least once.
+Очереди сообщений могут хранить несколько копий сообщений для обеспечения избыточности и высокой доступности, а также повторно отправлять сообщения в случае сбоев или ошибок связи, чтобы гарантировать их доставку хотя бы один раз.
 
-### Exactly-Once Delivery
+### Доставка ровно один раз
 
-When duplicates can't be tolerated, FIFO (first-in-first-out) message queues will make sure that each message is delivered exactly once (and only once) by filtering out duplicates automatically.
+Когда наличие дубликатов недопустимо, очереди сообщений FIFO (первым пришел — первым вышел) гарантируют доставку каждого сообщения ровно один раз (и только один раз), автоматически отфильтровывая дубликаты.
 
-### Dead-letter Queues
+### Очереди недоставленных сообщений
 
-A dead-letter queue is a queue to which other queues can send messages that can't be processed successfully. This makes it easy to set them aside for further inspection without blocking the queue processing or spending CPU cycles on a message that might never be consumed successfully.
+Очередь недоставленных сообщений — это очередь, в которую другие очереди могут отправлять сообщения, которые не могут быть успешно обработаны. Это позволяет легко отложить их для дальнейшего анализа, не блокируя обработку очереди и не тратя ресурсы процессора на сообщение, которое может никогда не быть успешно обработано.
 
-### Ordering
+### Заказ
 
-Most message queues provide best-effort ordering which ensures that messages are generally delivered in the same order as they're sent and that a message is delivered at least once.
+В большинстве очередей сообщений используется алгоритм наилучшего упорядочивания, который гарантирует, что сообщения, как правило, доставляются в том же порядке, в котором они были отправлены, и что каждое сообщение доставляется как минимум один раз.
 
-### Poison-pill Messages
+### Сообщения-ловушки
 
-Poison pills are special messages that can be received, but not processed. They are a mechanism used in order to signal a consumer to end its work so it is no longer waiting for new inputs, and are similar to closing a socket in a client/server model.
+«Отравляющие пилюли» — это специальные сообщения, которые можно получить, но нельзя обработать. Это механизм, используемый для того, чтобы сигнализировать потребителю о необходимости завершить свою работу, чтобы он больше не ожидал новых входных данных, и они похожи на закрытие сокета в клиент-серверной модели.
 
-### Security
+### Безопасность
 
-Message queues will authenticate applications that try to access the queue, this allows us to encrypt messages over the network as well as in the queue itself.
+Очереди сообщений аутентифицируют приложения, пытающиеся получить доступ к очереди, что позволяет нам шифровать сообщения как по сети, так и в самой очереди.
 
-### Task Queues
+### Очереди задач
 
-Tasks queues receive tasks and their related data, run them, then deliver their results. They can support scheduling and can be used to run computationally-intensive jobs in the background.
+Очереди задач получают задачи и связанные с ними данные, выполняют их, а затем выдают результаты. Они могут поддерживать планирование и использоваться для выполнения ресурсоемких вычислительных задач в фоновом режиме.
 
-## Backpressure
+## Обратное давление
 
-If queues start to grow significantly, the queue size can become larger than memory, resulting in cache misses, disk reads, and even slower performance. Backpressure can help by limiting the queue size, thereby maintaining a high throughput rate and good response times for jobs already in the queue. Once the queue fills up, clients get a server busy or HTTP 503 status code to try again later. Clients can retry the request at a later time, perhaps with [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) strategy.
+Если очереди начинают значительно расти, их размер может превысить объем памяти, что приводит к промахам кэша, операциям чтения с диска и даже снижению производительности. Обратное давление может помочь, ограничивая размер очереди, тем самым поддерживая высокую пропускную способность и хорошее время отклика для заданий, уже находящихся в очереди. Как только очередь заполняется, клиенты получают сообщение о занятости сервера или код состояния HTTP 503 с предложением повторить запрос позже. Клиенты могут повторить запрос позже, возможно, используя стратегию [экспоненциальной задержки](https://en.wikipedia.org/wiki/Exponential_backoff).
 
-## Examples
+## Примеры
 
-Following are some widely used message queues:
+Ниже приведены некоторые широко используемые очереди сообщений:
 
 - [Amazon SQS](https://aws.amazon.com/sqs)
 - [RabbitMQ](https://www.rabbitmq.com)
 - [ActiveMQ](https://activemq.apache.org)
 - [ZeroMQ](https://zeromq.org)
 
-# Publish-Subscribe
+# Публикация-Подписка
 
-Similar to a message queue, publish-subscribe is also a form of service-to-service communication that facilitates asynchronous communication. In a pub/sub model, any message published to a topic is pushed immediately to all the subscribers of the topic.
+Подобно очереди сообщений, модель «публикация-подписка» также является формой связи между сервисами, которая обеспечивает асинхронную связь. В модели «публикация-подписка» любое сообщение, опубликованное в теме, немедленно отправляется всем подписчикам этой темы.
 
 ![publish-subscribe](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/publish-subscribe/publish-subscribe.png)
 
-The subscribers to the message topic often perform different functions, and can each do something different with the message in parallel. The publisher doesn't need to know who is using the information that it is broadcasting, and the subscribers don't need to know where the message comes from. This style of messaging is a bit different than message queues, where the component that sends the message often knows the destination it is sending to.
+Подписчики темы сообщения часто выполняют разные функции и могут параллельно обрабатывать сообщение по-разному. Издателю не нужно знать, кто использует передаваемую им информацию, а подписчикам не нужно знать, откуда поступает сообщение. Этот стиль обмена сообщениями несколько отличается от очередей сообщений, где компонент, отправляющий сообщение, часто знает, кому оно адресовано.
 
-## Working
+## Работающий
 
-Unlike message queues, which batch messages until they are retrieved, message topics transfer messages with little or no queuing and push them out immediately to all subscribers. Here's how it works:
+В отличие от очередей сообщений, которые обрабатывают сообщения пакетами до тех пор, пока они не будут получены, темы сообщений передают сообщения практически без ожидания в очереди и немедленно рассылают их всем подписчикам. Вот как это работает:
 
-- A message topic provides a lightweight mechanism to broadcast asynchronous event notifications and endpoints that allow software components to connect to the topic in order to send and receive those messages.
-- To broadcast a message, a component called a _publisher_ simply pushes a message to the topic.
-- All components that subscribe to the topic (known as _subscribers_) will receive every message that was broadcasted.
+— Тема сообщений предоставляет облегченный механизм для трансляции асинхронных уведомлений о событиях и конечных точек, позволяющих программным компонентам подключаться к теме для отправки и получения этих сообщений.
+- Для отправки сообщения компонент, называемый _издателем_, просто отправляет сообщение в тему.
+- Все компоненты, подписанные на тему (известные как _подписчики_), будут получать каждое отправленное сообщение.
 
-## Advantages
+## Преимущества
 
-Let's discuss some advantages of using publish-subscribe:
+Давайте обсудим некоторые преимущества использования модели «публикация-подписка»:
 
-- **Eliminate Polling**: Message topics allow instantaneous, push-based delivery, eliminating the need for message consumers to periodically check or _"poll"_ for new information and updates. This promotes faster response time and reduces the delivery latency which can be particularly problematic in systems where delays cannot be tolerated.
-- **Dynamic Targeting**: Pub/Sub makes the discovery of services easier, more natural, and less error-prone. Instead of maintaining a roster of peers where an application can send messages, a publisher will simply post messages to a topic. Then, any interested party will subscribe its endpoint to the topic, and start receiving these messages. Subscribers can change, upgrade, multiply or disappear and the system dynamically adjusts.
-- **Decoupled and Independent Scaling**: Publishers and subscribers are decoupled and work independently from each other, which allows us to develop and scale them independently.
-- **Simplify Communication**: The Publish-Subscribe model reduces complexity by removing all the point-to-point connections with a single connection to a message topic, which will manage subscriptions and decide what messages should be delivered to which endpoints.
+- **Устранение необходимости опроса**: Темы сообщений позволяют осуществлять мгновенную доставку на основе push-уведомлений, устраняя необходимость для потребителей сообщений периодически проверять или «опрашивать» наличие новой информации и обновлений. Это способствует более быстрому времени отклика и снижает задержку доставки, которая может быть особенно проблематичной в системах, где задержки недопустимы.
+- **Динамическое таргетирование**: Pub/Sub упрощает, делает более естественным и менее подверженным ошибкам обнаружение сервисов. Вместо того чтобы поддерживать список узлов, куда приложение может отправлять сообщения, издатель просто публикует сообщения в тему. Затем любая заинтересованная сторона подписывается на эту тему через свою конечную точку и начинает получать эти сообщения. Количество подписчиков может меняться, увеличиваться, расти или исчезать, и система динамически адаптируется.
+- **Разделенное и независимое масштабирование**: Издатели и подписчики разделены и работают независимо друг от друга, что позволяет нам развивать и масштабировать их независимо.
+- **Упрощение коммуникации**: Модель «публикация-подписка» снижает сложность, устраняя все прямые соединения и используя одно соединение с темой сообщений, которая будет управлять подписками и определять, какие сообщения должны быть доставлены каким конечным точкам.
 
-## Features
+## Функции
 
-Now, let's discuss some desired features of publish-subscribe:
+Теперь давайте обсудим некоторые желаемые особенности модели «публикация-подписка»:
 
-### Push Delivery
+### Доставка с помощью Push
 
-Pub/Sub messaging instantly pushes asynchronous event notifications when messages are published to the message topic. Subscribers are notified when a message is available.
+Система обмена сообщениями Pub/Sub мгновенно отправляет асинхронные уведомления о событиях, когда сообщения публикуются в тему сообщений. Подписчики получают уведомление, когда сообщение становится доступным.
 
-### Multiple Delivery Protocols
+### Множественные протоколы доставки
 
-In the Publish-Subscribe model, topics can typically connect to multiple types of endpoints, such as message queues, serverless functions, HTTP servers, etc.
+В модели «публикация-подписка» темы, как правило, могут подключаться к различным типам конечных точек, таким как очереди сообщений, бессерверные функции, HTTP-серверы и т. д.
 
-### Fanout
+### Веер
 
-This scenario happens when a message is sent to a topic and then replicated and pushed to multiple endpoints. Fanout provides asynchronous event notifications which in turn allows for parallel processing.
+Такой сценарий возникает, когда сообщение отправляется в тему, а затем реплицируется и передается на несколько конечных точек. Fanout обеспечивает асинхронные уведомления о событиях, что, в свою очередь, позволяет осуществлять параллельную обработку.
 
-### Filtering
+### Фильтрация
 
-This feature empowers the subscriber to create a message filtering policy so that it will only get the notifications it is interested in, as opposed to receiving every single message posted to the topic.
+Эта функция позволяет подписчику создавать политику фильтрации сообщений, чтобы получать только интересующие его уведомления, а не все сообщения, опубликованные в данной теме.
 
-### Durability
+### Долговечность
 
-Pub/Sub messaging services often provide very high durability, and at least once delivery, by storing copies of the same message on multiple servers.
+Сервисы обмена сообщениями по принципу «издатель/подписчик» часто обеспечивают очень высокую надежность и доставку как минимум один раз, храня копии одного и того же сообщения на нескольких серверах.
 
-### Security
+### Безопасность
 
-Message topics authenticate applications that try to publish content, this allows us to use encrypted endpoints and encrypt messages in transit over the network.
+Темы сообщений используются для аутентификации приложений, пытающихся опубликовать контент, что позволяет нам использовать зашифрованные конечные точки и шифровать сообщения при передаче по сети.
 
-## Examples
+## Примеры
 
-Here are some commonly used publish-subscribe technologies:
+Вот некоторые из наиболее часто используемых технологий публикации-подписки:
 
 - [Amazon SNS](https://aws.amazon.com/sns)
 - [Google Pub/Sub](https://cloud.google.com/pubsub)
 
-# Enterprise Service Bus (ESB)
+# Корпоративная сервисная шина (ESB)
 
-An Enterprise Service Bus (ESB) is an architectural pattern whereby a centralized software component performs integrations between applications. It performs transformations of data models, handles connectivity, performs message routing, converts communication protocols, and potentially manages the composition of multiple requests. The ESB can make these integrations and transformations available as a service interface for reuse by new applications.
+Корпоративная сервисная шина (ESB) — это архитектурный шаблон, в котором централизованный программный компонент выполняет интеграцию между приложениями. Он выполняет преобразования моделей данных, управляет связностью, маршрутизацией сообщений, преобразует протоколы связи и потенциально управляет композицией множественных запросов. ESB может предоставлять эти интеграции и преобразования в качестве сервисного интерфейса для повторного использования новыми приложениями.
 
 ![enterprise-service-bus](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/enterprise-service-bus/enterprise-service-bus.png)
 
-## Advantages
+## Преимущества
 
-In theory, a centralized ESB offers the potential to standardize and dramatically simplify communication, messaging, and integration between services across the enterprise. Here are some advantages of using an ESB:
+Теоретически, централизованная ESB-платформа потенциально может стандартизировать и значительно упростить коммуникацию, обмен сообщениями и интеграцию между сервисами в масштабах всего предприятия. Вот некоторые преимущества использования ESB:
 
-- **Improved developer productivity**: Enables developers to incorporate new technologies into one part of an application without touching the rest of the application.
-- **Simpler, more cost-effective scalability**: Components can be scaled independently of others.
-- **Greater resilience**: Failure of one component does not impact the others, and each microservice can adhere to its own availability requirements without risking the availability of other components in the system.
+- **Повышение производительности разработчиков**: позволяет разработчикам внедрять новые технологии в одну часть приложения, не затрагивая остальную его часть.
+- **Более простая и экономичная масштабируемость**: Компоненты могут масштабироваться независимо друг от друга.
+- **Повышенная отказоустойчивость**: отказ одного компонента не влияет на другие, и каждый микросервис может соблюдать свои собственные требования к доступности, не рискуя доступностью других компонентов в системе.
 
-## Disadvantages
+## Недостатки
 
-While ESBs were deployed successfully in many organizations, in many other organizations the ESB came to be seen as a bottleneck. Here are some disadvantages of using an ESB:
+Хотя ESB успешно внедрялись во многих организациях, во многих других ESB стали рассматривать как узкое место. Вот некоторые недостатки использования ESB:
 
-- Making changes or enhancements to one integration could destabilize others who use that same integration.
-- A single point of failure can bring down all communications.
-- Updates to the ESB often impact existing integrations, so there is significant testing required to perform any update.
-- ESB is centrally managed which makes cross-team collaboration challenging.
-- High configuration and maintenance complexity.
+- Внесение изменений или улучшений в одну интеграцию может дестабилизировать другие интеграции, использующие ту же самую интеграцию.
+— Единая точка отказа может привести к сбою всей связи.
+— Обновления ESB часто влияют на существующие интеграции, поэтому для выполнения любого обновления требуется значительное тестирование.
+- ESB управляется централизованно, что затрудняет взаимодействие между командами.
+- Высокая сложность настройки и обслуживания.
 
-## Examples
+## Примеры
 
-Below are some widely used Enterprise Service Bus (ESB) technologies:
+Ниже представлены некоторые широко используемые технологии корпоративной сервисной шины (ESB):
 
 - [Azure Service Bus](https://azure.microsoft.com/en-in/services/service-bus)
 - [IBM App Connect](https://www.ibm.com/in-en/cloud/app-connect)
 - [Apache Camel](https://camel.apache.org)
 - [Fuse ESB](https://www.redhat.com/en/technologies/jboss-middleware/fuse)
 
-# Monoliths and Microservices
+# Монолиты и микросервисы
 
-## Monoliths
+## Монолиты
 
-A monolith is a self-contained and independent application. It is built as a single unit and is responsible for not just a particular task, but can perform every step needed to satisfy a business need.
+Монолитное приложение — это самодостаточное и независимое приложение. Оно построено как единое целое и отвечает не только за конкретную задачу, но и может выполнять все необходимые шаги для удовлетворения бизнес-потребностей.
 
 ![monolith](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/monoliths-microservices/monolith.png)
 
-### Advantages
+### Преимущества
 
-Following are some advantages of monoliths:
+Ниже перечислены некоторые преимущества монолитных конструкций:
 
-- Simple to develop or debug.
-- Fast and reliable communication.
-- Easy monitoring and testing.
-- Supports ACID transactions.
+- Легко разрабатывать и отлаживать.
+- Быстрая и надежная связь.
+- Простой мониторинг и тестирование.
+- Поддерживает ACID-транзакции.
 
-### Disadvantages
+### Недостатки
 
-Some common disadvantages of monoliths are:
+К числу распространенных недостатков монолитных конструкций относятся:
 
-- Maintenance becomes hard as the codebase grows.
-- Tightly coupled application, hard to extend.
-- Requires commitment to a particular technology stack.
-- On each update, the entire application is redeployed.
-- Reduced reliability as a single bug can bring down the entire system.
-- Difficult to scale or adopt new technologies.
+— Поддержка становится сложной по мере роста кодовой базы.
+- Приложение имеет тесную взаимосвязь компонентов, его сложно расширять.
+- Требует приверженности определенному технологическому стеку.
+— При каждом обновлении приложение развертывается заново.
+- Снижена надежность, поскольку даже одна ошибка может привести к сбою всей системы.
+- Сложно масштабировать или внедрять новые технологии.
 
-## Modular Monoliths
+## Модульные монолиты
 
-A Modular Monolith is an approach where we build and deploy a single application (that's the _Monolith_ part), but we build it in a way that breaks up the code into independent modules for each of the features needed in our application.
+Модульный монолит — это подход, при котором мы создаём и развертываем единое приложение (это и есть часть _Монолит_), но создаём его таким образом, что код разбивается на независимые модули для каждой из функций, необходимых в нашем приложении.
 
-This approach reduces the dependencies of a module in such as way that we can enhance or change a module without affecting other modules. When done right, this can be really beneficial in the long term as it reduces the complexity that comes with maintaining a monolith as the system grows.
+Такой подход уменьшает зависимости модуля, позволяя улучшать или изменять его, не затрагивая другие модули. При правильном применении это может быть очень выгодно в долгосрочной перспективе, поскольку снижает сложность поддержки монолитной системы по мере её роста.
 
-## Microservices
+## Микросервисы
 
-A microservices architecture consists of a collection of small, autonomous services where each service is self-contained and should implement a single business capability within a bounded context. A bounded context is a natural division of business logic that provides an explicit boundary within which a domain model exists.
+Архитектура микросервисов представляет собой набор небольших автономных сервисов, каждый из которых является самодостаточным и должен реализовывать одну бизнес-функцию в ограниченном контексте. Ограниченный контекст — это естественное разделение бизнес-логики, обеспечивающее четкую границу, в рамках которой существует доменная модель.
 
-![microservices](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/monoliths-microservices/microservices.png)
+![микросервисы](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/monoliths-microservices/microservices.png)
 
-Each service has a separate codebase, which can be managed by a small development team. Services can be deployed independently and a team can update an existing service without rebuilding and redeploying the entire application.
+Каждый сервис имеет отдельную кодовую базу, которой может управлять небольшая команда разработчиков. Сервисы могут развертываться независимо друг от друга, и команда может обновить существующий сервис без пересборки и повторного развертывания всего приложения.
 
-Services are responsible for persisting their own data or external state (database per service). This differs from the traditional model, where a separate data layer handles data persistence.
+Сервисы отвечают за сохранение собственных данных или внешнего состояния (база данных для каждого сервиса). Это отличается от традиционной модели, где за сохранение данных отвечает отдельный слой данных.
 
-### Characteristics
+### Характеристики
 
-The microservices architecture style has the following characteristics:
+Архитектурный стиль микросервисов обладает следующими характеристиками:
 
-- **Loosely coupled**: Services should be loosely coupled so that they can be independently deployed and scaled. This will lead to the decentralization of development teams and thus, enabling them to develop and deploy faster with minimal constraints and operational dependencies.
-- **Small but focused**: It's about scope and responsibilities and not size, a service should be focused on a specific problem. Basically, _"It does one thing and does it well"_. Ideally, they can be independent of the underlying architecture.
-- **Built for businesses**: The microservices architecture is usually organized around business capabilities and priorities.
-- **Resilience & Fault tolerance**: Services should be designed in such a way that they still function in case of failure or errors. In environments with independently deployable services, failure tolerance is of the highest importance.
-- **Highly maintainable**: Service should be easy to maintain and test because services that cannot be maintained will be rewritten.
+- **Слабосвязанность**: Сервисы должны быть слабосвязаны, чтобы их можно было развертывать и масштабировать независимо друг от друга. Это приведет к децентрализации команд разработчиков и, следовательно, позволит им разрабатывать и развертывать быстрее с минимальными ограничениями и операционными зависимостями.
+- **Небольшой, но целенаправленный**: Речь идёт о масштабе и обязанностях, а не о размере; сервис должен быть ориентирован на решение конкретной проблемы. В сущности, _«Он делает одну вещь и делает её хорошо»_. В идеале, они могут быть независимы от базовой архитектуры.
+- **Разработано для бизнеса**: микросервисная архитектура обычно организуется с учетом бизнес-возможностей и приоритетов.
+- **Устойчивость и отказоустойчивость**: Сервисы должны быть спроектированы таким образом, чтобы они продолжали функционировать в случае сбоев или ошибок. В средах с независимо развертываемыми сервисами отказоустойчивость имеет первостепенное значение.
+- **Высокая поддерживаемость**: Сервис должен быть прост в обслуживании и тестировании, поскольку сервисы, которые не поддаются поддержке, будут переписаны.
 
-### Advantages
+### Преимущества
 
-Here are some advantages of microservices architecture:
+Вот некоторые преимущества микросервисной архитектуры:
 
-- Loosely coupled services.
-- Services can be deployed independently.
-- Highly agile for multiple development teams.
-- Improves fault tolerance and data isolation.
-- Better scalability as each service can be scaled independently.
-- Eliminates any long-term commitment to a particular technology stack.
+- Слабо связанные сервисы.
+— Сервисы могут развертываться независимо друг от друга.
+- Высокая гибкость в работе с несколькими командами разработчиков.
+- Повышает отказоустойчивость и изоляцию данных.
+- Лучшая масштабируемость, поскольку каждый сервис может масштабироваться независимо.
+- Исключает необходимость долгосрочного использования конкретного технологического стека.
 
-### Disadvantages
+### Недостатки
 
-Microservices architecture brings its own set of challenges:
+Архитектура микросервисов сопряжена со своими собственными проблемами:
 
-- Complexity of a distributed system.
-- Testing is more difficult.
-- Expensive to maintain (individual servers, databases, etc.).
-- Inter-service communication has its own challenges.
-- Data integrity and consistency.
-- Network congestion and latency.
+- Сложность распределенной системы.
+- Проведение тестирования стало сложнее.
+- Дорогостоящее обслуживание (отдельные серверы, базы данных и т. д.).
+- Межведомственное взаимодействие сопряжено со своими трудностями.
+— Целостность и согласованность данных.
+- Перегрузка сети и задержки.
 
-### Best practices
+### Передовые методы
 
-Let's discuss some microservices best practices:
+Давайте обсудим некоторые лучшие практики микросервисной архитектуры:
 
-- Model services around the business domain.
-- Services should have loose coupling and high functional cohesion.
-- Isolate failures and use resiliency strategies to prevent failures within a service from cascading.
-- Services should only communicate through well-designed APIs. Avoid leaking implementation details.
-- Data storage should be private to the service that owns the data
-- Avoid coupling between services. Causes of coupling include shared database schemas and rigid communication protocols.
-- Decentralize everything. Individual teams are responsible for designing and building services. Avoid sharing code or data schemas.
-- Fail fast by using a [circuit breaker](https://karanpratapsingh.com/courses/system-design/circuit-breaker) to achieve fault tolerance.
-- Ensure that the API changes are backward compatible.
+- Моделирование сервисов с учетом специфики бизнес-домена.
+— Сервисы должны обладать слабой взаимосвязью и высокой функциональной согласованностью.
+- Выявляйте источники сбоев и используйте стратегии повышения отказоустойчивости, чтобы предотвратить каскадное возникновение сбоев в рамках сервиса.
+Сервисы должны взаимодействовать только через хорошо продуманные API. Избегайте утечки деталей реализации.
+- Хранение данных должно быть частным и доступным только той службе, которая владеет этими данными.
+— Избегайте зависимости между сервисами. Причинами зависимости являются общие схемы баз данных и жесткие протоколы связи.
+— Децентрализуйте всё. Отдельные команды отвечают за проектирование и создание сервисов. Избегайте совместного использования кода или схем данных.
+- Быстро устраняйте сбои, используя автоматический выключатель для обеспечения отказоустойчивости.
+— Убедитесь, что изменения в API обратно совместимы.
 
-### Pitfalls
+### Подводные камни
 
-Below are some common pitfalls of microservices architecture:
+Ниже перечислены некоторые распространенные ошибки в микросервисной архитектуре:
 
-- Service boundaries are not based on the business domain.
-- Underestimating how hard is to build a distributed system.
-- Shared database or common dependencies between services.
-- Lack of Business Alignment.
-- Lack of clear ownership.
-- Lack of idempotency.
-- Trying to do everything [ACID instead of BASE](https://karanpratapsingh.com/courses/system-design/acid-and-base-consistency-models).
-- Lack of design for fault tolerance may result in cascading failures.
+- Границы сервисов не определяются бизнес-сферой.
+- Недооценка сложности построения распределенной системы.
+- Общая база данных или общие зависимости между сервисами.
+- Отсутствие согласованности с бизнес-целями.
+- Отсутствие четкого определения собственника.
+- Отсутствие идемпотентности.
+— Пытаюсь делать всё [на основе кислот вместо оснований](https://karanpratapsingh.com/courses/system-design/acid-and-base-consistency-models).
+- Отсутствие учета отказоустойчивости в конструкции может привести к каскадным отказам.
 
-## Beware of the distributed monolith
+## Остерегайтесь распределенных монолитов
 
-Distributed Monolith is a system that resembles the microservices architecture but is tightly coupled within itself like a monolithic application. Adopting microservices architecture comes with a lot of advantages. But while making one, there are good chances that we might end up with a distributed monolith.
+Распределенный монолит — это система, которая напоминает микросервисную архитектуру, но тесно связана сама с собой, как монолитное приложение. Внедрение микросервисной архитектуры имеет множество преимуществ. Но при её создании велика вероятность получить распределенный монолит.
 
-Our microservices are just a distributed monolith if any of these apply to it:
+Наши микросервисы представляют собой распределенный монолит, если к ним применимо хотя бы одно из следующих условий:
 
-- Requires low latency communication.
-- Services don't scale easily.
-- Dependency between services.
-- Sharing the same resources such as databases.
-- Tightly coupled systems.
+- Требуется связь с низкой задержкой.
+— Сервисы нелегко масштабируются.
+- Зависимость между сервисами.
+- Совместное использование одних и тех же ресурсов, таких как базы данных.
+- Системы с тесной взаимосвязью.
 
-One of the primary reasons to build an application using microservices architecture is to have scalability. Therefore, microservices should have loosely coupled services which enable every service to be independent. The distributed monolith architecture takes this away and causes most components to depend on one another, increasing design complexity.
+Одна из главных причин создания приложений с использованием микросервисной архитектуры — это масштабируемость. Поэтому микросервисы должны иметь слабо связанные между собой службы, что позволяет каждой службе быть независимой. Распределенная монолитная архитектура этого не обеспечивает и приводит к тому, что большинство компонентов зависят друг от друга, что увеличивает сложность проектирования.
 
-## Microservices vs Service-oriented architecture (SOA)
+## Микросервисы против сервисно-ориентированной архитектуры (SOA)
 
-You might have seen _Service-oriented architecture (SOA)_ mentioned around the internet, sometimes even interchangeably with microservices, but they are different from each other and the main distinction between the two approaches comes down to _scope_.
+В интернете вы, возможно, встречали упоминания об _сервис-ориентированной архитектуре (SOA)_, иногда даже взаимозаменяемые с микросервисами, но это разные вещи, и главное различие между двумя подходами сводится к _области применения_.
 
-Service-oriented architecture (SOA) defines a way to make software components reusable via service interfaces. These interfaces utilize common communication standards and focus on maximizing application service reusability whereas microservices are built as a collection of various smallest independent service units focused on team autonomy and decoupling.
+Сервис-ориентированная архитектура (SOA) определяет способ обеспечения повторного использования программных компонентов посредством сервисных интерфейсов. Эти интерфейсы используют общие стандарты связи и ориентированы на максимальное повторное использование сервисов приложения, в то время как микросервисы строятся как набор различных мельчайших независимых сервисных единиц, ориентированных на автономию команды и децентрализацию.
 
-## Why you don't need microservices
+## Почему вам не нужны микросервисы
 
 ![architecture-range](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/monoliths-microservices/architecture-range.png)
 
-So, you might be wondering, monoliths seem like a bad idea to begin with, why would anyone use that?
+Возможно, вы задаетесь вопросом: монолиты изначально кажутся плохой идеей, зачем вообще кому-то их использовать?
 
-Well, it depends. While each approach has its own advantages and disadvantages, it is advised to start with a monolith when building a new system. It is important to understand, that microservices are not a silver bullet, instead, they solve an organizational problem. Microservices architecture is about your organizational priorities and team as much as it's about technology.
+Ну, это зависит от ситуации. Хотя у каждого подхода есть свои преимущества и недостатки, при построении новой системы рекомендуется начинать с монолита. Важно понимать, что микросервисы — это не панацея, а решение организационных проблем. Микросервисная архитектура — это не только технология, но и приоритеты вашей организации и вашей команды.
 
-Before making the decision to move to microservices architecture, you need to ask yourself questions like:
+Прежде чем принимать решение о переходе на микросервисную архитектуру, необходимо задать себе следующие вопросы:
 
-- _"Is the team too large to work effectively on a shared codebase?"_
-- _"Are teams blocked on other teams?"_
-- _"Does microservices deliver clear business value for us?"_
-- _"Is my business mature enough to use microservices?"_
-- _"Is our current architecture limiting us with communication overhead?"_
+— «Не слишком ли велика команда, чтобы эффективно работать с общей кодовой базой?»
+— «Заблокированы ли другие команды?»
+— «Приносят ли микросервисы нам ощутимую пользу для бизнеса?»
+— «Достаточно ли зрелый мой бизнес для использования микросервисов?»
+— «Ограничивает ли нас наша нынешняя архитектура из-за накладных расходов на коммуникацию?»
 
-If your application does not require to be broken down into microservices, you don't need this. There is no absolute necessity that all applications should be broken down into microservices.
+Если ваше приложение не требует разделения на микросервисы, то это вам не нужно. Нет абсолютной необходимости в том, чтобы все приложения были разделены на микросервисы.
 
-We frequently draw inspiration from companies such as Netflix and their use of microservices, but we overlook the fact that we are not Netflix. They went through a lot of iterations and models before they had a market-ready solution, and this architecture became acceptable for them when they identified and solved the problem they were trying to tackle.
+Мы часто черпаем вдохновение у таких компаний, как Netflix, и их использования микросервисов, но упускаем из виду тот факт, что мы не Netflix. Они прошли через множество итераций и моделей, прежде чем у них появилось готовое к выходу на рынок решение, и эта архитектура стала для них приемлемой, когда они определили и решили проблему, которую пытались решить.
 
-That's why it's essential to understand in-depth if your business _actually_ needs microservices. What I'm trying to say is microservices are solutions to complex concerns and if your business doesn't have complex issues, you don't need them.
+Вот почему так важно досконально разобраться, действительно ли вашему бизнесу нужны микросервисы. Я хочу сказать, что микросервисы — это решения сложных задач, и если у вашего бизнеса нет сложных проблем, они вам не нужны.
 
-# Event-Driven Architecture (EDA)
+# Архитектура, управляемая событиями (EDA)
 
-Event-Driven Architecture (EDA) is about using events as a way to communicate within a system. Generally, leveraging a message broker to publish and consume events asynchronously. The publisher is unaware of who is consuming an event and the consumers are unaware of each other. Event-Driven Architecture is simply a way of achieving loose coupling between services within a system.
+Архитектура, управляемая событиями (Event-Driven Architecture, EDA), предполагает использование событий в качестве способа взаимодействия внутри системы. Как правило, это использование брокера сообщений для асинхронной публикации и потребления событий. Издатель не знает, кто потребляет событие, а потребители не знают друг о друге. Архитектура, управляемая событиями, — это просто способ достижения слабой связанности между сервисами внутри системы.
 
-## What is an event?
+## Что такое событие?
 
-An event is a data point that represents state changes in a system. It doesn't specify what should happen and how the change should modify the system, it only notifies the system of a particular state change. When a user makes an action, they trigger an event.
+Событие — это точка данных, представляющая изменения состояния в системе. Оно не определяет, что должно произойти и как изменение должно повлиять на систему, а лишь уведомляет систему о конкретном изменении состояния. Когда пользователь совершает действие, он запускает событие.
 
-## Components
+## Компоненты
 
-Event-driven architectures have three key components:
+Архитектуры, управляемые событиями, имеют три ключевых компонента:
 
-- **Event producers**: Publishes an event to the router.
-- **Event routers**: Filters and pushes the events to consumers.
-- **Event consumers**: Uses events to reflect changes in the system.
+- **Создатели событий**: Публикуют событие в маршрутизатор.
+- **Маршрутизаторы событий**: фильтруют и передают события потребителям.
+- **Потребители событий**: Используют события для отражения изменений в системе.
 
 ![event-driven-architecture](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/event-driven-architecture/event-driven-architecture.png)
 
-_Note: Dots in the diagram represents different events in the system._
+Примечание: Точки на диаграмме обозначают различные события в системе.
 
-## Patterns
+## Шаблоны
 
-There are several ways to implement the event-driven architecture, and which method we use depends on the use case but here are some common examples:
+Существует несколько способов реализации событийно-ориентированной архитектуры, и выбор метода зависит от конкретного случая, но вот несколько распространенных примеров:
 
-- [Sagas](https://karanpratapsingh.com/courses/system-design/distributed-transactions#sagas)
-- [Publish-Subscribe](https://karanpratapsingh.com/courses/system-design/publish-subscribe)
-- [Event Sourcing](https://karanpratapsingh.com/courses/system-design/event-sourcing)
-- [Command and Query Responsibility Segregation (CQRS)](https://karanpratapsingh.com/courses/system-design/command-and-query-responsibility-segregation)
+- [Саги](https://karanpratapsingh.com/courses/system-design/distributed-transactions#sagas)
+- [Опубликовать-Подписаться](https://karanpratapsingh.com/courses/system-design/publish-subscribe)
+- [Организация мероприятий](https://karanpratapsingh.com/courses/system-design/event-sourcing)
+- [Разделение ответственности команд и запросов (CQRS)](https://karanpratapsingh.com/courses/system-design/command-and-query-responsibility-segregation)
 
-_Note: Each of these methods is discussed separately._
+Примечание: Каждый из этих методов рассматривается отдельно.
 
-## Advantages
+## Преимущества
 
-Let's discuss some advantages:
+Давайте обсудим некоторые преимущества:
 
-- Decoupled producers and consumers.
-- Highly scalable and distributed.
-- Easy to add new consumers.
-- Improves agility.
+- Разделение производителей и потребителей.
+- Высокая масштабируемость и распределенная архитектура.
+— Легко добавлять новых потребителей.
+- Улучшает ловкость.
 
-## Challenges
+## Задачи
 
-Here are some challenges of event-drive architecture:
+Вот некоторые проблемы архитектуры, управляемой событиями:
 
-- Guaranteed delivery.
-- Error handling is difficult.
-- Event-driven systems are complex in general.
-- Exactly once, in-order processing of events.
+- Гарантированная доставка.
+— Обработка ошибок затруднена.
+- Системы, управляемые событиями, как правило, сложны.
+- Обработка событий происходит ровно один раз в порядке их поступления.
 
-## Use cases
+## Варианты использования
 
-Below are some common use cases where event-driven architectures are beneficial:
+Ниже приведены некоторые распространенные сценарии использования, в которых архитектуры, управляемые событиями, оказываются полезными:
 
-- Metadata and metrics.
-- Server and security logs.
-- Integrating heterogeneous systems.
-- Fanout and parallel processing.
+- Метаданные и метрики.
+- Журналы сервера и безопасности.
+- Интеграция гетерогенных систем.
+- Распределение потоков и параллельная обработка.
 
-## Examples
+## Примеры
 
-Here are some widely used technologies for implementing event-driven architectures:
+Вот некоторые широко используемые технологии для реализации событийно-ориентированных архитектур:
 
 - [NATS](https://nats.io)
 - [Apache Kafka](https://kafka.apache.org)
@@ -2472,745 +2472,745 @@ Here are some widely used technologies for implementing event-driven architectur
 - [Amazon SNS](https://aws.amazon.com/sns)
 - [Google PubSub](https://cloud.google.com/pubsub)
 
-# Event Sourcing
+# Организация мероприятий
 
-Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects.
+Вместо хранения только текущего состояния данных в домене, используйте хранилище с возможностью добавления данных (append-only store) для записи полной последовательности действий, выполняемых с этими данными. Это хранилище выступает в качестве системы учета и может использоваться для материализации объектов домена.
 
 ![event-sourcing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/event-sourcing/event-sourcing.png)
 
-This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
+Это может упростить задачи в сложных областях, избегая необходимости синхронизации модели данных и бизнес-домена, одновременно повышая производительность, масштабируемость и быстродействие. Это также может обеспечить согласованность транзакционных данных и поддерживать полные журналы аудита и историю, что позволяет предпринимать корректирующие действия.
 
-## Event sourcing vs Event-Driven Architecture (EDA)
+## Событийный подход против событийно-ориентированной архитектуры (EDA)
 
-Event sourcing is seemingly constantly being confused with [Event-driven Architecture (EDA)](https://karanpratapsingh.com/courses/system-design/event-driven-architecture). Event-driven architecture is about using events to communicate between service boundaries. Generally, leveraging a message broker to publish and consume events asynchronously within other boundaries.
+Событийный подход к проектированию, по всей видимости, постоянно путают с архитектурой, управляемой событиями (Event-driven Architecture, EDA) (https://karanpratapsingh.com/courses/system-design/event-driven-architecture). Архитектура, управляемая событиями, предполагает использование событий для обмена данными между сервисами. Как правило, это использование брокера сообщений для асинхронной публикации и потребления событий внутри других сервисов.
 
-Whereas, event sourcing is about using events as a state, which is a different approach to storing data. Rather than storing the current state, we're instead going to be storing events. Also, event sourcing is one of the several patterns to implement an event-driven architecture.
+В отличие от этого, событийный подход (event sourcing) предполагает использование событий в качестве состояния, что является иным подходом к хранению данных. Вместо хранения текущего состояния мы будем хранить события. Кроме того, событийный подход — это один из нескольких шаблонов для реализации архитектуры, управляемой событиями.
 
-## Advantages
+## Преимущества
 
-Let's discuss some advantages of using event sourcing:
+Давайте обсудим некоторые преимущества использования event-sourcing:
 
-- Excellent for real-time data reporting.
-- Great for fail-safety, data can be reconstituted from the event store.
-- Extremely flexible, any type of message can be stored.
-- Preferred way of achieving audit logs functionality for high compliance systems.
+- Отлично подходит для формирования отчетов на основе данных в режиме реального времени.
+- Отлично подходит для обеспечения отказоустойчивости: данные можно восстановить из хранилища событий.
+- Чрезвычайно гибкий, позволяет хранить сообщения любого типа.
+- Предпочтительный способ реализации функциональности журналов аудита для систем с высоким уровнем соответствия требованиям.
 
-## Disadvantages
+## Недостатки
 
-Following are the disadvantages of event sourcing:
+Ниже перечислены недостатки организации мероприятий с привлечением подрядчиков:
 
-- Requires an extremely efficient network infrastructure.
-- Requires a reliable way to control message formats, such as a schema registry.
-- Different events will contain different payloads.
+— Требует чрезвычайно эффективной сетевой инфраструктуры.
+— Требуется надежный способ управления форматами сообщений, например, реестр схем.
+— Различные события будут содержать различную полезную нагрузку.
 
-# Command and Query Responsibility Segregation (CQRS)
+# Разделение ответственности за управление и запросы (CQRS)
 
-Command Query Responsibility Segregation (CQRS) is an architectural pattern that divides a system's actions into commands and queries. It was first described by [Greg Young](https://twitter.com/gregyoung).
+Разделение ответственности команд и запросов (CQRS) — это архитектурный шаблон, который разделяет действия системы на команды и запросы. Впервые он был описан Грегом Янгом (Greg Young) (https://twitter.com/gregyoung).
 
-In CQRS, a _command_ is an instruction, a directive to perform a specific task. It is an intention to change something and doesn't return a value, only an indication of success or failure. And, a _query_ is a request for information that doesn't change the system's state or cause any side effects.
+В CQRS команда — это инструкция, указание на выполнение конкретной задачи. Это намерение изменить что-либо, и оно не возвращает значения, а лишь указывает на успех или неудачу. А запрос — это запрос информации, который не изменяет состояние системы и не вызывает побочных эффектов.
 
 ![command-and-query-responsibility-segregation](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/command-and-query-responsibility-segregation/command-and-query-responsibility-segregation.png)
 
-The core principle of CQRS is the separation of commands and queries. They perform fundamentally different roles within a system, and separating them means that each can be optimized as needed, which distributed systems can really benefit from.
+Основной принцип CQRS заключается в разделении команд и запросов. Они выполняют принципиально разные роли в системе, и их разделение позволяет оптимизировать каждую из них по мере необходимости, что особенно полезно для распределенных систем.
 
-## CQRS with Event Sourcing
+## CQRS с использованием Event Source
 
-The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically separate stores.
+Паттерн CQRS часто используется вместе с паттерном Event Sourcing. Системы на основе CQRS используют отдельные модели данных для чтения и записи, каждая из которых адаптирована к соответствующим задачам и часто располагается в физически отдельных хранилищах.
 
-When used with the Event Sourcing pattern, the store of events is the write model and is the official source of information. The read model of a CQRS-based system provides materialized views of the data, typically as highly denormalized views.
+При использовании с шаблоном Event Sourcing хранилище событий представляет собой модель записи и является официальным источником информации. Модель чтения в системе на основе CQRS предоставляет материализованные представления данных, как правило, в виде сильно денормализованных представлений.
 
-## Advantages
+## Преимущества
 
-Let's discuss some advantages of CQRS:
+Давайте обсудим некоторые преимущества CQRS:
 
-- Allows independent scaling of read and write workloads.
-- Easier scaling, optimizations, and architectural changes.
-- Closer to business logic with loose coupling.
-- The application can avoid complex joins when querying.
-- Clear boundaries between the system behavior.
+- Позволяет независимо масштабировать рабочие нагрузки чтения и записи.
+- Упрощенное масштабирование, оптимизация и внесение архитектурных изменений.
+— Ближе к бизнес-логике с нестрогой связанностью.
+- Приложение может избегать сложных объединений таблиц при выполнении запросов.
+- Четкие границы между различными вариантами поведения системы.
 
-## Disadvantages
+## Недостатки
 
-Below are some disadvantages of CQRS:
+Ниже перечислены некоторые недостатки CQRS:
 
-- More complex application design.
-- Message failures or duplicate messages can occur.
-- Dealing with eventual consistency is a challenge.
-- Increased system maintenance efforts.
+— Более сложная архитектура приложений.
+- Могут возникать ошибки при передаче сообщений или дублирование сообщений.
+- Обеспечение стабильного результата в конечном итоге представляет собой сложную задачу.
+- Усилены работы по техническому обслуживанию системы.
 
-## Use cases
+## Варианты использования
 
-Here are some scenarios where CQRS will be helpful:
+Вот несколько сценариев, в которых CQRS может оказаться полезным:
 
-- The performance of data reads must be fine-tuned separately from the performance of data writes.
-- The system is expected to evolve over time and might contain multiple versions of the model, or where business rules change regularly.
-- Integration with other systems, especially in combination with event sourcing, where the temporal failure of one subsystem shouldn't affect the availability of the others.
-- Better security to ensure that only the right domain entities are performing writes on the data.
+- Производительность чтения данных необходимо оптимизировать отдельно от производительности записи данных.
+- Предполагается, что система будет развиваться со временем и может содержать несколько версий модели, или в ней могут регулярно меняться бизнес-правила.
+- Интеграция с другими системами, особенно в сочетании с событийным моделированием, когда временный сбой одной подсистемы не должен влиять на доступность других.
+- Улучшена безопасность, гарантирующая, что запись данных осуществляется только уполномоченными субъектами домена.
 
-# API Gateway
+# API-шлюз
 
-The API Gateway is an API management tool that sits between a client and a collection of backend services. It is a single entry point into a system that encapsulates the internal system architecture and provides an API that is tailored to each client. It also has other responsibilities such as authentication, monitoring, load balancing, caching, throttling, logging, etc.
+API-шлюз — это инструмент управления API, который находится между клиентом и набором бэкэнд-сервисов. Он представляет собой единую точку входа в систему, которая инкапсулирует внутреннюю архитектуру системы и предоставляет API, адаптированный под каждого клиента. Он также выполняет другие функции, такие как аутентификация, мониторинг, балансировка нагрузки, кэширование, регулирование, логирование и т. д.
 
 ![api-gateway](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/api-gateway/api-gateway.png)
 
-## Why do we need an API Gateway?
+## Зачем нам нужен API-шлюз?
 
-The granularity of APIs provided by microservices is often different than what a client needs. Microservices typically provide fine-grained APIs, which means that clients need to interact with multiple services. Hence, an API gateway can provide a single entry point for all clients with some additional features and better management.
+Детализация API, предоставляемых микросервисами, часто отличается от потребностей клиента. Микросервисы, как правило, предоставляют мелкозернистые API, что означает, что клиентам необходимо взаимодействовать с несколькими сервисами. Следовательно, API-шлюз может обеспечить единую точку входа для всех клиентов с некоторыми дополнительными функциями и улучшенным управлением.
 
-## Features
+## Функции
 
-Below are some desired features of an API Gateway:
+Ниже перечислены некоторые желаемые функции API-шлюза:
 
-- Authentication and Authorization
-- [Service discovery](https://karanpratapsingh.com/courses/system-design/service-discovery)
-- [Reverse Proxy](https://karanpratapsingh.com/courses/system-design/proxy#reverse-proxy)
-- [Caching](https://karanpratapsingh.com/courses/system-design/caching)
-- Security
-- Retry and [Circuit breaking](https://karanpratapsingh.com/courses/system-design/circuit-breaker)
-- [Load balancing](https://karanpratapsingh.com/courses/system-design/load-balancing)
-- Logging, Tracing
-- API composition
-- [Rate limiting](https://karanpratapsingh.com/courses/system-design/rate-limiting) and throttling
-- Versioning
-- Routing
-- IP whitelisting or blacklisting
+- Аутентификация и авторизация
+- [Обнаружение сервисов](https://karanpratapsingh.com/courses/system-design/service-discovery)
+- [Обратный прокси](https://karanpratapsingh.com/courses/system-design/proxy#reverse-proxy)
+- [Кэширование](https://karanpratapsingh.com/courses/system-design/caching)
+- Безопасность
+- Повторная попытка и [прерывание цепи](https://karanpratapsingh.com/courses/system-design/circuit-breaker)
+- [Балансировка нагрузки](https://karanpratapsingh.com/courses/system-design/load-balancing)
+- Ведение журналов, трассировка
+- Состав API
+- [Ограничение скорости](https://karanpratapsingh.com/courses/system-design/rate-limiting) и регулирование скорости передачи данных.
+- Версионирование
+- Маршрутизация
+- Внесение IP-адресов в белый или черный список
 
-## Advantages
+## Преимущества
 
-Let's look at some advantages of using an API Gateway:
+Рассмотрим некоторые преимущества использования API-шлюза:
 
-- Encapsulates the internal structure of an API.
-- Provides a centralized view of the API.
-- Simplifies the client code.
-- Monitoring, analytics, tracing, and other such features.
+- Инкапсулирует внутреннюю структуру API.
+— Обеспечивает централизованное представление API.
+- Упрощает клиентский код.
+- Мониторинг, аналитика, отслеживание и другие подобные функции.
 
-## Disadvantages
+## Недостатки
 
-Here are some possible disadvantages of an API Gateway:
+Вот некоторые возможные недостатки API-шлюза:
 
-- Possible single point of failure.
-- Might impact performance.
-- Can become a bottleneck if not scaled properly.
-- Configuration can be challenging.
+- Возможная единая точка отказа.
+- Может повлиять на производительность.
+- Может стать узким местом, если масштабирование выполнено неправильно.
+- Настройка может быть сложной задачей.
 
-## Backend For Frontend (BFF) pattern
+## Паттерн "Бэкенд для фронтенда" (BFF)
 
-In the Backend For Frontend (BFF) pattern, we create separate backend services to be consumed by specific frontend applications or interfaces. This pattern is useful when we want to avoid customizing a single backend for multiple interfaces. This pattern was first described by [Sam Newman](https://samnewman.io).
+В паттерне Backend For Frontend (BFF) мы создаём отдельные бэкенд-сервисы, которые будут использоваться конкретными фронтенд-приложениями или интерфейсами. Этот паттерн полезен, когда мы хотим избежать настройки одного бэкенда для нескольких интерфейсов. Этот паттерн был впервые описан [Сэмом Ньюманом](https://samnewman.io).
 
-Also, sometimes the output of data returned by the microservices to the front end is not in the exact format or filtered as needed by the front end. To solve this issue, the frontend should have some logic to reformat the data, and therefore, we can use BFF to shift some of this logic to the intermediate layer.
+Кроме того, иногда данные, возвращаемые микросервисами на фронтенд, не соответствуют требуемому формату или отфильтрованы должным образом. Для решения этой проблемы фронтенд должен иметь логику для переформатирования данных, и поэтому мы можем использовать BFF для переноса части этой логики на промежуточный слой.
 
 ![backend-for-frontend](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/api-gateway/backend-for-frontend.png)
 
-The primary function of the backend for the frontend pattern is to get the required data from the appropriate service, format the data, and sent it to the frontend.
+Основная функция бэкэнда в рамках фронтенд-паттерна заключается в получении необходимых данных из соответствующего сервиса, форматировании данных и отправке их на фронтенд.
 
-_[GraphQL](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#graphql) performs really well as a backend for frontend (BFF)._
+_[GraphQL](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#graphql) отлично работает в качестве бэкенда для фронтенда (BFF)._
 
-### When to use this pattern?
+### Когда использовать этот шаблон?
 
-We should consider using a Backend For Frontend (BFF) pattern when:
+Следует рассмотреть возможность использования паттерна Backend For Frontend (BFF) в следующих случаях:
 
-- A shared or general purpose backend service must be maintained with significant development overhead.
-- We want to optimize the backend for the requirements of a specific client.
-- Customizations are made to a general-purpose backend to accommodate multiple interfaces.
+- Поддержка общего или универсального серверного сервиса сопряжена со значительными затратами на разработку.
+— Мы хотим оптимизировать бэкэнд под требования конкретного клиента.
+— Внесены изменения в стандартную серверную часть для обеспечения возможности работы с различными интерфейсами.
 
-## Examples
+## Примеры
 
-Following are some widely used gateways technologies:
+Ниже перечислены некоторые широко используемые технологии шлюзов:
 
 - [Amazon API Gateway](https://aws.amazon.com/api-gateway)
 - [Apigee API Gateway](https://cloud.google.com/apigee)
 - [Azure API Gateway](https://azure.microsoft.com/en-in/services/api-management)
-- [Kong API Gateway](https://konghq.com/kong)
+- [Шлюз Kong API](https://konghq.com/kong)
 
 # REST, GraphQL, gRPC
 
-A good API design is always a crucial part of any system. But it is also important to pick the right API technology. So, in this tutorial, we will briefly discuss different API technologies such as REST, GraphQL, and gRPC.
+Качественный дизайн API всегда является важнейшей частью любой системы. Но также важно выбрать правильную технологию API. Поэтому в этом руководстве мы кратко рассмотрим различные технологии API, такие как REST, GraphQL и gRPC.
 
-## What's an API?
+## Что такое API?
 
-Before we even get into API technologies, let's first understand what is an API.
+Прежде чем мы перейдем к технологиям API, давайте сначала разберемся, что такое API.
 
-API stands for Application Programming Interface. It is a set of definitions and protocols for building and integrating application software. It's sometimes referred to as a contract between an information provider and an information user establishing the content required from the producer and the content required by the consumer.
+API расшифровывается как Application Programming Interface (интерфейс прикладного программирования). Это набор определений и протоколов для создания и интеграции прикладного программного обеспечения. Иногда его называют контрактом между поставщиком информации и пользователем информации, определяющим контент, требуемый от производителя, и контент, требуемый от потребителя.
 
-In other words, if you want to interact with a computer or system to retrieve information or perform a function, an API helps you communicate what you want to that system so it can understand and complete the request.
+Иными словами, если вы хотите взаимодействовать с компьютером или системой для получения информации или выполнения функции, API помогает вам передать системе то, что вы хотите, чтобы она могла понять и выполнить запрос.
 
-## REST
+## ОТДЫХ
 
-A [REST API](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) (also known as RESTful API) is an application programming interface that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services. REST stands for Representational State Transfer and it was first introduced by [Roy Fielding](https://roy.gbiv.com) in the year 2000.
+REST API (также известный как RESTful API) — это программный интерфейс приложения, соответствующий ограничениям архитектурного стиля REST и позволяющий взаимодействовать с веб-сервисами RESTful. REST расшифровывается как Representational State Transfer (передача репрезентативного состояния) и был впервые представлен Роем Филдингом в 2000 году.
 
-_In REST API, the fundamental unit is a resource._
+В REST API основной единицей является ресурс.
 
-### Concepts
+### Концепции
 
-Let's discuss some concepts of a RESTful API.
+Давайте обсудим некоторые концепции RESTful API.
 
-**Constraints**
+**Ограничения**
 
-In order for an API to be considered _RESTful_, it has to conform to these architectural constraints:
+Для того чтобы API считался _RESTful_, он должен соответствовать следующим архитектурным ограничениям:
 
-- **Uniform Interface**: There should be a uniform way of interacting with a given server.
-- **Client-Server**: A client-server architecture managed through HTTP.
-- **Stateless**: No client context shall be stored on the server between requests.
-- **Cacheable**: Every response should include whether the response is cacheable or not and for how much duration responses can be cached at the client-side.
-- **Layered system**: An application architecture needs to be composed of multiple layers.
-- **Code on demand**: Return executable code to support a part of your application. _(optional)_
+- **Единый интерфейс**: Должен существовать единый способ взаимодействия с данным сервером.
+- **Клиент-сервер**: архитектура клиент-сервер, управляемая по протоколу HTTP.
+- **Без сохранения состояния**: Между запросами на сервере не сохраняется контекст клиента.
+- **Кэшируемый**: Каждый ответ должен содержать информацию о том, кэшируется ли он или нет, а также о том, в течение какого времени ответы могут кэшироваться на стороне клиента.
+- **Многоуровневая система**: Архитектура приложения должна состоять из нескольких уровней.
+- **Код по запросу**: Возвращает исполняемый код для поддержки части вашего приложения. (необязательно)
 
-**HTTP Verbs**
+**Глаголы HTTP**
 
-HTTP defines a set of request methods to indicate the desired action to be performed for a given resource. Although they can also be nouns, these request methods are sometimes referred to as _HTTP verbs_. Each of them implements a different semantic, but some common features are shared by a group of them.
+HTTP определяет набор методов запроса, указывающих на желаемое действие, которое должно быть выполнено для данного ресурса. Хотя они могут быть и существительными, эти методы запроса иногда называют «HTTP-глаголами». Каждый из них реализует свою семантику, но некоторые общие черты присущи группе из них.
 
-Below are some commonly used HTTP verbs:
+Ниже приведены некоторые часто используемые HTTP-глаголы:
 
-- **GET**: Request a representation of the specified resource.
-- **HEAD**: Response is identical to a `GET` request, but without the response body.
-- **POST**: Submits an entity to the specified resource, often causing a change in state or side effects on the server.
-- **PUT**: Replaces all current representations of the target resource with the request payload.
-- **DELETE**: Deletes the specified resource.
-- **PATCH**: Applies partial modifications to a resource.
+- **GET**: Запрос на получение представления указанного ресурса.
+- **ЗАГОЛОВОК**: Ответ идентичен запросу `GET`, но без тела ответа.
+- **POST**: Отправляет объект на указанный ресурс, что часто приводит к изменению состояния или побочным эффектам на сервере.
+- **PUT**: Заменяет все текущие представления целевого ресурса полезной нагрузкой запроса.
+- **УДАЛИТЬ**: Удаляет указанный ресурс.
+- **PATCH**: Применяет частичные изменения к ресурсу.
 
-**HTTP response codes**
+**Коды ответа HTTP**
 
-[HTTP response status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) indicate whether a specific HTTP request has been successfully completed.
+Коды состояния HTTP-ответа (https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) указывают, был ли конкретный HTTP-запрос успешно завершен.
 
-There are five classes defined by the standard:
+Стандарт определяет пять классов:
 
-- 1xx - Informational responses.
-- 2xx - Successful responses.
-- 3xx - Redirection responses.
-- 4xx - Client error responses.
-- 5xx - Server error responses.
+- 1xx - Информационные ответы.
+- 2xx - Успешные ответы.
+- 3xx - Ответы на перенаправление.
+- 4xx - Ответы клиента об ошибках.
+- 5xx - Сообщения об ошибках сервера.
 
-For example, HTTP 200 means that the request was successful.
+Например, HTTP-код 200 означает, что запрос был успешно выполнен.
 
-### Advantages
+### Преимущества
 
-Let's discuss some advantages of REST API:
+Давайте обсудим некоторые преимущества REST API:
 
-- Simple and easy to understand.
-- Flexible and portable.
-- Good caching support.
-- Client and server are decoupled.
+— Просто и понятно.
+— Гибкий и портативный.
+- Хорошая поддержка кэширования.
+— Клиент и сервер разделены.
 
-### Disadvantages
+### Недостатки
 
-Let's discuss some disadvantages of REST API:
+Давайте обсудим некоторые недостатки REST API:
 
-- Over-fetching of data.
-- Sometimes multiple round trips to the server are required.
+- Избыточное получение данных.
+— Иногда требуется несколько обращений к серверу.
 
-### Use cases
+### Варианты использования
 
-REST APIs are pretty much used universally and are the default standard for designing APIs. Overall REST APIs are quite flexible and can fit almost all scenarios.
+REST API используются практически повсеместно и являются стандартом по умолчанию для проектирования API. В целом, REST API достаточно гибкие и подходят практически для всех сценариев.
 
-### Example
+### Пример
 
-Here's an example usage of a REST API that operates on a **users** resource.
+Вот пример использования REST API, работающего с ресурсом **users**.
 
-| URI           | HTTP verb | Description         |
+| URI | HTTP-глагол | Описание |
 | ------------- | --------- | ------------------- |
-| /users        | GET       | Get all users       |
-| /users/\{id\} | GET       | Get a user by id    |
-| /users        | POST      | Add a new user      |
-| /users/\{id\} | PATCH     | Update a user by id |
-| /users/\{id\} | DELETE    | Delete a user by id |
+| /users | GET | Получить всех пользователей |
+| /users/\{id\} | GET | Получить пользователя по идентификатору |
+| /users | POST | Добавить нового пользователя |
+| /users/\{id\} | PATCH | Обновить пользователя по идентификатору |
+| /users/\{id\} | УДАЛИТЬ | Удалить пользователя по идентификатору |
 
-_There is so much more to learn when it comes to REST APIs, I will highly recommend looking into [Hypermedia as the Engine of Application State (HATEOAS)](https://en.wikipedia.org/wiki/HATEOAS)._
+В области REST API еще многое предстоит узнать, поэтому я настоятельно рекомендую ознакомиться с [гипермедиа как механизмом управления состоянием приложения (HATEOAS)](https://en.wikipedia.org/wiki/HATEOAS).
 
 ## GraphQL
 
-[GraphQL](https://graphql.org) is a query language and server-side runtime for APIs that prioritizes giving clients exactly the data they request and no more. It was developed by [Facebook](https://engineering.fb.com) and later open-sourced in 2015.
+GraphQL (https://graphql.org) — это язык запросов и серверная среда выполнения для API, которая ставит своей целью предоставление клиентам именно тех данных, которые они запрашивают, и ничего лишнего. Он был разработан компанией Facebook (https://engineering.fb.com), а затем в 2015 году стал проектом с открытым исходным кодом.
 
-GraphQL is designed to make APIs fast, flexible, and developer-friendly. Additionally, GraphQL gives API maintainers the flexibility to add or deprecate fields without impacting existing queries. Developers can build APIs with whatever methods they prefer, and the GraphQL specification will ensure they function in predictable ways to clients.
+GraphQL разработан для того, чтобы сделать API быстрыми, гибкими и удобными для разработчиков. Кроме того, GraphQL предоставляет разработчикам API возможность добавлять или удалять поля без влияния на существующие запросы. Разработчики могут создавать API с использованием любых методов, которые им нравятся, а спецификация GraphQL гарантирует, что они будут функционировать предсказуемым образом для клиентов.
 
-_In GraphQL, the fundamental unit is a query._
+В GraphQL основной единицей является запрос.
 
-### Concepts
+### Концепции
 
-Let's briefly discuss some key concepts in GraphQL:
+Давайте кратко обсудим некоторые ключевые понятия GraphQL:
 
-**Schema**
+**Схема**
 
-A GraphQL schema describes the functionality clients can utilize once they connect to the GraphQL server.
+Схема GraphQL описывает функциональность, которую клиенты могут использовать после подключения к серверу GraphQL.
 
-**Queries**
+**Запросы**
 
-A query is a request made by the client. It can consist of fields and arguments for the query. The operation type of a query can also be a [mutation](https://graphql.org/learn/queries/#mutations) which provides a way to modify server-side data.
+Запрос — это обращение, сделанное клиентом. Он может состоять из полей и аргументов. Типом операции запроса также может быть [мутация](https://graphql.org/learn/queries/#mutations), которая предоставляет способ изменения данных на стороне сервера.
 
-**Resolvers**
+**Резолверы**
 
-Resolver is a collection of functions that generate responses for a GraphQL query. In simple terms, a resolver acts as a GraphQL query handler.
+Резолвер — это набор функций, генерирующих ответы на GraphQL-запросы. Проще говоря, резолвер выступает в роли обработчика GraphQL-запросов.
 
-### Advantages
+### Преимущества
 
-Let's discuss some advantages of GraphQL:
+Давайте обсудим некоторые преимущества GraphQL:
 
-- Eliminates over-fetching of data.
-- Strongly defined schema.
-- Code generation support.
-- Payload optimization.
+- Исключает избыточное получение данных.
+- Четко определенная схема.
+- Поддержка генерации кода.
+- Оптимизация полезной нагрузки.
 
-### Disadvantages
+### Недостатки
 
-Let's discuss some disadvantages of GraphQL:
+Давайте обсудим некоторые недостатки GraphQL:
 
-- Shifts complexity to server-side.
-- Caching becomes hard.
-- Versioning is ambiguous.
-- N+1 problem.
+- Переносит сложность на серверную сторону.
+— Кэширование становится сложным.
+— Версионирование неоднозначно.
+- Задача N+1.
 
-### Use cases
+### Варианты использования
 
-GraphQL proves to be essential in the following scenarios:
+GraphQL оказывается незаменимым в следующих сценариях:
 
-- Reducing app bandwidth usage as we can query multiple resources in a single query.
-- Rapid prototyping for complex systems.
-- When we are working with a graph-like data model.
+- Сокращение потребления пропускной способности приложения, поскольку мы можем запрашивать информацию о нескольких ресурсах в одном запросе.
+- Быстрое прототипирование сложных систем.
+- Когда мы работаем с графоподобной моделью данных.
 
-### Example
+### Пример
 
-Here's a GraphQL schema that defines a `User` type and a `Query` type.
+Вот схема GraphQL, определяющая тип `User` и тип `Query`.
 
 ```graphql
-type Query {
-  getUser: User
+тип запроса {
+  getUser: Пользователь
 }
 
-type User {
-  id: ID
-  name: String
-  city: String
-  state: String
+тип Пользователь {
+  я сделал
+  имя: Строка
+  город: Строка
+  состояние: Строка
 }
 ```
 
-Using the above schema, the client can request the required fields easily without having to fetch the entire resource or guess what the API might return.
+Используя приведенную выше схему, клиент может легко запросить необходимые поля, не извлекая весь ресурс целиком и не гадая, что может вернуть API.
 
 ```graphql
 {
   getUser {
-    id
-    name
-    city
+    идентификатор
+    имя
+    город
   }
 }
 ```
 
-This will give the following response to the client.
+В результате клиент получит следующий ответ.
 
 ```json
 {
   "getUser": {
     "id": 123,
-    "name": "Karan",
-    "city": "San Francisco"
+    "имя": "Каран",
+    «город»: «Сан-Франциско»
   }
 }
 ```
 
-_Learn more about GraphQL at [graphql.org](https://graphql.org)._
+Узнайте больше о GraphQL на сайте [graphql.org](https://graphql.org).
 
 ## gRPC
 
-[gRPC](https://grpc.io) is a modern open-source high-performance [Remote Procedure Call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call) framework that can run in any environment. It can efficiently connect services in and across data centers with pluggable support for load balancing, tracing, health checking, authentication and much more.
+[gRPC](https://grpc.io) — это современная высокопроизводительная платформа с открытым исходным кодом для удаленного вызова процедур (RPC), которая может работать в любой среде. Она позволяет эффективно соединять сервисы внутри и между центрами обработки данных, обеспечивая подключаемую поддержку балансировки нагрузки, трассировки, проверки работоспособности, аутентификации и многого другого.
 
-### Concepts
+### Концепции
 
-Let's discuss some key concepts of gRPC.
+Давайте обсудим некоторые ключевые понятия gRPC.
 
-**Protocol buffers**
+**Протокольные буферы**
 
-Protocol buffers provide a language and platform-neutral extensible mechanism for serializing structured data in a forward and backward-compatible way. It's like JSON, except it's smaller and faster, and it generates native language bindings.
+Протоколы Protocol Buffers предоставляют расширяемый механизм, не зависящий от языка и платформы, для сериализации структурированных данных с обеспечением прямой и обратной совместимости. Это похоже на JSON, но меньше по размеру и быстрее, а также позволяет создавать привязки к собственным языкам программирования.
 
-**Service definition**
+**Определение услуги**
 
-Like many RPC systems, gRPC is based on the idea of defining a service and specifying the methods that can be called remotely with their parameters and return types. gRPC uses protocol buffers as the [Interface Definition Language (IDL)](https://en.wikipedia.org/wiki/Interface_description_language) for describing both the service interface and the structure of the payload messages.
+Как и многие RPC-системы, gRPC основан на идее определения сервиса и указания методов, которые могут быть вызваны удаленно, с указанием их параметров и типов возвращаемых значений. gRPC использует протокол Protocol Buffers в качестве языка описания интерфейса (IDL) для описания как интерфейса сервиса, так и структуры сообщений полезной нагрузки.
 
-### Advantages
+### Преимущества
 
-Let's discuss some advantages of gRPC:
+Давайте обсудим некоторые преимущества gRPC:
 
-- Lightweight and efficient.
-- High performance.
-- Built-in code generation support.
-- Bi-directional streaming.
+- Легкий и эффективный.
+- Высокая производительность.
+- Встроенная поддержка генерации кода.
+- Двусторонняя потоковая передача.
 
-### Disadvantages
+### Недостатки
 
-Let's discuss some disadvantages of gRPC:
+Давайте обсудим некоторые недостатки gRPC:
 
-- Relatively new compared to REST and GraphQL.
-- Limited browser support.
-- Steeper learning curve.
-- Not human readable.
+- Относительно новый по сравнению с REST и GraphQL.
+- Ограниченная поддержка браузеров.
+- Более крутая кривая обучения.
+— Нечитаемо для человека.
 
-### Use cases
+### Варианты использования
 
-Below are some good use cases for gRPC:
+Ниже приведены несколько примеров эффективного использования gRPC:
 
-- Real-time communication via bi-directional streaming.
-- Efficient inter-service communication in microservices.
-- Low latency and high throughput communication.
-- Polyglot environments.
+- Связь в режиме реального времени посредством двусторонней потоковой передачи.
+- Эффективное взаимодействие между сервисами в микросервисах.
+- Низкая задержка и высокая пропускная способность связи.
+- Многоязычные среды.
 
-### Example
+### Пример
 
-Here's a basic example of a gRPC service defined in a `*.proto` file. Using this definition, we can easily code generate the `HelloService` service in the programming language of our choice.
+Вот простой пример gRPC-сервиса, определенного в файле `*.proto`. Используя это определение, мы можем легко сгенерировать код для сервиса `HelloService` на любом языке программирования по нашему выбору.
 
-```protobuf
-service HelloService {
-  rpc SayHello (HelloRequest) returns (HelloResponse);
+```протобуф
+сервис HelloService {
+  rpc SayHello (HelloRequest) возвращает (HelloResponse);
 }
 
-message HelloRequest {
+сообщение HelloRequest {
   string greeting = 1;
 }
 
-message HelloResponse {
-  string reply = 1;
+сообщение HelloResponse {
+  строковый ответ = 1;
 }
 ```
 
-## REST vs GraphQL vs gRPC
+## REST против GraphQL против gRPC
 
-Now that we know how these API designing techniques work, let's compare them based on the following parameters:
+Теперь, когда мы знаем, как работают эти методы проектирования API, давайте сравним их по следующим параметрам:
 
-- Will it cause tight coupling?
-- How _chatty_ (distinct API calls to get needed information) are the APIs?
-- What's the performance like?
-- How complex is it to integrate?
-- How well does the caching work?
-- Built-in tooling and code generation?
-- What's API discoverability like?
-- How easy is it to version APIs?
+— Приведёт ли это к сильной взаимосвязи?
+— Насколько многословны API (насколько разнообразны вызовы API для получения необходимой информации)?
+— Каково было выступление?
+— Насколько сложно осуществить интеграцию?
+— Насколько хорошо работает кэширование?
+— Встроенные инструменты и генерация кода?
+— Какова доступность API для поиска?
+— Насколько легко управлять версиями API?
 
-| Type    | Coupling | Chattiness | Performance | Complexity | Caching | Codegen | Discoverability | Versioning |
+| Тип | Связность | Разговорчивость | Производительность | Сложность | Кэширование | Генерация кода | Обнаруживаемость | Версионирование |
 | ------- | -------- | ---------- | ----------- | ---------- | ------- | ------- | --------------- | ---------- |
-| REST    | Low      | High       | Good        | Medium     | Great   | Bad     | Good            | Easy       |
-| GraphQL | Medium   | Low        | Good        | High       | Custom  | Good    | Good            | Custom     |
-| gRPC    | High     | Medium     | Great       | Low        | Custom  | Great   | Bad             | Hard       |
+| ОТДЫХ | Низкий | Высокий | Хороший | Средний | Отличный | Плохой | Хороший | Легкий |
+| GraphQL | Средний | Низкий | Хороший | Высокий | Пользовательский | Хороший | Хороший | Пользовательский |
+| gRPC | Высокий | Средний | Отличный | Низкий | Пользовательский | Отличный | Плохой | Сложный |
 
-### Which API technology is better?
+### Какая технология API лучше?
 
-Well, the answer is none of them. There is no silver bullet as each of these technologies has its own advantages and disadvantages. Users only care about using our APIs in a consistent way, so make sure to focus on your domain and requirements when designing your API.
+Ответ — ни один из них. Универсального решения не существует, поскольку каждая из этих технологий имеет свои преимущества и недостатки. Пользователей интересует только единообразное использование наших API, поэтому при разработке API обязательно сосредоточьтесь на своей предметной области и требованиях.
 
-# Long polling, WebSockets, Server-Sent Events (SSE)
+# Долгосрочное опросное соединение, WebSockets, события, отправляемые сервером (SSE)
 
-Web applications were initially developed around a client-server model, where the web client is always the initiator of transactions like requesting data from the server. Thus, there was no mechanism for the server to independently send, or push, data to the client without the client first making a request. Let's discuss some approaches to overcome this problem.
+Веб-приложения изначально разрабатывались по модели «клиент-сервер», где веб-клиент всегда является инициатором транзакций, таких как запрос данных у сервера. Таким образом, не существовало механизма, позволяющего серверу самостоятельно отправлять или «передавать» данные клиенту без предварительного запроса со стороны клиента. Давайте обсудим некоторые подходы к решению этой проблемы.
 
-## Long polling
+## Долгосрочный опрос
 
-HTTP Long polling is a technique used to push information to a client as soon as possible from the server. As a result, the server does not have to wait for the client to send a request.
+HTTP Long polling — это метод, используемый для максимально быстрой отправки информации от сервера клиенту. В результате серверу не нужно ждать, пока клиент отправит запрос.
 
-In Long polling, the server does not close the connection once it receives a request from the client. Instead, the server responds only if any new message is available or a timeout threshold is reached.
+В протоколе Long polling сервер не закрывает соединение после получения запроса от клиента. Вместо этого сервер отвечает только в том случае, если появилось новое сообщение или достигнут пороговый уровень таймаута.
 
 ![long-polling](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/long-polling-websockets-server-sent-events/long-polling.png)
 
-Once the client receives a response, it immediately sends a new request to the server to have a new pending connection to send data to the client, and the operation is repeated. With this approach, the server emulates a real-time server push feature.
+Как только клиент получает ответ, он немедленно отправляет новый запрос на сервер, чтобы установить новое ожидающее соединение для отправки данных клиенту, и операция повторяется. Таким образом, сервер имитирует функцию отправки данных в режиме реального времени.
 
-### Working
+### Работающий
 
-Let's understand how long polling works:
+Давайте разберемся, как работает опрос с длительным временем отклика (long polling):
 
-1. The client makes an initial request and waits for a response.
-2. The server receives the request and delays sending anything until an update is available.
-3. Once an update is available, the response is sent to the client.
-4. The client receives the response and makes a new request immediately or after some defined interval to establish a connection again.
+1. Клиент отправляет первоначальный запрос и ожидает ответа.
+2. Сервер получает запрос и задерживает отправку чего-либо до тех пор, пока не появится обновление.
+3. Как только обновление становится доступным, ответ отправляется клиенту.
+4. Клиент получает ответ и немедленно или через определенный промежуток времени отправляет новый запрос для повторного установления соединения.
 
-### Advantages
+### Преимущества
 
-Here are some advantages of long polling:
+Вот некоторые преимущества долгосрочного опроса общественного мнения:
 
-- Easy to implement, good for small-scale projects.
-- Nearly universally supported.
+- Легко внедряется, подходит для небольших проектов.
+- Практически повсеместно поддерживается.
 
-### Disadvantages
+### Недостатки
 
-A major downside of long polling is that it is usually not scalable. Below are some of the other reasons:
+Одним из главных недостатков метода «долгосрочного опроса» является его обычно низкая масштабируемость. Ниже приведены некоторые другие причины:
 
-- Creates a new connection each time, which can be intensive on the server.
-- Reliable message ordering can be an issue for multiple requests.
-- Increased latency as the server needs to wait for a new request.
+- Каждый раз создает новое соединение, что может создавать значительную нагрузку на сервер.
+— Обеспечение надежной упорядоченности сообщений может стать проблемой при обработке множества запросов.
+- Увеличена задержка, поскольку серверу приходится ждать нового запроса.
 
-## WebSockets
+## Веб-сокеты
 
-WebSocket provides full-duplex communication channels over a single TCP connection. It is a persistent connection between a client and a server that both parties can use to start sending data at any time.
+WebSocket обеспечивает полнодуплексный канал связи по одному TCP-соединению. Это постоянное соединение между клиентом и сервером, которое обе стороны могут использовать для начала отправки данных в любое время.
 
-The client establishes a WebSocket connection through a process known as the WebSocket handshake. If the process succeeds, then the server and client can exchange data in both directions at any time. The WebSocket protocol enables the communication between a client and a server with lower overheads, facilitating real-time data transfer from and to the server.
+Клиент устанавливает соединение WebSocket посредством процесса, известного как рукопожатие WebSocket. Если процесс проходит успешно, сервер и клиент могут обмениваться данными в обоих направлениях в любое время. Протокол WebSocket обеспечивает связь между клиентом и сервером с меньшими накладными расходами, облегчая передачу данных в режиме реального времени от сервера и к серверу.
 
 ![websockets](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/long-polling-websockets-server-sent-events/websockets.png)
 
-This is made possible by providing a standardized way for the server to send content to the client without being asked and allowing for messages to be passed back and forth while keeping the connection open.
+Это становится возможным благодаря предоставлению стандартизированного способа отправки сервером контента клиенту без запроса, что позволяет обмениваться сообщениями, поддерживая при этом открытое соединение.
 
-### Working
+### Работающий
 
-Let's understand how WebSockets work:
+Давайте разберемся, как работают WebSocket:
 
-1. The client initiates a WebSocket handshake process by sending a request.
-2. The request also contains an [HTTP Upgrade](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header) header that allows the request to switch to the WebSocket protocol (`ws://`).
-3. The server sends a response to the client, acknowledging the WebSocket handshake request.
-4. A WebSocket connection will be opened once the client receives a successful handshake response.
-5. Now the client and server can start sending data in both directions allowing real-time communication.
-6. The connection is closed once the server or the client decides to close the connection.
+1. Клиент инициирует процесс установления соединения WebSocket, отправляя запрос.
+2. Запрос также содержит заголовок [HTTP Upgrade](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header), который позволяет запросу переключиться на протокол WebSocket (`ws://`).
+3. Сервер отправляет клиенту ответ, подтверждающий получение запроса на установление соединения WebSocket.
+4. Соединение WebSocket будет установлено после того, как клиент получит успешный ответ на подтверждение рукопожатия.
+5. Теперь клиент и сервер могут начать передавать данные в обоих направлениях, обеспечивая связь в режиме реального времени.
+6. Соединение разрывается, как только сервер или клиент принимает решение о его закрытии.
 
-### Advantages
+### Преимущества
 
-Below are some advantages of WebSockets:
+Ниже перечислены некоторые преимущества WebSocket:
 
-- Full-duplex asynchronous messaging.
-- Better origin-based security model.
-- Lightweight for both client and server.
+- Полнодуплексная асинхронная передача сообщений.
+— Улучшенная модель безопасности, основанная на источнике происхождения.
+- Легковесный как для клиента, так и для сервера.
 
-### Disadvantages
+### Недостатки
 
-Let's discuss some disadvantages of WebSockets:
+Давайте обсудим некоторые недостатки WebSockets:
 
-- Terminated connections aren't automatically recovered.
-- Older browsers don't support WebSockets (becoming less relevant).
+— Завершённые соединения не восстанавливаются автоматически.
+— Более старые браузеры не поддерживают WebSocket (что делает их менее актуальными).
 
-## Server-Sent Events (SSE)
+## События, отправляемые сервером (SSE)
 
-Server-Sent Events (SSE) is a way of establishing long-term communication between client and server that enables the server to proactively push data to the client.
+Server-Sent Events (SSE) — это способ установления долгосрочной связи между клиентом и сервером, позволяющий серверу заблаговременно передавать данные клиенту.
 
 ![server-sent-events](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/long-polling-websockets-server-sent-events/server-sent-events.png)
 
-It is unidirectional, meaning once the client sends the request it can only receive the responses without the ability to send new requests over the same connection.
+Это однонаправленное соединение, то есть после отправки запроса клиент может только получать ответы, но не имеет возможности отправлять новые запросы по тому же соединению.
 
-### Working
+### Работающий
 
-Let's understand how server-sent events work:
+Давайте разберемся, как работают события, отправляемые сервером:
 
-1. The client makes a request to the server.
-2. The connection between client and server is established and it remains open.
-3. The server sends responses or events to the client when new data is available.
+1. Клиент отправляет запрос на сервер.
+2. Соединение между клиентом и сервером установлено и остается открытым.
+3. Сервер отправляет клиенту ответы или события, когда появляются новые данные.
 
-### Advantages
+### Преимущества
 
-- Simple to implement and use for both client and server.
-- Supported by most browsers.
-- No trouble with firewalls.
+- Прост в реализации и использовании как на стороне клиента, так и на стороне сервера.
+- Поддерживается большинством браузеров.
+— Проблем с брандмауэрами нет.
 
-### Disadvantages
+### Недостатки
 
-- Unidirectional nature can be limiting.
-- Limitation for the maximum number of open connections.
-- Does not support binary data.
+— Однонаправленный характер может быть ограничивающим фактором.
+- Ограничение на максимальное количество открытых соединений.
+- Не поддерживает двоичные данные.
 
-# Geohashing and Quadtrees
+# Геохеширование и квадродеревья
 
-## Geohashing
+## Геохеширование
 
-Geohashing is a [geocoding](https://en.wikipedia.org/wiki/Address_geocoding) method used to encode geographic coordinates such as latitude and longitude into short alphanumeric strings. It was created by [Gustavo Niemeyer](https://twitter.com/gniemeyer) in 2008.
+Геохеширование — это метод геокодирования, используемый для кодирования географических координат, таких как широта и долгота, в короткие буквенно-цифровые строки. Он был создан Густаво Нимейером в 2008 году.
 
-For example, San Francisco with coordinates `37.7564, -122.4016` can be represented in geohash as `9q8yy9mf`.
+Например, Сан-Франциско с координатами `37.7564, -122.4016` можно представить в формате geohash как `9q8yy9mf`.
 
-### How does Geohashing work?
+### Как работает геохеширование?
 
-Geohash is a hierarchical spatial index that uses Base-32 alphabet encoding, the first character in a geohash identifies the initial location as one of the 32 cells. This cell will also contain 32 cells. This means that to represent a point, the world is recursively divided into smaller and smaller cells with each additional bit until the desired precision is attained. The precision factor also determines the size of the cell.
+Геохеш — это иерархический пространственный индекс, использующий 32-битную кодировку алфавита. Первый символ геохеша определяет начальное местоположение как одну из 32 ячеек. Эта ячейка также будет содержать 32 ячейки. Это означает, что для представления точки мир рекурсивно делится на все меньшие и меньшие ячейки с каждым дополнительным битом, пока не будет достигнута желаемая точность. Коэффициент точности также определяет размер ячейки.
 
 ![geohashing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/geohashing-and-quadtrees/geohashing.png)
 
-Geohashing guarantees that points are spatially closer if their Geohashes share a longer prefix which means the more characters in the string, the more precise the location. For example, geohashes `9q8yy9mf` and `9q8yy9vx` are spatially closer as they share the prefix `9q8yy9`.
+Геохеширование гарантирует, что точки пространственно расположены ближе друг к другу, если их геохеши имеют общий более длинный префикс, то есть чем больше символов в строке, тем точнее местоположение. Например, геохеши `9q8yy9mf` и `9q8yy9vx` пространственно расположены ближе друг к другу, поскольку имеют общий префикс `9q8yy9`.
 
-Geohashing can also be used to provide a degree of anonymity as we don't need to expose the exact location of the user because depending on the length of the geohash we just know they are somewhere within an area.
+Геохеширование также может использоваться для обеспечения определенной степени анонимности, поскольку нам не нужно раскрывать точное местоположение пользователя, так как в зависимости от длины геохеша мы просто знаем, что он находится где-то в пределах определенной области.
 
-The cell sizes of the geohashes of different lengths are as follows:
+Размеры ячеек геохешей различной длины следующие:
 
-| Geohash length | Cell width | Cell height |
+| Длина геохеша | Ширина ячейки | Высота ячейки |
 | -------------- | ---------- | ----------- |
-| 1              | 5000 km    | 5000 km     |
-| 2              | 1250 km    | 1250 km     |
-| 3              | 156 km     | 156 km      |
-| 4              | 39.1 km    | 19.5 km     |
-| 5              | 4.89 km    | 4.89 km     |
-| 6              | 1.22 km    | 0.61 km     |
-| 7              | 153 m      | 153 m       |
-| 8              | 38.2 m     | 19.1 m      |
-| 9              | 4.77 m     | 4.77 m      |
-| 10             | 1.19 m     | 0.596 m     |
-| 11             | 149 mm     | 149 mm      |
-| 12             | 37.2 mm    | 18.6 mm     |
+| 1 | 5000 км | 5000 км |
+| 2 | 1250 км | 1250 км |
+| 3 | 156 км | 156 км |
+| 4 | 39,1 км | 19,5 км |
+| 5 | 4,89 км | 4,89 км |
+| 6 | 1,22 км | 0,61 км |
+| 7 | 153 м | 153 м |
+| 8 | 38,2 м | 19,1 м |
+| 9 | 4,77 м | 4,77 м |
+| 10 | 1,19 м | 0,596 м |
+| 11 | 149 мм | 149 мм |
+| 12 | 37,2 мм | 18,6 мм |
 
-### Use cases
+### Варианты использования
 
-Here are some common use cases for Geohashing:
+Вот несколько распространенных вариантов использования геохеширования:
 
-- It is a simple way to represent and store a location in a database.
-- It can also be shared on social media as URLs since it is easier to share, and remember than latitudes and longitudes.
-- We can efficiently find the nearest neighbors of a point through very simple string comparisons and efficient searching of indexes.
+— Это простой способ представить и сохранить местоположение в базе данных.
+— Также его можно распространять в социальных сетях в виде URL-адресов, поскольку это проще для распространения и запоминания, чем широта и долгота.
+— Мы можем эффективно находить ближайших соседей точки с помощью очень простых сравнений строк и эффективного поиска по индексам.
 
-### Examples
+### Примеры
 
-Geohashing is widely used and it is supported by popular databases.
+Геохеширование широко используется и поддерживается популярными базами данных.
 
 - [MySQL](https://www.mysql.com)
 - [Redis](http://redis.io)
 - [Amazon DynamoDB](https://aws.amazon.com/dynamodb)
 - [Google Cloud Firestore](https://cloud.google.com/firestore)
 
-## Quadtrees
+## Квадтри
 
-A quadtree is a tree data structure in which each internal node has exactly four children. They are often used to partition a two-dimensional space by recursively subdividing it into four quadrants or regions. Each child or leaf node stores spatial information. Quadtrees are the two-dimensional analog of [Octrees](https://en.wikipedia.org/wiki/Octree) which are used to partition three-dimensional space.
+Квадродерево — это древовидная структура данных, в которой каждый внутренний узел имеет ровно четыре дочерних узла. Они часто используются для разделения двумерного пространства путем рекурсивного разбиения его на четыре квадранта или области. Каждый дочерний или листовой узел хранит пространственную информацию. Квадродеревья являются двумерным аналогом октодеревьев, которые используются для разделения трехмерного пространства.
 
 ![quadtree](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/geohashing-and-quadtrees/quadtree.png)
 
-### Types of Quadtrees
+### Типы квадродеревьев
 
-Quadtrees may be classified according to the type of data they represent, including areas, points, lines, and curves. The following are common types of quadtrees:
+Кваддеревья можно классифицировать по типу представляемых ими данных, включая площади, точки, линии и кривые. Ниже перечислены распространенные типы квадродеревьев:
 
-- Point quadtrees
-- Point-region (PR) quadtrees
-- Polygonal map (PM) quadtrees
-- Compressed quadtrees
-- Edge quadtrees
+- Пойнт-квадтрис
+- Кваддеревья точечных областей (PR)
+- Кваддеревья полигональных карт (PM)
+- Сжатые квадродеревья
+- Краевые квадродеревья
 
-### Why do we need Quadtrees?
+### Зачем нам нужны квадродеревья?
 
-Aren't latitudes and longitudes enough? Why do we need quadtrees? While in theory using latitude and longitude we can determine things such as how close points are to each other using [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance), for practical use cases it is simply not scalable because of its CPU-intensive nature with large data sets.
+Разве одних широт и долгот недостаточно? Зачем нам нужны квадродеревья? Хотя теоретически, используя широту и долготу, мы можем определять, например, насколько близко расположены точки друг к другу, используя евклидово расстояние, на практике это просто не масштабируемо из-за высокой вычислительной мощности при работе с большими наборами данных.
 
 ![quadtree-subdivision](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/geohashing-and-quadtrees/quadtree-subdivision.png)
 
-Quadtrees enable us to search points within a two-dimensional range efficiently, where those points are defined as latitude/longitude coordinates or as cartesian (x, y) coordinates. Additionally, we can save further computation by only subdividing a node after a certain threshold. And with the application of mapping algorithms such as the [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve), we can easily improve range query performance.
+Квадродеревья позволяют эффективно искать точки в двумерном диапазоне, где эти точки определены как координаты широты/долготы или как декартовы координаты (x, y). Кроме того, мы можем сэкономить вычислительные ресурсы, подразделяя узел только после достижения определенного порога. А с помощью алгоритмов отображения, таких как кривая Гильберта, мы можем легко повысить производительность запросов диапазона.
 
-### Use cases
+### Варианты использования
 
-Below are some common uses of quadtrees:
+Ниже приведены некоторые распространенные примеры использования квадродеревьев:
 
-- Image representation, processing, and compression.
-- Spacial indexing and range queries.
-- Location-based services like Google Maps, Uber, etc.
-- Mesh generation and computer graphics.
-- Sparse data storage.
+- Представление, обработка и сжатие изображений.
+- Пространственное индексирование и запросы по диапазону.
+- Сервисы, основанные на определении местоположения, такие как Google Maps, Uber и т. д.
+- Создание сетки и компьютерная графика.
+- Разреженное хранение данных.
 
-# Circuit breaker
+# Автоматический выключатель
 
-The circuit breaker is a design pattern used to detect failures and encapsulates the logic of preventing a failure from constantly recurring during maintenance, temporary external system failure, or unexpected system difficulties.
+Автоматический выключатель — это шаблон проектирования, используемый для обнаружения неисправностей и воплощающий логику предотвращения постоянного повторения неисправности во время технического обслуживания, временных сбоев во внешней системе или неожиданных системных неполадок.
 
 ![circuit-breaker](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/circuit-breaker/circuit-breaker.png)
 
-The basic idea behind the circuit breaker is very simple. We wrap a protected function call in a circuit breaker object, which monitors for failures. Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error, without the protected call being made at all. Usually, we'll also want some kind of monitor alert if the circuit breaker trips.
+Основная идея автоматического выключателя очень проста. Мы оборачиваем защищенный вызов функции в объект автоматического выключателя, который отслеживает сбои. Как только количество сбоев достигает определенного порога, автоматический выключатель срабатывает, и все последующие вызовы автоматического выключателя возвращают ошибку, при этом защищенный вызов вообще не выполняется. Обычно нам также требуется какое-либо оповещение от монитора в случае срабатывания автоматического выключателя.
 
-## Why do we need circuit breaking?
+## Зачем нам нужны автоматические выключатели?
 
-It's common for software systems to make remote calls to software running in different processes, probably on different machines across a network. One of the big differences between in-memory calls and remote calls is that remote calls can fail, or hang without a response until some timeout limit is reached. What's worse is if we have many callers on an unresponsive supplier, then we can run out of critical resources leading to cascading failures across multiple systems.
+Для программных систем характерно выполнение удалённых вызовов к программам, работающим в разных процессах, вероятно, на разных машинах в рамках одной сети. Одно из главных отличий между вызовами в оперативной памяти и удалёнными вызовами заключается в том, что удалённые вызовы могут завершиться неудачей или зависнуть без ответа до достижения определённого таймаута. Хуже того, если у нас много вызывающих процессов у не отвечающего поставщика, то мы можем столкнуться с нехваткой критически важных ресурсов, что приведёт к каскадным сбоям в нескольких системах.
 
-## States
+## Штаты
 
-Let's discuss circuit breaker states:
+Давайте обсудим состояния автоматических выключателей:
 
-### Closed
+### Закрыто
 
-When everything is normal, the circuit breakers remain closed, and all the request passes through to the services as normal. If the number of failures increases beyond the threshold, the circuit breaker trips and goes into an open state.
+Когда все работает нормально, автоматические выключатели остаются замкнутыми, и все запросы проходят к сервисам в обычном режиме. Если количество сбоев превышает пороговое значение, автоматический выключатель срабатывает и переходит в разомкнутое состояние.
 
-### Open
+### Открыть
 
-In this state circuit breaker returns an error immediately without even invoking the services. The Circuit breakers move into the half-open state after a certain timeout period elapses. Usually, it will have a monitoring system where the timeout will be specified.
+В этом состоянии автоматический выключатель немедленно возвращает ошибку, даже не вызывая соответствующие службы. Автоматические выключатели переходят в полуоткрытое состояние по истечении определенного периода времени. Обычно для этого используется система мониторинга, в которой указывается этот период времени.
 
-### Half-open
+### Полуоткрыто
 
-In this state, the circuit breaker allows a limited number of requests from the service to pass through and invoke the operation. If the requests are successful, then the circuit breaker will go to the closed state. However, if the requests continue to fail, then it goes back to the open state.
+В этом состоянии автоматический выключатель пропускает ограниченное количество запросов от сервиса для выполнения операции. Если запросы успешны, автоматический выключатель переходит в закрытое состояние. Однако, если запросы продолжают завершаться неудачей, он возвращается в открытое состояние.
 
-# Rate Limiting
+# Ограничение скорости
 
-Rate limiting refers to preventing the frequency of an operation from exceeding a defined limit. In large-scale systems, rate limiting is commonly used to protect underlying services and resources. Rate limiting is generally used as a defensive mechanism in distributed systems, so that shared resources can maintain availability. It also protects our APIs from unintended or malicious overuse by limiting the number of requests that can reach our API in a given period of time.
+Ограничение скорости запросов подразумевает предотвращение превышения частоты выполнения операций заданного предела. В крупномасштабных системах ограничение скорости запросов обычно используется для защиты базовых сервисов и ресурсов. В распределенных системах ограничение скорости запросов, как правило, используется в качестве защитного механизма, чтобы совместно используемые ресурсы могли поддерживать доступность. Оно также защищает наши API от непреднамеренного или злонамеренного чрезмерного использования, ограничивая количество запросов, которые могут поступать к нашему API за определенный период времени.
 
 ![rate-limiting](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/rate-limiting/rate-limiting.png)
 
-## Why do we need Rate Limiting?
+## Зачем нам нужно ограничение скорости запросов?
 
-Rate limiting is a very important part of any large-scale system and it can be used to accomplish the following:
+Ограничение скорости передачи данных является очень важной частью любой крупномасштабной системы и может использоваться для достижения следующих целей:
 
-- Avoid resource starvation as a result of Denial of Service (DoS) attacks.
-- Rate Limiting helps in controlling operational costs by putting a virtual cap on the auto-scaling of resources which if not monitored might lead to exponential bills.
-- Rate limiting can be used as defense or mitigation against some common attacks.
-- For APIs that process massive amounts of data, rate limiting can be used to control the flow of that data.
+- Предотвратить истощение ресурсов в результате атак типа «отказ в обслуживании» (DoS).
+- Ограничение скорости помогает контролировать операционные расходы, устанавливая виртуальный лимит на автоматическое масштабирование ресурсов, что, если не контролировать этот процесс, может привести к экспоненциальному росту счетов.
+- Ограничение скорости запросов может использоваться в качестве защиты или смягчения последствий некоторых распространенных атак.
+— Для API, обрабатывающих огромные объемы данных, можно использовать ограничение скорости для контроля потока этих данных.
 
-## Algorithms
+## Алгоритмы
 
-There are various algorithms for API rate limiting, each with its advantages and disadvantages. Let's briefly discuss some of these algorithms:
+Существует множество алгоритмов ограничения скорости запросов к API, каждый из которых имеет свои преимущества и недостатки. Давайте кратко рассмотрим некоторые из этих алгоритмов:
 
-### Leaky Bucket
+### Протекающее ведро
 
-Leaky Bucket is an algorithm that provides a simple, intuitive approach to rate limiting via a queue. When registering a request, the system appends it to the end of the queue. Processing for the first item on the queue occurs at a regular interval or first-in, first-out (FIFO). If the queue is full, then additional requests are discarded (or leaked).
+Алгоритм Leaky Bucket предлагает простой и интуитивно понятный подход к ограничению скорости запросов с помощью очереди. При регистрации запроса система добавляет его в конец очереди. Обработка первого элемента в очереди происходит через регулярные интервалы или по принципу «первым пришел — первым вышел» (FIFO). Если очередь заполнена, то дополнительные запросы отбрасываются (или «утекают»).
 
-### Token Bucket
+### Корзина жетонов
 
-Here we use a concept of a _bucket_. When a request comes in, a token from the bucket must be taken and processed. The request will be refused if no token is available in the bucket, and the requester will have to try again later. As a result, the token bucket gets refreshed after a certain time period.
+Здесь мы используем концепцию _корзины_. Когда поступает запрос, необходимо получить и обработать токен из этой корзины. Запрос будет отклонен, если в корзине нет доступного токена, и отправителю запроса придется повторить попытку позже. В результате, корзина с токенами обновляется через определенный промежуток времени.
 
-### Fixed Window
+### Фиксированное окно
 
-The system uses a window size of `n` seconds to track the fixed window algorithm rate. Each incoming request increments the counter for the window. It discards the request if the counter exceeds a threshold.
+Система использует окно размером `n` секунд для отслеживания скорости алгоритма фиксированного окна. Каждый входящий запрос увеличивает счетчик для окна. Запрос отклоняется, если счетчик превышает пороговое значение.
 
-### Sliding Log
+### Скользящее бревно
 
-Sliding Log rate-limiting involves tracking a time-stamped log for each request. The system stores these logs in a time-sorted hash set or table. It also discards logs with timestamps beyond a threshold. When a new request comes in, we calculate the sum of logs to determine the request rate. If the request would exceed the threshold rate, then it is held.
+Ограничение скорости запросов с помощью скользящего журнала (Sliding Log) предполагает отслеживание журнала с временной меткой для каждого запроса. Система хранит эти журналы в отсортированном по времени хэш-наборе или таблице. Она также отбрасывает журналы с временными метками, превышающими пороговое значение. Когда поступает новый запрос, мы вычисляем сумму журналов, чтобы определить скорость запросов. Если скорость запроса превышает пороговое значение, то запрос приостанавливается.
 
-### Sliding Window
+### Раздвижное окно
 
-Sliding Window is a hybrid approach that combines the fixed window algorithm's low processing cost and the sliding log's improved boundary conditions. Like the fixed window algorithm, we track a counter for each fixed window. Next, we account for a weighted value of the previous window's request rate based on the current timestamp to smooth out bursts of traffic.
+Метод скользящего окна — это гибридный подход, сочетающий низкую вычислительную стоимость алгоритма с фиксированным окном и улучшенные граничные условия скользящего логарифма. Как и в алгоритме с фиксированным окном, мы отслеживаем счетчик для каждого фиксированного окна. Затем мы учитываем взвешенное значение скорости запросов предыдущего окна на основе текущей временной метки, чтобы сгладить всплески трафика.
 
-## Rate Limiting in Distributed Systems
+## Ограничение скорости передачи данных в распределенных системах
 
-Rate Limiting becomes complicated when distributed systems are involved. The two broad problems that come with rate limiting in distributed systems are:
+Ограничение скорости передачи данных становится сложным в распределенных системах. Две основные проблемы, связанные с ограничением скорости передачи данных в распределенных системах, заключаются в следующем:
 
-### Inconsistencies
+### Несоответствия
 
-When using a cluster of multiple nodes, we might need to enforce a global rate limit policy. Because if each node were to track its rate limit, a consumer could exceed a global rate limit when sending requests to different nodes. The greater the number of nodes, the more likely the user will exceed the global limit.
+При использовании кластера из нескольких узлов может потребоваться применение глобальной политики ограничения скорости запросов. Если каждый узел будет отслеживать свой собственный лимит, потребитель может превысить глобальный лимит при отправке запросов к разным узлам. Чем больше узлов, тем выше вероятность превышения пользователем глобального лимита.
 
-The simplest way to solve this problem is to use sticky sessions in our load balancers so that each consumer gets sent to exactly one node but this causes a lack of fault tolerance and scaling problems. Another approach might be to use a centralized data store like [Redis](https://redis.io) but this will increase latency and cause race conditions.
+Простейший способ решения этой проблемы — использование «липких» сессий в наших балансировщиках нагрузки, чтобы каждый потребитель направлялся ровно на один узел, но это приводит к снижению отказоустойчивости и проблемам масштабируемости. Другой подход может заключаться в использовании централизованного хранилища данных, такого как [Redis](https://redis.io), но это увеличит задержку и вызовет состояния гонки.
 
-### Race Conditions
+### Условия гонки
 
-This issue happens when we use a naive _"get-then-set"_ approach, in which we retrieve the current rate limit counter, increment it, and then push it back to the datastore. This model's problem is that additional requests can come through in the time it takes to perform a full cycle of read-increment-store, each attempting to store the increment counter with an invalid (lower) counter value. This allows a consumer to send a very large number of requests to bypass the rate limiting controls.
+Эта проблема возникает при использовании наивного подхода «получить-затем-установить», при котором мы получаем текущий счетчик ограничения скорости, увеличиваем его, а затем отправляем обратно в хранилище данных. Проблема этой модели заключается в том, что за время, необходимое для выполнения полного цикла чтения-увеличения-сохранения, могут поступать дополнительные запросы, каждый из которых пытается сохранить счетчик увеличения с недопустимым (меньшим) значением. Это позволяет потребителю отправлять очень большое количество запросов, чтобы обойти ограничения скорости.
 
-One way to avoid this problem is to use some sort of distributed locking mechanism around the key, preventing any other processes from accessing or writing to the counter. Though the lock will become a significant bottleneck and will not scale well. A better approach might be to use a _"set-then-get"_ approach, allowing us to quickly increment and check counter values without letting the atomic operations get in the way.
+Один из способов избежать этой проблемы — использовать какой-либо распределенный механизм блокировки вокруг ключа, предотвращающий доступ других процессов к счетчику или запись в него. Однако блокировка станет существенным узким местом и плохо масштабируется. Лучшим подходом может быть использование схемы «установил-затем-получил», позволяющей быстро увеличивать и проверять значения счетчика, не допуская помех со стороны атомарных операций.
 
-# Service Discovery
+# Обнаружение сервисов
 
-Service discovery is the detection of services within a computer network. Service Discovery Protocol (SDP) is a networking standard that accomplishes the detection of networks by identifying resources.
+Обнаружение сервисов — это поиск сервисов в компьютерной сети. Протокол обнаружения сервисов (SDP) — это сетевой стандарт, который осуществляет обнаружение сетей путем идентификации ресурсов.
 
-## Why do we need Service Discovery?
+## Зачем нам нужно обнаружение сервисов?
 
-In a monolithic application, services invoke one another through language-level methods or procedure calls. However, modern microservices-based applications typically run in virtualized or containerized environments where the number of instances of a service and their locations change dynamically. Consequently, we need a mechanism that enables the clients of service to make requests to a dynamically changing set of ephemeral service instances.
+В монолитном приложении сервисы вызывают друг друга посредством методов или процедур на уровне языка программирования. Однако современные приложения на основе микросервисов обычно работают в виртуализированных или контейнеризированных средах, где количество экземпляров сервиса и их местоположение динамически изменяются. Следовательно, нам необходим механизм, позволяющий клиентам сервиса отправлять запросы к динамически изменяющемуся набору временных экземпляров сервиса.
 
-## Implementations
+## Реализации
 
-There are two main service discovery patterns:
+Существует два основных шаблона обнаружения сервисов:
 
-### Client-side discovery
+### Обнаружение на стороне клиента
 
 ![client-side-service-discovery](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/service-discovery/client-side-service-discovery.png)
 
-In this approach, the client obtains the location of another service by querying a service registry which is responsible for managing and storing the network locations of all the services.
+При таком подходе клиент получает местоположение другой службы, обращаясь к реестру служб, который отвечает за управление и хранение сетевых местоположений всех служб.
 
-### Server-side discovery
+### Обнаружение на стороне сервера
 
 ![server-side-service-discovery](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/service-discovery/server-side-service-discovery.png)
 
-In this approach, we use an intermediate component such as a load balancer. The client makes a request to the service via a load balancer which then forwards the request to an available service instance.
+В этом подходе мы используем промежуточный компонент, такой как балансировщик нагрузки. Клиент отправляет запрос к сервису через балансировщик нагрузки, который затем перенаправляет запрос доступному экземпляру сервиса.
 
-## Service Registry
+## Реестр услуг
 
-A service registry is basically a database containing the network locations of service instances to which the clients can reach out. A Service Registry must be highly available and up-to-date.
+Реестр служб — это, по сути, база данных, содержащая сетевые местоположения экземпляров служб, к которым могут обращаться клиенты. Реестр служб должен обладать высокой доступностью и быть актуальным.
 
-## Service Registration
+## Регистрация услуги
 
-We also need a way to obtain service information, often known as service registration. Let's look at two possible service registration approaches:
+Нам также необходим способ получения информации об услуге, часто называемый регистрацией услуги. Рассмотрим два возможных подхода к регистрации услуги:
 
-### Self-Registration
+### Саморегистрация
 
-When using the self-registration model, a service instance is responsible for registering and de-registering itself in the Service Registry. In addition, if necessary, a service instance sends heartbeat requests to keep its registration alive.
+При использовании модели саморегистрации экземпляр сервиса отвечает за регистрацию и отмену своей регистрации в Реестре сервисов. Кроме того, при необходимости экземпляр сервиса отправляет запросы подтверждения активности (heartbeat requests) для поддержания своей регистрации в активном состоянии.
 
-### Third-party Registration
+### Регистрация третьих лиц
 
-The registry keeps track of changes to running instances by polling the deployment environment or subscribing to events. When it detects a newly available service instance, it records it in its database. The Service Registry also de-registers terminated service instances.
+Реестр отслеживает изменения в работающих экземплярах, опрашивая среду развертывания или подписываясь на события. При обнаружении нового доступного экземпляра службы он записывает его в свою базу данных. Реестр служб также отменяет регистрацию завершенных экземпляров служб.
 
-## Service mesh
+## Сервисная сетка
 
-Service-to-service communication is essential in a distributed application but routing this communication, both within and across application clusters, becomes increasingly complex as the number of services grows. Service mesh enables managed, observable, and secure communication between individual services. It works with a service discovery protocol to detect services. [Istio](https://istio.io/latest/about/service-mesh) and [envoy](https://www.envoyproxy.io) are some of the most commonly used service mesh technologies.
+В распределенных приложениях обмен данными между сервисами имеет важное значение, однако маршрутизация этого обмена, как внутри кластеров приложений, так и между ними, становится все более сложной по мере роста числа сервисов. Сервисная сетка обеспечивает управляемый, наблюдаемый и безопасный обмен данными между отдельными сервисами. Она работает с протоколом обнаружения сервисов для их выявления. [Istio](https://istio.io/latest/about/service-mesh) и [envoy](https://www.envoyproxy.io) — одни из наиболее часто используемых технологий сервисной сетки.
 
-## Examples
+## Примеры
 
-Here are some commonly used service discovery infrastructure tools:
+Вот некоторые часто используемые инструменты инфраструктуры обнаружения сервисов:
 
 - [etcd](https://etcd.io)
 - [Consul](https://www.consul.io)
@@ -3219,258 +3219,258 @@ Here are some commonly used service discovery infrastructure tools:
 
 # SLA, SLO, SLI
 
-Let's briefly discuss SLA, SLO, and SLI. These are mostly related to the business and site reliability side of things but good to know nonetheless.
+Давайте кратко обсудим SLA, SLO и SLI. В основном они связаны с бизнес-аспектами и надежностью сайта, но тем не менее, полезно знать о них.
 
-## Why are they important?
+## Почему они важны?
 
-SLAs, SLOs, and SLIs allow companies to define, track and monitor the promises made for a service to its users. Together, SLAs, SLOs, and SLIs should help teams generate more user trust in their services with an added emphasis on continuous improvement to incident management and response processes.
+Соглашения об уровне обслуживания (SLA), соглашения об уровне обслуживания (SLO) и соглашения об уровне обслуживания (SLI) позволяют компаниям определять, отслеживать и контролировать выполнение обещаний, данных пользователям в отношении предоставляемых услуг. Вместе SLA, SLO и SLI должны помочь командам повысить доверие пользователей к своим услугам, уделяя особое внимание постоянному совершенствованию процессов управления инцидентами и реагирования на них.
 
 ## SLA
 
-An SLA, or Service Level Agreement, is an agreement made between a company and its users of a given service. The SLA defines the different promises that the company makes to users regarding specific metrics, such as service availability.
+Соглашение об уровне обслуживания (SLA) — это договор, заключаемый между компанией и пользователями определенной услуги. SLA определяет различные обещания, которые компания дает пользователям в отношении конкретных показателей, таких как доступность услуги.
 
-_SLAs are often written by a company's business or legal team._
+Соглашения об уровне обслуживания (SLA) часто составляются бизнес- или юридическим отделом компании.
 
 ## SLO
 
-An SLO, or Service Level Objective, is the promise that a company makes to users regarding a specific metric such as incident response or uptime. SLOs exist within an SLA as individual promises contained within the full user agreement. The SLO is the specific goal that the service must meet in order to comply with the SLA. SLOs should always be simple, clearly defined, and easily measured to determine whether or not the objective is being fulfilled.
+SLO, или Service Level Objective (целевой уровень обслуживания), — это обещание, которое компания дает пользователям относительно конкретного показателя, такого как время реагирования на инциденты или время безотказной работы. SLO существуют в рамках SLA как отдельные обещания, содержащиеся в полном пользовательском соглашении. SLO — это конкретная цель, которую сервис должен достичь для соблюдения SLA. SLO всегда должны быть простыми, четко определенными и легко измеримыми, чтобы определить, выполняется ли цель.
 
 ## SLI
 
-An SLI, or Service Level Indicator, is a key metric used to determine whether or not the SLO is being met. It is the measured value of the metric described within the SLO. In order to remain in compliance with the SLA, the SLI's value must always meet or exceed the value determined by the SLO.
+Индикатор уровня обслуживания (SLI) — это ключевой показатель, используемый для определения того, выполняется ли соглашение об уровне обслуживания (SLO). Это измеренное значение показателя, описанного в SLO. Для соблюдения SLA значение SLI всегда должно соответствовать или превышать значение, определенное в SLO.
 
-# Disaster recovery
+# Восстановление после катастрофы
 
-Disaster recovery (DR) is a process of regaining access and functionality of the infrastructure after events like a natural disaster, cyber attack, or even business disruptions.
+Восстановление после катастрофы (DR) — это процесс восстановления доступа и функциональности инфраструктуры после таких событий, как стихийные бедствия, кибератаки или даже сбои в работе бизнеса.
 
-Disaster recovery relies upon the replication of data and computer processing in an off-premises location not affected by the disaster. When servers go down because of a disaster, a business needs to recover lost data from a second location where the data is backed up. Ideally, an organization can transfer its computer processing to that remote location as well in order to continue operations.
+Восстановление после катастрофы основано на репликации данных и вычислительных мощностей в удаленном месте, не затронутом катастрофой. Когда серверы выходят из строя из-за катастрофы, компании необходимо восстановить потерянные данные из второго места, где они резервно скопированы. В идеале организация может также перенести свои вычислительные мощности в это удаленное место, чтобы продолжить работу.
 
-_Disaster Recovery is often not actively discussed during system design interviews but it's important to have some basic understanding of this topic. You can learn more about disaster recovery from [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html)._
+Вопросы аварийного восстановления часто не обсуждаются на собеседованиях по проектированию систем, но важно иметь базовое понимание этой темы. Более подробную информацию об аварийном восстановлении можно найти в [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html).
 
-## Why is disaster recovery important?
+## Почему восстановление после стихийных бедствий важно?
 
-Disaster recovery can have the following benefits:
+Восстановление после стихийных бедствий может принести следующие преимущества:
 
-- Minimize interruption and downtime
-- Limit damages
-- Fast restoration
-- Better customer retention
+- Свести к минимуму перебои и простои.
+- Ограничить размер ущерба
+- Быстрое восстановление
+- Повышение уровня удержания клиентов
 
-## Terms
+## Условия
 
-Let's discuss some important terms relevantly for disaster recovery:
+Давайте обсудим некоторые важные термины, имеющие отношение к восстановлению после стихийных бедствий:
 
 ![disaster-recovery](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/disaster-recovery/disaster-recovery.png)
 
-### RTO
+### РТО
 
-Recovery Time Objective (RTO) is the maximum acceptable delay between the interruption of service and restoration of service. This determines what is considered an acceptable time window when service is unavailable.
+Целевое время восстановления (RTO) — это максимально допустимая задержка между прерыванием обслуживания и его восстановлением. Это определяет, какой временной интервал считается приемлемым при недоступности услуги.
 
-### RPO
+### РПО
 
-Recovery Point Objective (RPO) is the maximum acceptable amount of time since the last data recovery point. This determines what is considered an acceptable loss of data between the last recovery point and the interruption of service.
+Целевой показатель точки восстановления (RPO) — это максимально допустимый промежуток времени с момента последней точки восстановления данных. Он определяет, что считается допустимой потерей данных в период между последней точкой восстановления и прерыванием обслуживания.
 
-## Strategies
+## Стратегии
 
-A variety of disaster recovery (DR) strategies can be part of a disaster recovery plan.
+В план восстановления после стихийных бедствий могут входить различные стратегии аварийного восстановления.
 
-### Back-up
+### Резервное копирование
 
-This is the simplest type of disaster recovery and involves storing data off-site or on a removable drive.
+Это самый простой тип восстановления после катастрофы, который включает в себя хранение данных вне офиса или на съемном носителе.
 
-### Cold Site
+### Холодный сайт
 
-In this type of disaster recovery, an organization sets up basic infrastructure in a second site.
+При таком типе восстановления после катастрофы организация создает базовую инфраструктуру на другом объекте.
 
-### Hot site
+### Горячий сайт
 
-A hot site maintains up-to-date copies of data at all times. Hot sites are time-consuming to set up and more expensive than cold sites, but they dramatically reduce downtime.
+«Горячий сайт» постоянно поддерживает актуальные копии данных. Создание «горячих сайтов» занимает много времени и обходится дороже, чем создание «холодных сайтов», но они значительно сокращают время простоя.
 
-# Virtual Machines (VMs) and Containers
+# Виртуальные машины (ВМ) и контейнеры
 
-Before we discuss virtualization vs containerization, let's learn what are virtual machines (VMs) and Containers.
+Прежде чем обсуждать виртуализацию и контейнеризацию, давайте разберемся, что такое виртуальные машины (ВМ) и контейнеры.
 
-## Virtual Machines (VM)
+## Виртуальные машины (ВМ)
 
-A Virtual Machine (VM) is a virtual environment that functions as a virtual computer system with its own CPU, memory, network interface, and storage, created on a physical hardware system. A software called a hypervisor separates the machine's resources from the hardware and provisions them appropriately so they can be used by the VM.
+Виртуальная машина (ВМ) — это виртуальная среда, функционирующая как виртуальная компьютерная система со своим собственным процессором, памятью, сетевым интерфейсом и хранилищем, созданная на физической аппаратной системе. Программное обеспечение, называемое гипервизором, отделяет ресурсы машины от оборудования и соответствующим образом выделяет их, чтобы они могли использоваться виртуальной машиной.
 
-VMs are isolated from the rest of the system, and multiple VMs can exist on a single piece of hardware, like a server. They can be moved between host servers depending on the demand or to use resources more efficiently.
+Виртуальные машины изолированы от остальной системы, и на одном аппаратном устройстве, например, на сервере, может находиться несколько виртуальных машин. Их можно перемещать между хост-серверами в зависимости от спроса или для более эффективного использования ресурсов.
 
-### What is a Hypervisor?
+### Что такое гипервизор?
 
-A Hypervisor sometimes called a Virtual Machine Monitor (VMM), isolates the operating system and resources from the virtual machines and enables the creation and management of those VMs. The hypervisor treats resources like CPU, memory, and storage as a pool of resources that can be easily reallocated between existing guests or new virtual machines.
+Гипервизор, иногда называемый монитором виртуальных машин (VMM), изолирует операционную систему и ресурсы от виртуальных машин и позволяет создавать и управлять этими виртуальными машинами. Гипервизор рассматривает такие ресурсы, как ЦП, память и хранилище, как пул ресурсов, которые можно легко перераспределять между существующими гостевыми системами или новыми виртуальными машинами.
 
-### Why use a Virtual Machine?
+### Зачем использовать виртуальную машину?
 
-Server consolidation is a top reason to use VMs. Most operating system and application deployments only use a small amount of the physical resources available. By virtualizing our servers, we can place many virtual servers onto each physical server to improve hardware utilization. This keeps us from needing to purchase additional physical resources.
+Консолидация серверов — одна из главных причин использования виртуальных машин. Большинство развертываний операционных систем и приложений используют лишь небольшую часть доступных физических ресурсов. Виртуализация серверов позволяет разместить множество виртуальных серверов на каждом физическом сервере, что повышает эффективность использования оборудования. Это избавляет от необходимости приобретать дополнительные физические ресурсы.
 
-A VM provides an environment that is isolated from the rest of a system, so whatever is running inside a VM won't interfere with anything else running on the host hardware. Because VMs are isolated, they are a good option for testing new applications or setting up a production environment. We can also run a single-purpose VM to support a specific use case.
+Виртуальная машина (ВМ) обеспечивает изолированную от остальной системы среду, поэтому все, что работает внутри ВМ, не будет мешать работе других приложений на хост-оборудовании. Благодаря изоляции ВМ являются хорошим вариантом для тестирования новых приложений или создания производственной среды. Мы также можем запустить виртуальную машину, предназначенную для решения конкретной задачи.
 
-## Containers
+## Контейнеры
 
-A container is a standard unit of software that packages up code and all its dependencies such as specific versions of runtimes and libraries so that the application runs quickly and reliably from one computing environment to another. Containers offer a logical packaging mechanism in which applications can be abstracted from the environment in which they actually run. This decoupling allows container-based applications to be deployed easily and consistently, regardless of the target environment.
+Контейнер — это стандартная программная единица, которая упаковывает код и все его зависимости, такие как определенные версии сред выполнения и библиотек, чтобы приложение работало быстро и надежно в разных вычислительных средах. Контейнеры предлагают логический механизм упаковки, позволяющий абстрагироваться от среды, в которой они фактически работают. Такое разделение позволяет легко и согласованно развертывать приложения на основе контейнеров, независимо от целевой среды.
 
-### Why do we need containers?
+### Зачем нам нужны контейнеры?
 
-Let's discuss some advantages of using containers:
+Давайте обсудим некоторые преимущества использования контейнеров:
 
-**Separation of responsibility**
+**Разделение ответственности**
 
-Containerization provides a clear separation of responsibility, as developers focus on application logic and dependencies, while operations teams can focus on deployment and management.
+Контейнеризация обеспечивает четкое разделение обязанностей: разработчики сосредотачиваются на логике приложения и зависимостях, а команды эксплуатации могут сосредоточиться на развертывании и управлении.
 
-**Workload portability**
+**Переносимость рабочей нагрузки**
 
-Containers can run virtually anywhere, greatly easing development and deployment.
+Контейнеры могут работать практически где угодно, значительно упрощая разработку и развертывание.
 
-**Application isolation**
+**Изоляция приложений**
 
-Containers virtualize CPU, memory, storage, and network resources at the operating system level, providing developers with a view of the OS logically isolated from other applications.
+Контейнеры виртуализируют ресурсы ЦП, памяти, хранилища и сети на уровне операционной системы, предоставляя разработчикам возможность видеть ОС в логической изоляции от других приложений.
 
-**Agile development**
+**Гибкая разработка**
 
-Containers allow developers to move much more quickly by avoiding concerns about dependencies and environments.
+Контейнеры позволяют разработчикам значительно ускорить процесс, избегая проблем, связанных с зависимостями и средами выполнения.
 
-**Efficient operations**
+**Эффективная работа**
 
-Containers are lightweight and allow us to use just the computing resources we need.
+Контейнеры легкие и позволяют нам использовать только необходимые вычислительные ресурсы.
 
-## Virtualization vs Containerization
+## Виртуализация против контейнеризации
 
-![virtualization-vs-containerization](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/virtual-machines-and-containers/virtualization-vs-containerization.png)
+![виртуализация-против-контейнеризации](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/virtual-machines-and-containers/virtualization-vs-containerization.png)
 
-In traditional virtualization, a hypervisor virtualizes physical hardware. The result is that each virtual machine contains a guest OS, a virtual copy of the hardware that the OS requires to run, and an application and its associated libraries and dependencies.
+В традиционной виртуализации гипервизор виртуализирует физическое оборудование. В результате каждая виртуальная машина содержит гостевую операционную систему, виртуальную копию оборудования, необходимого для работы ОС, а также приложение и связанные с ним библиотеки и зависимости.
 
-Instead of virtualizing the underlying hardware, containers virtualize the operating system so each container contains only the application and its dependencies making them much more lightweight than VMs. Containers also share the OS kernel and use a fraction of the memory VMs require.
+Вместо виртуализации базового оборудования, контейнеры виртуализируют операционную систему, так что каждый контейнер содержит только приложение и его зависимости, что делает их гораздо более легковесными, чем виртуальные машины. Контейнеры также используют общее ядро ​​ОС и занимают лишь малую часть памяти, необходимой виртуальным машинам.
 
-# OAuth 2.0 and OpenID Connect (OIDC)
+# OAuth 2.0 и OpenID Connect (OIDC)
 
 ## OAuth 2.0
 
-OAuth 2.0, which stands for Open Authorization, is a standard designed to provide consented access to resources on behalf of the user, without ever sharing the user's credentials. OAuth 2.0 is an authorization protocol and not an authentication protocol, it is designed primarily as a means of granting access to a set of resources, for example, remote APIs or user's data.
+OAuth 2.0, что расшифровывается как Open Authorization (открытая авторизация), — это стандарт, разработанный для предоставления пользователю доступа к ресурсам на основе его согласия, без передачи его учетных данных. OAuth 2.0 — это протокол авторизации, а не протокол аутентификации; он предназначен в первую очередь для предоставления доступа к набору ресурсов, например, к удаленным API или данным пользователя.
 
-### Concepts
+### Концепции
 
-The OAuth 2.0 protocol defines the following entities:
+Протокол OAuth 2.0 определяет следующие сущности:
 
-- **Resource Owner**: The user or system that owns the protected resources and can grant access to them.
-- **Client**: The client is the system that requires access to the protected resources.
-- **Authorization Server**: This server receives requests from the Client for Access Tokens and issues them upon successful authentication and consent by the Resource Owner.
-- **Resource Server**: A server that protects the user's resources and receives access requests from the Client. It accepts and validates an Access Token from the Client and returns the appropriate resources.
-- **Scopes**: They are used to specify exactly the reason for which access to resources may be granted. Acceptable scope values, and which resources they relate to, are dependent on the Resource Server.
-- **Access Token**: A piece of data that represents the authorization to access resources on behalf of the end-user.
+- **Владелец ресурса**: Пользователь или система, владеющая защищаемыми ресурсами и имеющая право предоставлять к ним доступ.
+- **Клиент**: Клиентом является система, которой требуется доступ к защищаемым ресурсам.
+- **Сервер авторизации**: Этот сервер получает запросы от клиента на получение токенов доступа и выдает их после успешной аутентификации и получения согласия владельца ресурса.
+- **Сервер ресурсов**: Сервер, который защищает ресурсы пользователя и принимает запросы на доступ от клиента. Он принимает и проверяет токен доступа от клиента и возвращает соответствующие ресурсы.
+- **Области действия**: Они используются для точного указания причины, по которой может быть предоставлен доступ к ресурсам. Допустимые значения областей действия и ресурсы, к которым они относятся, зависят от сервера ресурсов.
+- **Токен доступа**: фрагмент данных, подтверждающий право доступа к ресурсам от имени конечного пользователя.
 
-### How does OAuth 2.0 work?
+### Как работает OAuth 2.0?
 
-Let's learn how OAuth 2.0 works:
+Давайте разберемся, как работает OAuth 2.0:
 
 ![oauth2](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/oauth2-and-openid-connect/oauth2.png)
 
-1. The client requests authorization from the Authorization Server, supplying the client id and secret as identification. It also provides the scopes and an endpoint URI to send the Access Token or the Authorization Code.
-2. The Authorization Server authenticates the client and verifies that the requested scopes are permitted.
-3. The resource owner interacts with the authorization server to grant access.
-4. The Authorization Server redirects back to the client with either an Authorization Code or Access Token, depending on the grant type. A Refresh Token may also be returned.
-5. With the Access Token, the client can request access to the resource from the Resource Server.
+1. Клиент запрашивает авторизацию у сервера авторизации, предоставляя идентификатор клиента и секретный ключ в качестве идентификации. Он также указывает области действия и URI конечной точки для отправки токена доступа или кода авторизации.
+2. Сервер авторизации аутентифицирует клиента и проверяет, разрешены ли запрошенные области действия.
+3. Владелец ресурса взаимодействует с сервером авторизации для предоставления доступа.
+4. Сервер авторизации перенаправляет запрос обратно клиенту, отправляя либо код авторизации, либо токен доступа, в зависимости от типа предоставления доступа. Также может быть возвращен токен обновления.
+5. С помощью токена доступа клиент может запросить доступ к ресурсу у сервера ресурсов.
 
-### Disadvantages
+### Недостатки
 
-Here are the most common disadvantages of OAuth 2.0:
+Вот наиболее распространенные недостатки OAuth 2.0:
 
-- Lacks built-in security features.
-- No standard implementation.
-- No common set of scopes.
+- Отсутствуют встроенные функции безопасности.
+— Стандартная реализация отсутствует.
+- Нет единого набора прицелов.
 
 ## OpenID Connect
 
-OAuth 2.0 is designed only for _authorization_, for granting access to data and features from one application to another. OpenID Connect (OIDC) is a thin layer that sits on top of OAuth 2.0 that adds login and profile information about the person who is logged in.
+OAuth 2.0 предназначен исключительно для _авторизации_, для предоставления доступа к данным и функциям из одного приложения в другое. OpenID Connect (OIDC) — это тонкий слой, который накладывается поверх OAuth 2.0 и добавляет информацию о пользователе, вошедшем в систему, а также данные его профиля.
 
-When an Authorization Server supports OIDC, it is sometimes called an Identity Provider (IdP), since it provides information about the Resource Owner back to the Client. OpenID Connect is relatively new, resulting in lower adoption and industry implementation of best practices compared to OAuth.
+Когда сервер авторизации поддерживает OIDC, его иногда называют поставщиком идентификационных данных (IdP), поскольку он предоставляет клиенту информацию о владельце ресурса. OpenID Connect — относительно новая технология, что приводит к более низкому уровню её внедрения и внедрения передовых методов в отрасли по сравнению с OAuth.
 
-### Concepts
+### Концепции
 
-The OpenID Connect (OIDC) protocol defines the following entities:
+Протокол OpenID Connect (OIDC) определяет следующие сущности:
 
-- **Relying Party**: The current application.
-- **OpenID Provider**: This is essentially an intermediate service that provides a one-time code to the Relying Party.
-- **Token Endpoint**: A web server that accepts the One-Time Code (OTC) and provides an access code that's valid for an hour. The main difference between OIDC and OAuth 2.0 is that the token is provided using JSON Web Token (JWT).
-- **UserInfo Endpoint**: The Relying Party communicates with this endpoint, providing a secure token and receiving information about the end-user
+- **Зависимая сторона**: Текущая заявка.
+- **Поставщик OpenID**: По сути, это промежуточная услуга, которая предоставляет стороне, проверяющей систему, одноразовый код.
+- **Конечная точка токена**: веб-сервер, который принимает одноразовый код (OTC) и предоставляет код доступа, действительный в течение часа. Основное отличие OIDC от OAuth 2.0 заключается в том, что токен предоставляется с использованием JSON Web Token (JWT).
+- **Конечная точка UserInfo**: Зависимая сторона взаимодействует с этой конечной точкой, предоставляя защищенный токен и получая информацию о конечном пользователе.
 
-Both OAuth 2.0 and OIDC are easy to implement and are JSON based, which is supported by most web and mobile applications. However, the OpenID Connect (OIDC) specification is more strict than that of basic OAuth.
+Как OAuth 2.0, так и OIDC просты в реализации и основаны на формате JSON, который поддерживается большинством веб- и мобильных приложений. Однако спецификация OpenID Connect (OIDC) более строгая, чем спецификация базового OAuth.
 
-# Single Sign-On (SSO)
+# Единый вход (SSO)
 
-Single Sign-On (SSO) is an authentication process in which a user is provided access to multiple applications or websites by using only a single set of login credentials. This prevents the need for the user to log separately into the different applications.
+Единый вход (SSO) — это процесс аутентификации, при котором пользователю предоставляется доступ к нескольким приложениям или веб-сайтам с использованием только одного набора учетных данных. Это избавляет пользователя от необходимости входить в разные приложения по отдельности.
 
-The user credentials and other identifying information are stored and managed by a centralized system called Identity Provider (IdP). The Identity Provider is a trusted system that provides access to other websites and applications.
+Учетные данные пользователя и другая идентификационная информация хранятся и управляются централизованной системой, называемой поставщиком идентификационных данных (Identity Provider, IdP). Поставщик идентификационных данных — это доверенная система, предоставляющая доступ к другим веб-сайтам и приложениям.
 
-Single Sign-On (SSO) based authentication systems are commonly used in enterprise environments where employees require access to multiple applications of their organizations.
+Системы аутентификации на основе единого входа (SSO) широко используются в корпоративных средах, где сотрудникам необходим доступ к множеству приложений организации.
 
-## Components
+## Компоненты
 
-Let's discuss some key components of Single Sign-On (SSO).
+Давайте обсудим некоторые ключевые компоненты единого входа (SSO).
 
-### Identity Provider (IdP)
+### Поставщик идентификационных данных (IdP)
 
-User Identity information is stored and managed by a centralized system called Identity Provider (IdP). The Identity Provider authenticates the user and provides access to the service provider.
+Информация об идентификации пользователя хранится и управляется централизованной системой, называемой поставщиком идентификационных данных (Identity Provider, IdP). Поставщик идентификационных данных аутентифицирует пользователя и предоставляет доступ поставщику услуг.
 
-The identity provider can directly authenticate the user by validating a username and password or by validating an assertion about the user's identity as presented by a separate identity provider. The identity provider handles the management of user identities in order to free the service provider from this responsibility.
+Поставщик идентификационных данных может напрямую аутентифицировать пользователя, проверяя имя пользователя и пароль, или проверяя утверждение о личности пользователя, предоставленное отдельным поставщиком идентификационных данных. Поставщик идентификационных данных берет на себя управление идентификационными данными пользователей, освобождая поставщика услуг от этой ответственности.
 
-### Service Provider
+### Поставщик услуг
 
-A service provider provides services to the end-user. They rely on identity providers to assert the identity of a user, and typically certain attributes about the user are managed by the identity provider. Service providers may also maintain a local account for the user along with attributes that are unique to their service.
+Поставщик услуг предоставляет услуги конечному пользователю. Он полагается на поставщиков идентификации для подтверждения личности пользователя, и, как правило, определенные атрибуты пользователя управляются поставщиком идентификации. Поставщики услуг также могут поддерживать локальную учетную запись пользователя вместе с атрибутами, уникальными для их услуги.
 
-### Identity Broker
+### Брокер идентификации
 
-An identity broker acts as an intermediary that connects multiple service providers with various different identity providers. Using Identity Broker, we can perform single sign-on over any application without the hassle of the protocol it follows.
+Брокер идентификации выступает в роли посредника, соединяющего множество поставщиков услуг с различными поставщиками идентификации. Используя брокер идентификации, мы можем обеспечить единый вход в любое приложение без сложностей, связанных с используемым протоколом.
 
 ## SAML
 
-Security Assertion Markup Language is an open standard that allows clients to share security information about identity, authentication, and permission across different systems. SAML is implemented with the Extensible Markup Language (XML) standard for sharing data.
+Язык разметки утверждений безопасности (SAML) — это открытый стандарт, позволяющий клиентам обмениваться информацией о безопасности, касающейся идентификации, аутентификации и разрешений, между различными системами. SAML реализован с использованием стандарта расширяемого языка разметки (XML) для обмена данными.
 
-SAML specifically enables identity federation, making it possible for identity providers (IdPs) to seamlessly and securely pass authenticated identities and their attributes to service providers.
+SAML, в частности, обеспечивает федерацию идентификации, позволяя поставщикам идентификационных данных (IdP) беспрепятственно и безопасно передавать аутентифицированные идентификационные данные и их атрибуты поставщикам услуг.
 
-## How does SSO work?
+## Как работает SSO?
 
-Now, let's discuss how Single Sign-On works:
+Теперь давайте обсудим, как работает единый вход (Single Sign-On):
 
 ![sso](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/single-sign-on/sso.png)
 
-1. The user requests a resource from their desired application.
-2. The application redirects the user to the Identity Provider (IdP) for authentication.
-3. The user signs in with their credentials (usually, username and password).
-4. Identity Provider (IdP) sends a Single Sign-On response back to the client application.
-5. The application grants access to the user.
+1. Пользователь запрашивает ресурс у нужного ему приложения.
+2. Приложение перенаправляет пользователя к поставщику идентификационных данных (IdP) для аутентификации.
+3. Пользователь входит в систему, используя свои учетные данные (обычно, имя пользователя и пароль).
+4. Поставщик идентификационных данных (IdP) отправляет ответ на запрос единого входа (Single Sign-On) обратно клиентскому приложению.
+5. Приложение предоставляет пользователю доступ.
 
-## SAML vs OAuth 2.0 and OpenID Connect (OIDC)
+## SAML против OAuth 2.0 и OpenID Connect (OIDC)
 
-There are many differences between SAML, OAuth, and OIDC. SAML uses XML to pass messages, while OAuth and OIDC use JSON. OAuth provides a simpler experience, while SAML is geared towards enterprise security.
+Между SAML, OAuth и OIDC существует множество различий. SAML использует XML для передачи сообщений, в то время как OAuth и OIDC используют JSON. OAuth обеспечивает более простой интерфейс, в то время как SAML ориентирован на корпоративную безопасность.
 
-OAuth and OIDC use RESTful communication extensively, which is why mobile, and modern web applications find OAuth and OIDC a better experience for the user. SAML, on the other hand, drops a session cookie in a browser that allows a user to access certain web pages. This is great for short-lived workloads.
+OAuth и OIDC широко используют RESTful-коммуникацию, поэтому мобильные и современные веб-приложения считают OAuth и OIDC более удобными для пользователя. SAML, с другой стороны, размещает в браузере сессионный cookie, который позволяет пользователю получать доступ к определенным веб-страницам. Это отлично подходит для кратковременных нагрузок.
 
-OIDC is developer-friendly and simpler to implement, which broadens the use cases for which it might be implemented. It can be implemented from scratch pretty fast, via freely available libraries in all common programming languages. SAML can be complex to install and maintain, which only enterprise-size companies can handle well.
+OIDC удобен для разработчиков и проще в реализации, что расширяет возможности его применения. Его можно реализовать с нуля довольно быстро, используя свободно доступные библиотеки на всех распространенных языках программирования. SAML может быть сложным в установке и обслуживании, с чем хорошо справляются только крупные компании.
 
-OpenID Connect is essentially a layer on top of the OAuth framework. Therefore, it can offer a built-in layer of permission that asks a user to agree to what the service provider might access. Although SAML is also capable of allowing consent flow, it achieves this by hard-coding carried out by a developer and not as part of its protocol.
+OpenID Connect по сути представляет собой надстройку над фреймворком OAuth. Таким образом, он может предложить встроенный уровень разрешений, запрашивающий у пользователя согласие на то, к чему может получить доступ поставщик услуг. Хотя SAML также способен обеспечивать поток согласия, он делает это путем жесткого кодирования, выполняемого разработчиком, а не как часть своего протокола.
 
-_Both of these authentication protocols are good at what they do. As always, a lot depends on our specific use cases and target audience._
+Оба протокола аутентификации хорошо справляются со своей задачей. Как всегда, многое зависит от конкретных сценариев использования и целевой аудитории.
 
-## Advantages
+## Преимущества
 
-Following are the benefits of using Single Sign-On:
+Ниже перечислены преимущества использования единого входа (Single Sign-On):
 
-- Ease of use as users only need to remember one set of credentials.
-- Ease of access without having to go through a lengthy authorization process.
-- Enforced security and compliance to protect sensitive data.
-- Simplifying the management with reduced IT support cost and admin time.
+- Простота использования, поскольку пользователям нужно запомнить только один набор учетных данных.
+— Простота доступа без необходимости проходить длительную процедуру авторизации.
+- Обеспечена безопасность и соблюдение нормативных требований для защиты конфиденциальных данных.
+- Упрощение управления за счет снижения затрат на ИТ-поддержку и времени на администрирование.
 
-## Disadvantages
+## Недостатки
 
-Here are some disadvantages of Single Sign-On:
+Вот некоторые недостатки единого входа (Single Sign-On):
 
-- Single Password Vulnerability, if the main SSO password gets compromised, all the supported applications get compromised.
-- The authentication process using Single Sign-On is slower than traditional authentication as every application has to request the SSO provider for verification.
+- Уязвимость единого пароля: если основной пароль SSO будет скомпрометирован, будут скомпрометированы все поддерживаемые приложения.
+- Процесс аутентификации с использованием единого входа (SSO) медленнее, чем традиционная аутентификация, поскольку каждое приложение должно запрашивать подтверждение у поставщика SSO.
 
-## Examples
+## Примеры
 
-These are some commonly used Identity Providers (IdP):
+Вот некоторые из наиболее часто используемых поставщиков идентификационных данных (IdP):
 
 - [Okta](https://www.okta.com)
 - [Google](https://cloud.google.com/architecture/identity/single-sign-on)
@@ -3479,2220 +3479,2220 @@ These are some commonly used Identity Providers (IdP):
 
 # SSL, TLS, mTLS
 
-Let's briefly discuss some important communication security protocols such as SSL, TLS, and mTLS. I would say that from a _"big picture"_ system design perspective, this topic is not very important but still good to know about.
+Давайте кратко обсудим некоторые важные протоколы безопасности связи, такие как SSL, TLS и mTLS. Я бы сказал, что с точки зрения проектирования системы в целом эта тема не очень важна, но все же полезно о ней знать.
 
 ## SSL
 
-SSL stands for Secure Sockets Layer, and it refers to a protocol for encrypting and securing communications that take place on the internet. It was first developed in 1995 but since has been deprecated in favor of TLS (Transport Layer Security).
+SSL расшифровывается как Secure Sockets Layer (протокол защищенных сокетов) и обозначает протокол для шифрования и защиты коммуникаций в интернете. Он был впервые разработан в 1995 году, но с тех пор был вытеснен протоколом TLS (Transport Layer Security).
 
-### Why is it called an SSL certificate if it is deprecated?
+### Почему это называется SSL-сертификатом, если он устарел?
 
-Most major certificate providers still refer to certificates as SSL certificates, which is why the naming convention persists.
+Большинство крупных поставщиков сертификатов по-прежнему называют сертификаты SSL-сертификатами, поэтому и сохранилась эта система именования.
 
-### Why was SSL so important?
+### Почему SSL был так важен?
 
-Originally, data on the web was transmitted in plaintext that anyone could read if they intercepted the message. SSL was created to correct this problem and protect user privacy. By encrypting any data that goes between the user and a web server, SSL also stops certain kinds of cyber attacks by preventing attackers from tampering with data in transit.
+Изначально данные в интернете передавались в открытом виде, и любой мог прочитать сообщение, если бы его перехватил. SSL был создан для решения этой проблемы и защиты конфиденциальности пользователей. Шифруя любые данные, передаваемые между пользователем и веб-сервером, SSL также предотвращает определенные виды кибератак, не позволяя злоумышленникам вмешиваться в передаваемые данные.
 
 ## TLS
 
-Transport Layer Security, or TLS, is a widely adopted security protocol designed to facilitate privacy and data security for communications over the internet. TLS evolved from a previous encryption protocol called Secure Sockets Layer (SSL). A primary use case of TLS is encrypting the communication between web applications and servers.
+Протокол TLS (Transport Layer Security) — широко распространенный протокол безопасности, предназначенный для обеспечения конфиденциальности и защиты данных при передаче данных через Интернет. TLS произошел от предыдущего протокола шифрования, называемого SSL (Secure Sockets Layer). Основное применение TLS — шифрование связи между веб-приложениями и серверами.
 
-There are three main components to what the TLS protocol accomplishes:
+Протокол TLS состоит из трех основных компонентов:
 
-- **Encryption**: hides the data being transferred from third parties.
-- **Authentication**: ensures that the parties exchanging information are who they claim to be.
-- **Integrity**: verifies that the data has not been forged or tampered with.
+- **Шифрование**: скрывает передаваемые данные от третьих лиц.
+- **Аутентификация**: гарантирует, что стороны, обменивающиеся информацией, являются теми, за кого себя выдают.
+- **Целостность**: подтверждает, что данные не были подделаны или изменены.
 
 ## mTLS
 
-Mutual TLS, or mTLS, is a method for mutual authentication. mTLS ensures that the parties at each end of a network connection are who they claim to be by verifying that they both have the correct private key. The information within their respective TLS certificates provides additional verification.
+Взаимная TLS, или mTLS, — это метод взаимной аутентификации. mTLS гарантирует, что стороны на каждом конце сетевого соединения являются теми, за кого себя выдают, проверяя наличие у обеих сторон правильного закрытого ключа. Информация, содержащаяся в их соответствующих TLS-сертификатах, обеспечивает дополнительную проверку.
 
-### Why use mTLS?
+### Зачем использовать mTLS?
 
-mTLS helps ensure that the traffic is secure and trusted in both directions between a client and server. This provides an additional layer of security for users who log in to an organization's network or applications. It also verifies connections with client devices that do not follow a login process, such as Internet of Things (IoT) devices.
+mTLS помогает обеспечить безопасность и доверие к трафику в обоих направлениях между клиентом и сервером. Это обеспечивает дополнительный уровень безопасности для пользователей, которые входят в сеть или приложения организации. Он также проверяет соединения с клиентскими устройствами, которые не проходят процедуру авторизации, например, с устройствами Интернета вещей (IoT).
 
-Nowadays, mTLS is commonly used by microservices or distributed systems in a [zero trust security model](https://en.wikipedia.org/wiki/Zero_trust_security_model) to verify each other.
+В настоящее время mTLS широко используется микросервисами или распределенными системами в рамках модели безопасности с нулевым доверием (Zero Trust Security Model) для взаимной проверки.
 
-# System Design Interviews
+# Собеседования по проектированию систем
 
-System design is a very extensive topic and system design interviews are designed to evaluate your capability to produce technical solutions to abstract problems, as such, they're not designed for a specific answer. The unique aspect of system design interviews is the two-way nature between the candidate and the interviewer.
+Проектирование систем — очень обширная тема, и собеседования по проектированию систем призваны оценить вашу способность предлагать технические решения абстрактных проблем, поэтому они не рассчитаны на конкретный ответ. Уникальность собеседований по проектированию систем заключается в двустороннем взаимодействии между кандидатом и интервьюером.
 
-Expectations are quite different at different engineering levels as well. This is because someone with a lot of practical experience will approach it quite differently from someone who's new in the industry. As a result, it's hard to come up with a single strategy that will help us stay organized during the interview.
+Ожидания на разных уровнях инженерной подготовки также значительно различаются. Это связано с тем, что человек с большим практическим опытом будет подходить к этому совершенно иначе, чем новичок в отрасли. В результате сложно разработать единую стратегию, которая помогла бы нам оставаться организованными во время собеседования.
 
-Let's look at some common strategies for system design interviews:
+Рассмотрим некоторые распространенные стратегии для собеседований по проектированию систем:
 
-## Requirements clarifications
+## Уточнения требований
 
-System design interview questions, by nature, are vague or abstract. Asking questions about the exact scope of the problem, and clarifying functional requirements early in the interview is essential. Usually, requirements are divided into three parts:
+Вопросы на собеседовании по проектированию систем по своей природе расплывчаты или абстрактны. Крайне важно задавать вопросы о точном масштабе проблемы и уточнять функциональные требования на раннем этапе собеседования. Обычно требования делятся на три части:
 
-### Functional requirements
+### Функциональные требования
 
-These are the requirements that the end user specifically demands as basic functionalities that the system should offer. All these functionalities need to be necessarily incorporated into the system as part of the contract.
+Это требования, которые конечный пользователь конкретно предъявляет к базовым функциям, которые должна предлагать система. Все эти функции должны быть обязательно включены в систему в рамках договора.
 
-For example:
+Например:
 
-- "What are the features that we need to design for this system?"
-- "What are the edge cases we need to consider, if any, in our design?"
+— «Какие функции нам необходимо разработать для этой системы?»
+— «Какие, если таковые имеются, крайние случаи нам необходимо учесть при проектировании?»
 
-### Non-functional requirements
+### Нефункциональные требования
 
-These are the quality constraints that the system must satisfy according to the project contract. The priority or extent to which these factors are implemented varies from one project to another. They are also called non-behavioral requirements. For example, portability, maintainability, reliability, scalability, security, etc.
+Это ограничения качества, которым система должна соответствовать в соответствии с контрактом проекта. Приоритетность или степень реализации этих факторов варьируется от проекта к проекту. Их также называют не связанными с поведением требованиями. Например, переносимость, ремонтопригодность, надежность, масштабируемость, безопасность и т. д.
 
-For example:
+Например:
 
-- "Each request should be processed with the minimum latency"
-- "System should be highly available"
+— «Каждый запрос должен обрабатываться с минимальной задержкой».
+— «Система должна обладать высокой доступностью»
 
-### Extended requirements
+### Расширенные требования
 
-These are basically "nice to have" requirements that might be out of the scope of the system.
+Это, по сути, требования, которые "желательно иметь", но которые могут выходить за рамки системы.
 
-For example:
+Например:
 
-- "Our system should record metrics and analytics"
-- "Service health and performance monitoring?"
+— «Наша система должна регистрировать показатели и аналитические данные».
+— «Мониторинг состояния и производительности сервиса?»
 
-## Estimation and Constraints
+## Оценка и ограничения
 
-Estimate the scale of the system we're going to design. It is important to ask questions such as:
+Оцените масштаб системы, которую мы собираемся спроектировать. Важно задавать такие вопросы, как:
 
-- "What is the desired scale that this system will need to handle?"
-- "What is the read/write ratio of our system?"
-- "How many requests per second?"
-- "How much storage will be needed?"
+— «Какой масштаб должна обеспечивать эта система?»
+— «Каково соотношение операций чтения и записи в нашей системе?»
+— "Сколько запросов в секунду?"
+— «Сколько места потребуется для хранения?»
 
-These questions will help us scale our design later.
+Эти вопросы помогут нам масштабировать нашу разработку в дальнейшем.
 
-## Data model design
+## Разработка модели данных
 
-Once we have the estimations, we can start with defining the database schema. Doing so in the early stages of the interview would help us to understand the data flow which is the core of every system. In this step, we basically define all the entities and relationships between them.
+После того, как мы получим приблизительные оценки, мы можем приступить к определению схемы базы данных. Это можно сделать на ранних этапах собеседования, чтобы понять поток данных, который является основой любой системы. На этом этапе мы, по сути, определяем все сущности и связи между ними.
 
-- "What are the different entities in the system?"
-- "What are the relationships between these entities?"
-- "How many tables do we need?"
-- "Is NoSQL a better choice here?"
+— «Какие различные сущности входят в систему?»
+— «Каковы взаимоотношения между этими объектами?»
+— "Сколько столов нам нужно?"
+— «Является ли NoSQL лучшим выбором в данном случае?»
 
-## API design
+## Разработка API
 
-Next, we can start designing APIs for the system. These APIs will help us define the expectations from the system explicitly. We don't have to write any code, just a simple interface defining the API requirements such as parameters, functions, classes, types, entities, etc.
+Далее мы можем приступить к разработке API для системы. Эти API помогут нам четко определить ожидания от системы. Нам не нужно писать код, достаточно простого интерфейса, определяющего требования к API, такие как параметры, функции, классы, типы, сущности и т. д.
 
-For example:
+Например:
 
 ```tsx
-createUser(name: string, email: string): User
+createUser(name: string, email: string): Пользователь
 ```
 
-It is advised to keep the interface as simple as possible and come back to it later when covering extended requirements.
+Рекомендуется максимально упростить интерфейс и вернуться к нему позже, при решении более сложных задач.
 
-## High-level component design
+## Проектирование высокоуровневых компонентов
 
-Now we have established our data model and API design, it's time to identify system components (such as Load Balancers, API Gateway, etc.) that are needed to solve our problem and draft the first design of our system.
+Теперь, когда мы разработали модель данных и API, пришло время определить компоненты системы (такие как балансировщики нагрузки, API-шлюз и т. д.), необходимые для решения нашей задачи, и составить первый вариант проекта нашей системы.
 
-- "Is it best to design a monolithic or a microservices architecture?"
-- "What type of database should we use?"
+— «Какую архитектуру лучше выбрать: монолитную или микросервисную?»
+— «Какой тип базы данных нам следует использовать?»
 
-Once we have a basic diagram, we can start discussing with the interviewer how the system will work from the client's perspective.
+Как только у нас появится базовая схема, мы можем начать обсуждать с интервьюером, как система будет работать с точки зрения клиента.
 
-## Detailed design
+## Детальный дизайн
 
-Now it's time to go into detail about the major components of the system we designed. As always discuss with the interviewer which component may need further improvements.
+Теперь пришло время подробно рассказать об основных компонентах разработанной нами системы. Как всегда, обсудите с интервьюером, какой компонент может нуждаться в дальнейшем улучшении.
 
-Here is a good opportunity to demonstrate your experience in the areas of your expertise. Present different approaches, advantages, and disadvantages. Explain your design decisions, and back them up with examples. This is also a good time to discuss any additional features the system might be able to support, though this is optional.
+Это отличная возможность продемонстрировать свой опыт в областях, в которых вы специализируетесь. Представьте различные подходы, их преимущества и недостатки. Объясните свои проектные решения и подкрепите их примерами. Также это подходящий момент для обсуждения любых дополнительных функций, которые может поддерживать система, хотя это и необязательно.
 
-- "How should we partition our data?"
-- "What about load distribution?"
-- "Should we use cache?"
-- "How will we handle a sudden spike in traffic?"
+— «Как нам следует разделить наши данные?»
+— А как насчет распределения нагрузки?
+— "Стоит ли использовать кэш?"
+— «Как мы будем справляться с внезапным увеличением транспортного потока?»
 
-Also, try not to be too opinionated about certain technologies, statements like "I believe that NoSQL databases are just better, SQL databases are not scalable" reflect poorly. As someone who has interviewed a lot of people over the years, my two cents here would be to be humble about what you know and what you do not. Use your existing knowledge with examples to navigate this part of the interview.
+Также старайтесь не быть слишком категоричными в отношении определенных технологий; заявления типа «Я считаю, что базы данных NoSQL просто лучше, а базы данных SQL не масштабируемы» производят плохое впечатление. Как человек, который проводил собеседования со многими людьми на протяжении многих лет, я бы посоветовал быть скромным в отношении того, что вы знаете, а что нет. Используйте свои имеющиеся знания, приводя примеры, чтобы успешно пройти эту часть собеседования.
 
-## Identify and resolve bottlenecks
+## Выявление и устранение узких мест
 
-Finally, it's time to discuss bottlenecks and approaches to mitigate them. Here are some important questions to ask:
+Наконец, пришло время обсудить узкие места и подходы к их устранению. Вот несколько важных вопросов, которые следует задать:
 
-- "Do we have enough database replicas?"
-- "Is there any single point of failure?"
-- "Is database sharding required?"
-- "How can we make our system more robust?"
-- "How to improve the availability of our cache?"
+— «Достаточно ли у нас реплик базы данных?»
+— «Есть ли какая-либо единая точка отказа?»
+— «Необходимо ли сегментирование базы данных?»
+— «Как мы можем сделать нашу систему более надежной?»
+— «Как повысить доступность нашего кэша?»
 
-Make sure to read the engineering blog of the company you're interviewing with. This will help you get a sense of what technology stack they're using and which problems are important to them.
+Обязательно почитайте инженерный блог компании, в которой вы проходите собеседование. Это поможет вам понять, какой технологический стек они используют и какие проблемы для них важны.
 
-# URL Shortener
+# Сокращатель URL-адресов
 
-Let's design a URL shortener, similar to services like [Bitly](https://bitly.com), [TinyURL](https://tinyurl.com/app).
+Давайте разработаем сервис сокращения URL-адресов, аналогичный таким сервисам, как [Bitly](https://bitly.com) и [TinyURL](https://tinyurl.com/app).
 
-## What is a URL Shortener?
+## Что такое сокращатель URL-адресов?
 
-A URL shortener service creates an alias or a short URL for a long URL. Users are redirected to the original URL when they visit these short links.
+Сервис сокращения URL-адресов создает псевдоним или короткий URL-адрес для длинного URL-адреса. Пользователи перенаправляются на исходный URL-адрес при переходе по этим коротким ссылкам.
 
-For example, the following long URL can be changed to a shorter URL.
+Например, следующий длинный URL-адрес можно заменить на более короткий.
 
-**Long URL**: [https://karanpratapsingh.com/courses/system-design/url-shortener](https://karanpratapsingh.com/courses/system-design/url-shortener)
+**Длинная ссылка**: [https://karanpratapsingh.com/courses/system-design/url-shortener](https://karanpratapsingh.com/courses/system-design/url-shortener)
 
-**Short URL**: [https://bit.ly/3I71d3o](https://bit.ly/3I71d3o)
+**Короткая ссылка**: [https://bit.ly/3I71d3o](https://bit.ly/3I71d3o)
 
-## Why do we need a URL shortener?
+## Зачем нам нужен сервис сокращения URL-адресов?
 
-URL shortener saves space in general when we are sharing URLs. Users are also less likely to mistype shorter URLs. Moreover, we can also optimize links across devices, this allows us to track individual links.
+Сокращатели URL-адресов, как правило, экономят место при обмене URL-адресами. Пользователи также реже допускают ошибки при вводе коротких URL-адресов. Кроме того, мы можем оптимизировать ссылки на разных устройствах, что позволяет отслеживать отдельные ссылки.
 
-## Requirements
+## Требования
 
-Our URL shortening system should meet the following requirements:
+Наша система сокращения URL-адресов должна соответствовать следующим требованиям:
 
-### Functional requirements
+### Функциональные требования
 
-- Given a URL, our service should generate a _shorter and unique_ alias for it.
-- Users should be redirected to the original URL when they visit the short link.
-- Links should expire after a default timespan.
+— Получив URL-адрес, наш сервис должен сгенерировать для него более короткий и уникальный псевдоним.
+- Пользователи должны быть перенаправлены на исходный URL-адрес при переходе по короткой ссылке.
+— Срок действия ссылок должен истечь по истечении заданного по умолчанию периода времени.
 
-### Non-functional requirements
+### Нефункциональные требования
 
-- High availability with minimal latency.
-- The system should be scalable and efficient.
+- Высокая доступность с минимальной задержкой.
+- Система должна быть масштабируемой и эффективной.
 
-### Extended requirements
+### Расширенные требования
 
-- Prevent abuse of services.
-- Record analytics and metrics for redirections.
+- Предотвратить злоупотребление услугами.
+- Запись аналитических данных и метрик для перенаправлений.
 
-## Estimation and Constraints
+## Оценка и ограничения
 
-Let's start with the estimation and constraints.
+Начнём с оценки и ограничений.
 
-_Note: Make sure to check any scale or traffic related assumptions with your interviewer._
+Примечание: Обязательно уточните у интервьюера любые предположения, касающиеся масштаба или интенсивности движения.
 
-### Traffic
+### Трафик
 
-This will be a read-heavy system, so let's assume a `100:1` read/write ratio with 100 million links generated per month.
+Это будет система с высокой интенсивностью чтения, поэтому предположим соотношение чтения/записи 100:1, при этом ежемесячно будет генерироваться 100 миллионов ссылок.
 
-**Reads/Writes Per month**
+**Количество прочтений/записей в месяц**
 
-For reads per month:
-
-$$
-100 \times 100 \space million = 10 \space billion/month
-$$
-
-Similarly for writes:
+Количество просмотров в месяц:
 
 $$
-1 \times 100 \space million = 100 \space million/month
+100 × 100 миллионов = 10 миллиардов в месяц
 $$
 
-**What would be Requests Per Second (RPS) for our system?**
-
-100 million requests per month translate into 40 requests per second.
+Аналогично и для операций записи:
 
 $$
-\frac{100 \space million}{(30 \space days \times 24 \space hrs \times 3600 \space seconds)} = \sim 40 \space URLs/second
+1 × 100 миллионов = 100 миллионов/месяц
 $$
 
-And with a `100:1` read/write ratio, the number of redirections will be:
+**Каково будет количество запросов в секунду (RPS) для нашей системы?**
+
+100 миллионов запросов в месяц соответствуют 40 запросам в секунду.
 
 $$
-100 \times 40 \space URLs/second = 4000 \space requests/second
+\frac{100 \space миллионов}{(30 \space дней \times 24 \space часов \times 3600 \space секунд)} = \sim 40 \space URL-адресов/секунду
 $$
 
-### Bandwidth
-
-Since we expect about 40 URLs every second, and if we assume each request is of size 500 bytes then the total incoming data for write requests would be:
+При соотношении операций чтения/записи `100:1` количество перенаправлений составит:
 
 $$
-40 \times 500 \space bytes = 20 \space KB/second
+100 × 40 URL-адресов в секунду = 4000 запросов в секунду
 $$
 
-Similarly, for the read requests, since we expect about 4K redirections, the total outgoing data would be:
+### Пропускная способность
+
+Поскольку мы ожидаем получать около 40 URL-адресов в секунду, и если предположить, что каждый запрос имеет размер 500 байт, то общий объем входящих данных для запросов на запись составит:
 
 $$
-4000 \space URLs/second \times 500 \space bytes = \sim 2 \space MB/second
+40 × 500 байт = 20 КБ/секунду
 $$
 
-### Storage
-
-For storage, we will assume we store each link or record in our database for 10 years. Since we expect around 100M new requests every month, the total number of records we will need to store would be:
+Аналогично, для запросов на чтение, поскольку мы ожидаем перенаправления примерно на 4 КБ, общий объем исходящих данных составит:
 
 $$
-100 \space million \times 10\space years \times 12 \space months = 12 \space billion
+4000 URL-адресов/секунду × 500 байт = ~2 МБ/секунду
 $$
 
-Like earlier, if we assume each stored record will be approximately 500 bytes. We will need around 6TB of storage:
+### Хранилище
+
+Для хранения данных мы будем исходить из того, что каждая ссылка или запись в нашей базе данных будет храниться 10 лет. Поскольку мы ожидаем около 100 миллионов новых запросов каждый месяц, общее количество записей, которые нам потребуется хранить, составит:
 
 $$
-12 \space billion \times 500 \space bytes = 6 \space TB
+100 миллионов × 10 лет × 12 месяцев = 12 миллиардов
 $$
 
-### Cache
-
-For caching, we will follow the classic [Pareto principle](https://en.wikipedia.org/wiki/Pareto_principle) also known as the 80/20 rule. This means that 80% of the requests are for 20% of the data, so we can cache around 20% of our requests.
-
-Since we get around 4K read or redirection requests each second, this translates into 350M requests per day.
+Как и ранее, если предположить, что каждая сохраненная запись будет занимать приблизительно 500 байт, нам потребуется около 6 ТБ хранилища:
 
 $$
-4000 \space URLs/second \times 24 \space hours \times 3600 \space seconds = \sim 350 \space million \space requests/day
+12 миллиардов × 500 байт = 6 ТБ
 $$
 
-Hence, we will need around 35GB of memory per day.
+### Кэш
+
+Для кэширования мы будем следовать классическому принципу Парето, также известному как правило 80/20. Это означает, что 80% запросов приходится на 20% данных, поэтому мы можем кэшировать около 20% наших запросов.
+
+Поскольку мы получаем около 4000 запросов на чтение или перенаправление в секунду, это составляет 350 миллионов запросов в день.
 
 $$
-20 \space percent \times 350 \space million \times 500 \space bytes = 35 \space GB/day
+4000 URL-адресов в секунду × 24 часа × 3600 секунд = ~350 миллионов запросов в день
 $$
 
-### High-level estimate
+Следовательно, нам потребуется около 35 ГБ памяти в день.
 
-Here is our high-level estimate:
+$$
+20 процентов умножить на 350 миллионов умножить на 500 байт = 35 ГБ/день
+$$
 
-| Type                 | Estimate   |
+### Оценка высокого уровня
+
+Вот наша приблизительная оценка:
+
+| Тип | Оценка |
 | -------------------- | ---------- |
-| Writes (New URLs)    | 40/s       |
-| Reads (Redirection)  | 4K/s       |
-| Bandwidth (Incoming) | 20 KB/s    |
-| Bandwidth (Outgoing) | 2 MB/s     |
-| Storage (10 years)   | 6 TB       |
-| Memory (Caching)     | ~35 GB/day |
+| Запись (новых URL-адресов) | 40/с |
+| Количество прочтений (перенаправление) | 4K/с |
+| Пропускная способность (входящий трафик) | 20 КБ/с |
+| Пропускная способность (исходящая) | 2 МБ/с |
+| Хранение данных (10 лет) | 6 ТБ |
+| Память (кэширование) | ~35 ГБ/день |
 
-## Data model design
+## Разработка модели данных
 
-Next, we will focus on the data model design. Here is our database schema:
+Далее мы сосредоточимся на проектировании модели данных. Вот схема нашей базы данных:
 
 ![url-shortener-datamodel](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/url-shortener/url-shortener-datamodel.png)
 
-Initially, we can get started with just two tables:
+Для начала мы можем использовать всего две таблицы:
 
-**users**
+**пользователи**
 
-Stores user's details such as `name`, `email`, `createdAt`, etc.
+Хранит данные пользователя, такие как `имя`, `электронная почта`, `дата создания` и т. д.
 
 **urls**
 
-Contains the new short URL's properties such as `expiration`, `hash`, `originalURL`, and `userID` of the user who created the short URL. We can also use the `hash` column as an [index](https://karanpratapsingh.com/courses/system-design/indexes) to improve the query performance.
+Содержит свойства нового короткого URL-адреса, такие как `expiration`, `hash`, `originalURL` и `userID` пользователя, создавшего короткий URL-адрес. Столбец `hash` также можно использовать в качестве [индекса](https://karanpratapsingh.com/courses/system-design/indexes) для повышения производительности запросов.
 
-### What kind of database should we use?
+### Какую базу данных нам следует использовать?
 
-Since the data is not strongly relational, NoSQL databases such as [Amazon DynamoDB](https://aws.amazon.com/dynamodb), [Apache Cassandra](https://cassandra.apache.org/_/index.html), or [MongoDB](https://www.mongodb.com) will be a better choice here, if we do decide to use an SQL database then we can use something like [Azure SQL Database](https://azure.microsoft.com/en-in/products/azure-sql/database) or [Amazon RDS](https://aws.amazon.com/rds).
+Поскольку данные не имеют строго реляционной структуры, лучшим выбором будут NoSQL-базы данных, такие как [Amazon DynamoDB](https://aws.amazon.com/dynamodb), [Apache Cassandra](https://cassandra.apache.org/_/index.html) или [MongoDB](https://www.mongodb.com). Если же мы все же решим использовать SQL-базу данных, то можем выбрать что-то вроде [Azure SQL Database](https://azure.microsoft.com/en-in/products/azure-sql/database) или [Amazon RDS](https://aws.amazon.com/rds).
 
-_For more details, refer to [SQL vs NoSQL](https://karanpratapsingh.com/courses/system-design/sql-vs-nosql-databases)._
+Для получения более подробной информации обратитесь к статье [SQL vs NoSQL](https://karanpratapsingh.com/courses/system-design/sql-vs-nosql-databases)._
 
-## API design
+## Разработка API
 
-Let us do a basic API design for our services:
+Давайте разработаем базовый API-дизайн для наших сервисов:
 
-### Create URL
+### Создать URL
 
-This API should create a new short URL in our system given an original URL.
+Этот API должен создавать в нашей системе новый короткий URL-адрес, используя исходный URL-адрес.
 
 ```tsx
 createURL(apiKey: string, originalURL: string, expiration?: Date): string
 ```
 
-**Parameters**
+**Параметры**
 
-API Key (`string`): API key provided by the user.
+Ключ API (`string`): Ключ API, предоставленный пользователем.
 
-Original URL (`string`): Original URL to be shortened.
+Исходный URL (`string`): Исходный URL, который необходимо сократить.
 
-Expiration (`Date`): Expiration date of the new URL _(optional)_.
+Срок действия (`Date`): Дата истечения срока действия нового URL-адреса (необязательно).
 
-**Returns**
+**Возврат товара**
 
-Short URL (`string`): New shortened URL.
+Короткий URL (`string`): Новый сокращенный URL.
 
-### Get URL
+### Получить URL
 
-This API should retrieve the original URL from a given short URL.
+Этот API должен извлекать исходный URL-адрес из заданного короткого URL-адреса.
 
 ```tsx
 getURL(apiKey: string, shortURL: string): string
 ```
 
-**Parameters**
+**Параметры**
 
-API Key (`string`): API key provided by the user.
+Ключ API (`string`): Ключ API, предоставленный пользователем.
 
-Short URL (`string`): Short URL mapped to the original URL.
+Короткий URL (`строка`): Короткий URL, сопоставленный с исходным URL.
 
-**Returns**
+**Возврат товара**
 
-Original URL (`string`): Original URL to be retrieved.
+Исходный URL (`string`): Исходный URL для получения.
 
-### Delete URL
+### Удалить URL
 
-This API should delete a given shortURL from our system.
+Этот API должен удалить указанный shortURL из нашей системы.
 
 ```tsx
 deleteURL(apiKey: string, shortURL: string): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-API Key (`string`): API key provided by the user.
+Ключ API (`string`): Ключ API, предоставленный пользователем.
 
-Short URL (`string`): Short URL to be deleted.
+Короткий URL (`string`): Короткий URL для удаления.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Why do we need an API key?
+### Зачем нам нужен API-ключ?
 
-As you must've noticed, we're using an API key to prevent abuse of our services. Using this API key we can limit the users to a certain number of requests per second or minute. This is quite a standard practice for developer APIs and should cover our extended requirement.
+Как вы, должно быть, заметили, мы используем ключ API для предотвращения злоупотреблений нашими сервисами. С помощью этого ключа API мы можем ограничить количество запросов в секунду или минуту для пользователей. Это довольно стандартная практика для API разработчиков и должна удовлетворить наши расширенные потребности.
 
-## High-level design
+## Проектирование высокого уровня
 
-Now let us do a high-level design of our system.
+Теперь давайте разработаем высокоуровневый проект нашей системы.
 
-### URL Encoding
+### Кодирование URL
 
-Our system's primary goal is to shorten a given URL, let's look at different approaches:
+Основная задача нашей системы — сократить заданный URL-адрес. Рассмотрим различные подходы:
 
-**Base62 Approach**
+**Подход Base62**
 
-In this approach, we can encode the original URL using [Base62](https://en.wikipedia.org/wiki/Base62) which consists of the capital letters A-Z, the lower case letters a-z, and the numbers 0-9.
+В этом подходе мы можем закодировать исходный URL-адрес с помощью [Base62](https://en.wikipedia.org/wiki/Base62), который состоит из заглавных букв AZ, строчных букв az и цифр от 0 до 9.
 
 $$
-Number \space of \space URLs = 62^N
+Количество URL-адресов в пространстве = 62^N
 $$
 
-Where,
+Где,
 
-`N`: Number of characters in the generated URL.
+`N`: Количество символов в сгенерированном URL.
 
-So, if we want to generate a URL that is 7 characters long, we will generate ~3.5 trillion different URLs.
+Таким образом, если мы хотим сгенерировать URL-адрес длиной в 7 символов, нам потребуется создать примерно 3,5 триллиона различных URL-адресов.
 
 $$
 \begin{gather*}
-62^5 = \sim 916 \space million \space URLs \\
-62^6 = \sim 56.8 \space billion \space URLs \\
-62^7 = \sim 3.5 \space trillion \space URLs
+62^5 = ~916 миллионов URL-адресов
+62^6 = ~56,8 миллиарда URL-адресов
+62^7 = ~3,5 триллиона URL-адресов
 \end{gather*}
 $$
 
-This is the simplest solution here, but it does not guarantee non-duplicate or collision-resistant keys.
+Это самое простое решение, но оно не гарантирует отсутствие дубликатов или защиту от коллизий.
 
-**MD5 Approach**
+**Подход MD5**
 
-The [MD5 message-digest algorithm](https://en.wikipedia.org/wiki/MD5) is a widely used hash function producing a 128-bit hash value (or 32 hexadecimal digits). We can use these 32 hexadecimal digits for generating 7 characters long URL.
+Алгоритм MD5 (MD5) — это широко используемая хеш-функция, генерирующая 128-битное хеш-значение (или 32 шестнадцатеричные цифры). Эти 32 шестнадцатеричные цифры можно использовать для генерации URL-адресов длиной 7 символов.
 
 $$
 MD5(original\_url) \rightarrow base62encode \rightarrow hash
 $$
 
-However, this creates a new issue for us, which is duplication and collision. We can try to re-compute the hash until we find a unique one but that will increase the overhead of our systems. It's better to look for more scalable approaches.
+Однако это создает для нас новую проблему — дублирование и коллизии. Мы можем попытаться пересчитать хеш, пока не найдем уникальный, но это увеличит накладные расходы наших систем. Лучше поискать более масштабируемые подходы.
 
-**Counter Approach**
+**Контрмера**
 
-In this approach, we will start with a single server which will maintain the count of the keys generated. Once our service receives a request, it can reach out to the counter which returns a unique number and increments the counter. When the next request comes the counter again returns the unique number and this goes on.
+В этом подходе мы начнем с одного сервера, который будет вести учет сгенерированных ключей. Как только наш сервис получит запрос, он может обратиться к счетчику, который вернет уникальный номер и увеличит его. При поступлении следующего запроса счетчик снова вернет уникальный номер, и так далее.
 
 $$
 Counter(0-3.5 \space trillion) \rightarrow base62encode \rightarrow hash
 $$
 
-The problem with this approach is that it can quickly become a single point for failure. And if we run multiple instances of the counter we can have collision as it's essentially a distributed system.
+Проблема такого подхода заключается в том, что он быстро может стать единой точкой отказа. А если мы запустим несколько экземпляров счетчика, могут возникнуть коллизии, поскольку это, по сути, распределенная система.
 
-To solve this issue we can use a distributed system manager such as [Zookeeper](https://zookeeper.apache.org) which can provide distributed synchronization. Zookeeper can maintain multiple ranges for our servers.
+Для решения этой проблемы мы можем использовать распределенный системный менеджер, такой как [Zookeeper](https://zookeeper.apache.org), который обеспечивает распределенную синхронизацию. Zookeeper может поддерживать несколько диапазонов для наших серверов.
 
 $$
 \begin{align*}
-& Range \space 1: \space 1 \rightarrow 1,000,000 \\
-& Range \space 2: \space 1,000,001 \rightarrow 2,000,000 \\
-& Range \space 3: \space 2,000,001 \rightarrow 3,000,000 \\
+Диапазон \space 1: \space 1 \rightarrow 1,000,000 \\
+Диапазон \space 2: \space 1,000,001 \rightarrow 2,000,000 \\
+Диапазон \space 3: \space 2,000,001 \rightarrow 3,000,000 \\
 & ...
 \end{align*}
 $$
 
-Once a server reaches its maximum range Zookeeper will assign an unused counter range to the new server. This approach can guarantee non-duplicate and collision-resistant URLs. Also, we can run multiple instances of Zookeeper to remove the single point of failure.
+Как только сервер достигнет максимального диапазона счетчиков, Zookeeper назначит новому серверу неиспользуемый диапазон счетчиков. Такой подход гарантирует отсутствие дубликатов и защиту от конфликтов URL-адресов. Кроме того, можно запустить несколько экземпляров Zookeeper, чтобы исключить единую точку отказа.
 
-### Key Generation Service (KGS)
+### Услуга генерации ключей (KGS)
 
-As we discussed, generating a unique key at scale without duplication and collisions can be a bit of a challenge. To solve this problem, we can create a standalone Key Generation Service (KGS) that generates a unique key ahead of time and stores it in a separate database for later use. This approach can make things simple for us.
+Как мы уже обсуждали, создание уникального ключа в больших масштабах без дублирования и коллизий может представлять собой сложную задачу. Для решения этой проблемы мы можем создать автономный сервис генерации ключей (KGS), который генерирует уникальный ключ заранее и сохраняет его в отдельной базе данных для последующего использования. Такой подход может значительно упростить нам задачу.
 
-**How to handle concurrent access?**
+**Как обрабатывать одновременный доступ?**
 
-Once the key is used, we can mark it in the database to make sure we don't reuse it, however, if there are multiple server instances reading data concurrently, two or more servers might try to use the same key.
+После использования ключа мы можем пометить его в базе данных, чтобы исключить повторное использование. Однако, если одновременно считывают данные несколько экземпляров сервера, два или более сервера могут попытаться использовать один и тот же ключ.
 
-The easiest way to solve this would be to store keys in two tables. As soon as a key is used, we move it to a separate table with appropriate locking in place. Also, to improve reads, we can keep some of the keys in memory.
+Простейший способ решения этой проблемы — хранить ключи в двух таблицах. Как только ключ используется, мы перемещаем его в отдельную таблицу с соответствующей блокировкой. Кроме того, для повышения скорости чтения можно хранить часть ключей в памяти.
 
-**KGS database estimations**
+**Оценки на основе базы данных KGS**
 
-As per our discussion, we can generate up to ~56.8 billion unique 6 character long keys which will result in us having to store 300 GB of keys.
+Как мы уже обсуждали, мы можем сгенерировать до ~56,8 миллиардов уникальных ключей длиной в 6 символов, что потребует хранения 300 ГБ ключей.
 
 $$
-6 \space characters \times 56.8 \space billion = \sim 390 \space GB
+6 символов × 56,8 миллиарда = ~390 ГБ
 $$
 
-While 390 GB seems like a lot for this simple use case, it is important to remember this is for the entirety of our service lifetime and the size of the keys database would not increase like our main database.
+Хотя 390 ГБ кажется большим объемом для этого простого случая, важно помнить, что это объем на весь срок службы нашего сервиса, и размер базы данных ключей не будет увеличиваться, как наша основная база данных.
 
-### Caching
+### Кэширование
 
-Now, let's talk about [caching](https://karanpratapsingh.com/courses/system-design/caching). As per our estimations, we will require around ~35 GB of memory per day to cache 20% of the incoming requests to our services. For this use case, we can use [Redis](https://redis.io) or [Memcached](https://memcached.org) servers alongside our API server.
+Теперь поговорим о [кэшировании](https://karanpratapsingh.com/courses/system-design/caching). По нашим оценкам, нам потребуется около ~35 ГБ памяти в день для кэширования 20% входящих запросов к нашим сервисам. Для этого мы можем использовать серверы [Redis](https://redis.io) или [Memcached](https://memcached.org) вместе с нашим API-сервером.
 
-_For more details, refer to [caching](https://karanpratapsingh.com/courses/system-design/caching)._
+Для получения более подробной информации обратитесь к [кэшированию](https://karanpratapsingh.com/courses/system-design/caching)._
 
-### Design
+### Дизайн
 
-Now that we have identified some core components, let's do the first draft of our system design.
+Теперь, когда мы определили некоторые ключевые компоненты, давайте сделаем первый черновик проектирования нашей системы.
 
 ![url-shortener-basic-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/url-shortener/url-shortener-basic-design.png)
 
-Here's how it works:
+Вот как это работает:
 
-**Creating a new URL**
+**Создание нового URL-адреса**
 
-1. When a user creates a new URL, our API server requests a new unique key from the Key Generation Service (KGS).
-2. Key Generation Service provides a unique key to the API server and marks the key as used.
-3. API server writes the new URL entry to the database and cache.
-4. Our service returns an HTTP 201 (Created) response to the user.
+1. Когда пользователь создает новый URL-адрес, наш API-сервер запрашивает новый уникальный ключ у службы генерации ключей (KGS).
+2. Сервис генерации ключей предоставляет API-серверу уникальный ключ и помечает его как использованный.
+3. API-сервер записывает новую запись URL-адреса в базу данных и кэш.
+4. Наш сервис возвращает пользователю HTTP-ответ 201 (Created).
 
-**Accessing a URL**
+**Доступ к URL-адресу**
 
-1. When a client navigates to a certain short URL, the request is sent to the API servers.
-2. The request first hits the cache, and if the entry is not found there then it is retrieved from the database and an HTTP 301 (Redirect) is issued to the original URL.
-3. If the key is still not found in the database, an HTTP 404 (Not found) error is sent to the user.
+1. Когда клиент переходит по определенному короткому URL-адресу, запрос отправляется на API-серверы.
+2. Запрос сначала обращается к кэшу, и если запись там не найдена, то она извлекается из базы данных, после чего выполняется HTTP-перенаправление 301 на исходный URL.
+3. Если ключ по-прежнему не найден в базе данных, пользователю отправляется ошибка HTTP 404 (Не найдено).
 
-## Detailed design
+## Детальный дизайн
 
-It's time to discuss the finer details of our design.
+Пришло время обсудить более тонкие детали нашего проекта.
 
-### Data Partitioning
+### Разделение данных
 
-To scale out our databases we will need to partition our data. Horizontal partitioning (aka [Sharding](https://karanpratapsingh.com/courses/system-design/sharding)) can be a good first step. We can use partitions schemes such as:
+Для масштабирования наших баз данных нам потребуется разделить данные на разделы. Хорошим первым шагом может стать горизонтальное разделение (также известное как шардинг)(https://karanpratapsingh.com/courses/system-design/sharding). Мы можем использовать такие схемы разделения, как:
 
-- Hash-Based Partitioning
-- List-Based Partitioning
-- Range Based Partitioning
-- Composite Partitioning
+- Разделение данных на основе хеширования
+- Разделение на основе списков
+- Разделение на основе диапазонов
+- Составное разбиение
 
-The above approaches can still cause uneven data and load distribution, we can solve this using [Consistent hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
+Вышеуказанные подходы все еще могут вызывать неравномерное распределение данных и нагрузки, эту проблему можно решить с помощью [согласованного хеширования](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
 
-_For more details, refer to [Sharding](https://karanpratapsingh.com/courses/system-design/sharding) and [Consistent Hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
+Для получения более подробной информации обратитесь к разделам [Шардинг](https://karanpratapsingh.com/courses/system-design/sharding) и [Последовательное хеширование](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
 
-### Database cleanup
+### Очистка базы данных
 
-This is more of a maintenance step for our services and depends on whether we keep the expired entries or remove them. If we do decide to remove expired entries, we can approach this in two different ways:
+Это скорее этап технического обслуживания наших сервисов, и он зависит от того, сохраним ли мы просроченные записи или удалим их. Если мы решим удалить просроченные записи, мы можем сделать это двумя разными способами:
 
-**Active cleanup**
+**Активная очистка**
 
-In active cleanup, we will run a separate cleanup service which will periodically remove expired links from our storage and cache. This will be a very lightweight service like a [cron job](https://en.wikipedia.org/wiki/Cron).
+В режиме активной очистки мы будем запускать отдельную службу очистки, которая будет периодически удалять просроченные ссылки из нашего хранилища и кэша. Это будет очень легковесная служба, похожая на [задачу cron](https://en.wikipedia.org/wiki/Cron).
 
-**Passive cleanup**
+**Пассивная очистка**
 
-For passive cleanup, we can remove the entry when a user tries to access an expired link. This can ensure a lazy cleanup of our database and cache.
+Для пассивной очистки мы можем удалять запись, когда пользователь пытается получить доступ к недействительной ссылке. Это обеспечит отложенную очистку нашей базы данных и кэша.
 
-### Cache
+### Кэш
 
-Now let us talk about [caching](https://karanpratapsingh.com/courses/system-design/caching).
+Теперь поговорим о [кэшировании](https://karanpratapsingh.com/courses/system-design/caching).
 
-**Which cache eviction policy to use?**
+**Какую политику удаления кэша использовать?**
 
-As we discussed before, we can use solutions like [Redis](https://redis.io) or [Memcached](https://memcached.org) and cache 20% of the daily traffic but what kind of cache eviction policy would best fit our needs?
+Как мы уже обсуждали, мы можем использовать такие решения, как [Redis](https://redis.io) или [Memcached](https://memcached.org), и кэшировать 20% ежедневного трафика, но какая политика вытеснения кэша лучше всего подойдет для наших нужд?
 
-[Least Recently Used (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) can be a good policy for our system. In this policy, we discard the least recently used key first.
+Политика [наименее недавно использованного ключа (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) может быть хорошей политикой для нашей системы. В этой политике мы сначала отбрасываем наименее недавно использованный ключ.
 
-**How to handle cache miss?**
+**Как справиться с промахом кэша?**
 
-Whenever there is a cache miss, our servers can hit the database directly and update the cache with the new entries.
+В случае промаха кэша наши серверы могут напрямую обращаться к базе данных и обновлять кэш новыми записями.
 
-### Metrics and Analytics
+### Метрики и аналитика
 
-Recording analytics and metrics is one of our extended requirements. We can store and update metadata like visitor's country, platform, the number of views, etc alongside the URL entry in our database.
+Запись аналитических данных и метрик — одно из наших дополнительных требований. Мы можем хранить и обновлять метаданные, такие как страна посетителя, платформа, количество просмотров и т. д., вместе с записью URL-адреса в нашей базе данных.
 
-### Security
+### Безопасность
 
-For security, we can introduce private URLs and authorization. A separate table can be used to store user ids that have permission to access a specific URL. If a user does not have proper permissions, we can return an HTTP 401 (Unauthorized) error.
+В целях безопасности можно ввести приватные URL-адреса и авторизацию. Для хранения идентификаторов пользователей, имеющих разрешение на доступ к определенному URL-адресу, можно использовать отдельную таблицу. Если у пользователя нет необходимых разрешений, можно вернуть ошибку HTTP 401 (Несанкционированный доступ).
 
-We can also use an [API Gateway](https://karanpratapsingh.com/courses/system-design/api-gateway) as they can support capabilities like authorization, rate limiting, and load balancing out of the box.
+Мы также можем использовать [API-шлюз](https://karanpratapsingh.com/courses/system-design/api-gateway), поскольку он поддерживает такие возможности, как авторизация, ограничение скорости и балансировка нагрузки, «из коробки».
 
-## Identify and resolve bottlenecks
+## Выявление и устранение узких мест
 
 ![url-shortener-advanced-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/url-shortener/url-shortener-advanced-design.png)
 
-Let us identify and resolve bottlenecks such as single points of failure in our design:
+Давайте выявим и устраним узкие места, такие как единые точки отказа в нашей конструкции:
 
-- "What if the API service or Key Generation Service crashes?"
-- "How will we distribute our traffic between our components?"
-- "How can we reduce the load on our database?"
-- "What if the key database used by KGS fails?"
-- "How to improve the availability of our cache?"
+— Что произойдет, если сервис API или сервис генерации ключей выйдет из строя?
+— «Как мы будем распределять трафик между нашими компонентами?»
+— «Как мы можем снизить нагрузку на нашу базу данных?»
+— «Что произойдет, если база данных ключей, используемая KGS, выйдет из строя?»
+— «Как повысить доступность нашего кэша?»
 
-To make our system more resilient we can do the following:
+Для повышения отказоустойчивости нашей системы мы можем сделать следующее:
 
-- Running multiple instances of our Servers and Key Generation Service.
-- Introducing [load balancers](https://karanpratapsingh.com/courses/system-design/load-balancing) between clients, servers, databases, and cache servers.
-- Using multiple read replicas for our database as it's a read-heavy system.
-- Standby replica for our key database in case it fails.
-- Multiple instances and replicas for our distributed cache.
+- Запуск нескольких экземпляров наших серверов и сервиса генерации ключей.
+- Представляем [балансировщики нагрузки](https://karanpratapsingh.com/courses/system-design/load-balancing) между клиентами, серверами, базами данных и кэш-серверами.
+— Мы используем несколько реплик для чтения в нашей базе данных, поскольку это система с высокой интенсивностью чтения.
+- Резервная копия нашей ключевой базы данных на случай сбоя основной.
+- Множество экземпляров и реплик для нашего распределенного кэша.
 
 # WhatsApp
 
-Let's design a [WhatsApp](https://whatsapp.com) like instant messaging service, similar to services like [Facebook Messenger](https://www.messenger.com), and [WeChat](https://www.wechat.com).
+Давайте разработаем мессенджер, похожий на [WhatsApp](https://whatsapp.com), аналогичный таким сервисам, как [Facebook Messenger](https://www.messenger.com) и [WeChat](https://www.wechat.com).
 
-## What is WhatsApp?
+## Что такое WhatsApp?
 
-WhatsApp is a chat application that provides instant messaging services to its users. It is one of the most used mobile applications on the planet, connecting over 2 billion users in 180+ countries. WhatsApp is also available on the web.
+WhatsApp — это приложение для обмена мгновенными сообщениями. Это одно из самых популярных мобильных приложений в мире, объединяющее более 2 миллиардов пользователей в более чем 180 странах. WhatsApp также доступен в веб-версии.
 
-## Requirements
+## Требования
 
-Our system should meet the following requirements:
+Наша система должна соответствовать следующим требованиям:
 
-### Functional requirements
+### Функциональные требования
 
-- Should support one-on-one chat.
-- Group chats (max 100 people).
-- Should support file sharing (image, video, etc.).
+- Должна поддерживаться индивидуальная переписка в чате.
+- Групповые чаты (максимум 100 человек).
+- Должна поддерживать обмен файлами (изображениями, видео и т. д.).
 
-### Non-functional requirements
+### Нефункциональные требования
 
-- High availability with minimal latency.
-- The system should be scalable and efficient.
+- Высокая доступность с минимальной задержкой.
+- Система должна быть масштабируемой и эффективной.
 
-### Extended requirements
+### Расширенные требования
 
-- Sent, Delivered, and Read receipts of the messages.
-- Show the last seen time of users.
-- Push notifications.
+— Подтверждения отправки, доставки и прочтения сообщений.
+- Отображать время последнего посещения пользователей.
+- Push-уведомления.
 
-## Estimation and Constraints
+## Оценка и ограничения
 
-Let's start with the estimation and constraints.
+Начнём с оценки и ограничений.
 
-_Note: Make sure to check any scale or traffic-related assumptions with your interviewer._
+Примечание: Обязательно уточните у интервьюера любые предположения, касающиеся масштаба или интенсивности движения.
 
-### Traffic
+### Трафик
 
-Let us assume we have 50 million daily active users (DAU) and on average each user sends at least 10 messages to 4 different people every day. This gives us 2 billion messages per day.
-
-$$
-50 \space million \times 40 \space messages = 2 \space billion/day
-$$
-
-Messages can also contain media such as images, videos, or other files. We can assume that 5 percent of messages are media files shared by the users, which gives us additional 100 million files we would need to store.
+Предположим, у нас 50 миллионов активных пользователей в день (DAU), и в среднем каждый пользователь отправляет не менее 10 сообщений 4 разным людям каждый день. Это дает нам 2 миллиарда сообщений в день.
 
 $$
-5 \space percent \times 2 \space billion = 100 \space million/day
+50 миллионов × 40 сообщений = 2 миллиарда в день
 $$
 
-**What would be Requests Per Second (RPS) for our system?**
-
-2 billion requests per day translate into 24K requests per second.
+Сообщения также могут содержать медиафайлы, такие как изображения, видео или другие файлы. Можно предположить, что 5 процентов сообщений — это медиафайлы, которыми делятся пользователи, что добавляет еще 100 миллионов файлов, которые нам потребуется хранить.
 
 $$
-\frac{2 \space billion}{(24 \space hrs \times 3600 \space seconds)} = \sim 24K \space requests/second
+5 процентов × 2 миллиарда = 100 миллионов в день
 $$
 
-### Storage
+**Каково будет количество запросов в секунду (RPS) для нашей системы?**
 
-If we assume each message on average is 100 bytes, we will require about 200 GB of database storage every day.
-
-$$
-2 \space billion \times 100 \space bytes = \sim 200 \space GB/day
-$$
-
-As per our requirements, we also know that around 5 percent of our daily messages (100 million) are media files. If we assume each file is 100 KB on average, we will require 10 TB of storage every day.
+2 миллиарда запросов в день соответствуют 24 тысячам запросов в секунду.
 
 $$
-100 \space million \times 100 \space KB = 10 \space TB/day
+\frac{2 \space миллиарда}{(24 \space часа \times 3600 \space секунд)} = \sim 24K \space запросов/секунду
 $$
 
-And for 10 years, we will require about 38 PB of storage.
+### Хранилище
+
+Если предположить, что каждое сообщение в среднем составляет 100 байт, нам потребуется около 200 ГБ хранилища для базы данных каждый день.
 
 $$
-(10 \space TB + 0.2 \space TB) \times 10 \space years \times 365 \space days = \sim 38 \space PB
+2 миллиарда × 100 байт = ~200 ГБ/день
 $$
 
-### Bandwidth
+В соответствии с нашими потребностями, нам также известно, что около 5 процентов наших ежедневных сообщений (100 миллионов) составляют медиафайлы. Если предположить, что каждый файл в среднем имеет размер 100 КБ, нам потребуется 10 ТБ хранилища каждый день.
 
-As our system is handling 10.2 TB of ingress every day, we will require a minimum bandwidth of around 120 MB per second.
+$$
+100 миллионов × 100 КБ = 10 ТБ/день
+$$
+
+А за 10 лет нам потребуется около 38 ПБ хранилища.
+
+$$
+(10 ТБ + 0,2 ТБ) × 10 лет × 365 дней = ~38 ПБ
+$$
+
+### Пропускная способность
+
+Поскольку наша система обрабатывает 10,2 ТБ входящего трафика ежедневно, нам потребуется минимальная пропускная способность около 120 МБ в секунду.
 
 $$
 \frac{10.2 \space TB}{(24 \space hrs \times 3600 \space seconds)} = \sim 120 \space MB/second
 $$
 
-### High-level estimate
+### Оценка высокого уровня
 
-Here is our high-level estimate:
+Вот наша приблизительная оценка:
 
-| Type                      | Estimate   |
+| Тип | Оценка |
 | ------------------------- | ---------- |
-| Daily active users (DAU)  | 50 million |
-| Requests per second (RPS) | 24K/s      |
-| Storage (per day)         | ~10.2 TB   |
-| Storage (10 years)        | ~38 PB     |
-| Bandwidth                 | ~120 MB/s  |
+| Ежедневно активных пользователей (DAU) | 50 миллионов |
+| Запросов в секунду (RPS) | 24 Кб/с |
+| Объем хранилища (в день) | ~10,2 ТБ |
+| Срок хранения (10 лет) | ~38 ПБ |
+| Пропускная способность | ~120 МБ/с |
 
-## Data model design
+## Разработка модели данных
 
-This is the general data model which reflects our requirements.
+Это общая модель данных, отражающая наши требования.
 
 ![whatsapp-datamodel](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/whatsapp/whatsapp-datamodel.png)
 
-We have the following tables:
+У нас имеются следующие таблицы:
 
-**users**
+**пользователи**
 
-This table will contain a user's information such as `name`, `phoneNumber`, and other details.
+В этой таблице будет содержаться информация о пользователе, такая как имя, номер телефона и другие данные.
 
-**messages**
+**сообщения**
 
-As the name suggests, this table will store messages with properties such as `type` (text, image, video, etc.), `content`, and timestamps for message delivery. The message will also have a corresponding `chatID` or `groupID`.
+Как следует из названия, в этой таблице будут храниться сообщения со свойствами, такими как `type` (текст, изображение, видео и т. д.), `content` и временные метки доставки сообщения. Сообщению также будет присвоен соответствующий `chatID` или `groupID`.
 
-**chats**
+**чаты**
 
-This table basically represents a private chat between two users and can contain multiple messages.
+Эта таблица, по сути, представляет собой личный чат между двумя пользователями и может содержать несколько сообщений.
 
 **users_chats**
 
-This table maps users and chats as multiple users can have multiple chats (N:M relationship) and vice versa.
+В этой таблице показано соответствие пользователей и чатов, поскольку несколько пользователей могут иметь несколько чатов (отношение N:M) и наоборот.
 
-**groups**
+**группы**
 
-This table represents a group made up of multiple users.
+Эта таблица представляет собой группу, состоящую из нескольких пользователей.
 
 **users_groups**
 
-This table maps users and groups as multiple users can be a part of multiple groups (N:M relationship) and vice versa.
+В этой таблице показано соответствие пользователей и групп, поскольку несколько пользователей могут входить в несколько групп (отношение N:M) и наоборот.
 
-### What kind of database should we use?
+### Какую базу данных нам следует использовать?
 
-While our data model seems quite relational, we don't necessarily need to store everything in a single database, as this can limit our scalability and quickly become a bottleneck.
+Хотя наша модель данных кажется достаточно реляционной, нам не обязательно хранить все в одной базе данных, поскольку это может ограничить масштабируемость и быстро стать узким местом.
 
-We will split the data between different services each having ownership over a particular table. Then we can use a relational database such as [PostgreSQL](https://www.postgresql.org) or a distributed NoSQL database such as [Apache Cassandra](https://cassandra.apache.org/_/index.html) for our use case.
+Мы разделим данные между различными сервисами, каждый из которых будет отвечать за определенную таблицу. Затем мы можем использовать реляционную базу данных, такую ​​как [PostgreSQL](https://www.postgresql.org), или распределенную NoSQL-базу данных, такую ​​как [Apache Cassandra](https://cassandra.apache.org/_/index.html), для нашего случая.
 
-## API design
+## Разработка API
 
-Let us do a basic API design for our services:
+Давайте разработаем базовый API-дизайн для наших сервисов:
 
-### Get all chats or groups
+### Получить все чаты или группы
 
-This API will get all chats or groups for a given `userID`.
+Этот API позволит получить все чаты или группы для заданного `userID`.
 
 ```tsx
 getAll(userID: UUID): Chat[] | Group[]
 ```
 
-**Parameters**
+**Параметры**
 
-User ID (`UUID`): ID of the current user.
+Идентификатор пользователя (`UUID`): ID текущего пользователя.
 
-**Returns**
+**Возврат товара**
 
-Result (`Chat[] | Group[]`): All the chats and groups the user is a part of.
+Результат (`Чаты[] | Группы[]`): Все чаты и группы, в которых состоит пользователь.
 
-### Get messages
+### Получать сообщения
 
-Get all messages for a user given the `channelID` (chat or group id).
+Получить все сообщения пользователя по `channelID` (идентификатор чата или группы).
 
 ```tsx
 getMessages(userID: UUID, channelID: UUID): Message[]
 ```
 
-**Parameters**
+**Параметры**
 
-User ID (`UUID`): ID of the current user.
+Идентификатор пользователя (`UUID`): ID текущего пользователя.
 
-Channel ID (`UUID`): ID of the channel (chat or group) from which messages need to be retrieved.
+Идентификатор канала (`UUID`): идентификатор канала (чата или группы), из которого необходимо получить сообщения.
 
-**Returns**
+**Возврат товара**
 
-Messages (`Message[]`): All the messages in a given chat or group.
+Сообщения (`Message[]`): Все сообщения в данном чате или группе.
 
-### Send message
+### Отправить сообщение
 
-Send a message from a user to a channel (chat or group).
+Отправить сообщение от пользователя в канал (чат или группу).
 
 ```tsx
 sendMessage(userID: UUID, channelID: UUID, message: Message): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-User ID (`UUID`): ID of the current user.
+Идентификатор пользователя (`UUID`): ID текущего пользователя.
 
-Channel ID (`UUID`): ID of the channel (chat or group) user wants to send a message to.
+Идентификатор канала (`UUID`): ID канала (чата или группы), в который пользователь хочет отправить сообщение.
 
-Message (`Message`): The message (text, image, video, etc.) that the user wants to send.
+Сообщение (`Message`): Сообщение (текст, изображение, видео и т. д.), которое пользователь хочет отправить.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Join or leave a channel
+### Присоединиться к каналу или покинуть его
 
-Allows the user to join or leave a channel (chat or group).
+Позволяет пользователю присоединиться к каналу (чату или группе) или покинуть его.
 
 ```tsx
-joinGroup(userID: UUID, channelID: UUID): boolean
-leaveGroup(userID: UUID, channelID: UUID): boolean
+joinGroup(userID: UUID, channelID: UUID): логическое значение
+leaveGroup(userID: UUID, channelID: UUID): логическое значение
 ```
 
-**Parameters**
+**Параметры**
 
-User ID (`UUID`): ID of the current user.
+Идентификатор пользователя (`UUID`): ID текущего пользователя.
 
-Channel ID (`UUID`): ID of the channel (chat or group) the user wants to join or leave.
+Идентификатор канала (`UUID`): ID канала (чата или группы), к которому пользователь хочет присоединиться или покинуть.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-## High-level design
+## Проектирование высокого уровня
 
-Now let us do a high-level design of our system.
+Теперь давайте разработаем высокоуровневый проект нашей системы.
 
-### Architecture
+### Архитектура
 
-We will be using [microservices architecture](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices) since it will make it easier to horizontally scale and decouple our services. Each service will have ownership of its own data model. Let's try to divide our system into some core services.
+Мы будем использовать [микросервисную архитектуру](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices), поскольку она упростит горизонтальное масштабирование и децентрализацию наших сервисов. Каждый сервис будет владеть собственной моделью данных. Давайте попробуем разделить нашу систему на несколько основных сервисов.
 
-**User Service**
+**Служба поддержки пользователей**
 
-This is an HTTP-based service that handles user-related concerns such as authentication and user information.
+Это HTTP-сервис, который обрабатывает вопросы, связанные с пользователями, такие как аутентификация и информация о пользователе.
 
-**Chat Service**
+**Служба чата**
 
-The chat service will use WebSockets to establish connections with the client to handle chat and group message-related functionality. We can also use cache to keep track of all the active connections, sort of like sessions which will help us determine if the user is online or not.
+Сервис чата будет использовать WebSockets для установления соединений с клиентом для обработки функций чата и групповых сообщений. Мы также можем использовать кэш для отслеживания всех активных соединений, подобно сессиям, что поможет нам определить, находится ли пользователь в сети или нет.
 
-**Notification Service**
+**Служба уведомлений**
 
-This service will simply send push notifications to the users. It will be discussed in detail separately.
+Данная услуга будет просто отправлять push-уведомления пользователям. Подробности будут рассмотрены отдельно.
 
-**Presence Service**
+**Услуга присутствия**
 
-The presence service will keep track of the _last seen_ status of all users. It will be discussed in detail separately.
+Служба определения присутствия будет отслеживать статус _последнего посещения_ всех пользователей. Подробности будут рассмотрены отдельно.
 
-**Media service**
+**Медиа-служба**
 
-This service will handle the media (images, videos, files, etc.) uploads. It will be discussed in detail separately.
+Данная услуга будет обрабатывать загрузку медиафайлов (изображений, видео, файлов и т. д.). Подробности будут рассмотрены отдельно.
 
-**What about inter-service communication and service discovery?**
+**А как насчет межведомственной коммуникации и поиска новых услуг?**
 
-Since our architecture is microservices-based, services will be communicating with each other as well. Generally, REST or HTTP performs well but we can further improve the performance using [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc) which is more lightweight and efficient.
+Поскольку наша архитектура основана на микросервисах, сервисы также будут взаимодействовать друг с другом. Как правило, REST или HTTP обеспечивают хорошую производительность, но мы можем еще больше повысить производительность, используя [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc), который является более легковесным и эффективным.
 
-[Service discovery](https://karanpratapsingh.com/courses/system-design/service-discovery) is another thing we will have to take into account. We can also use a service mesh that enables managed, observable, and secure communication between individual services.
+Обнаружение сервисов — это еще один аспект, который нам необходимо учесть. Мы также можем использовать сервисную сетку, которая обеспечивает управляемую, наблюдаемую и безопасную связь между отдельными сервисами.
 
-_Note: Learn more about [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) and how they compare with each other._
+Примечание: Узнайте больше о [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) и о том, чем они отличаются друг от друга.
 
-### Real-time messaging
+### Обмен сообщениями в режиме реального времени
 
-How do we efficiently send and receive messages? We have two different options:
+Как эффективно отправлять и получать сообщения? У нас есть два варианта:
 
-**Pull model**
+**Модель с тяговым механизмом**
 
-The client can periodically send an HTTP request to servers to check if there are any new messages. This can be achieved via something like [Long polling](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#long-polling).
+Клиент может периодически отправлять HTTP-запросы на серверы, чтобы проверить наличие новых сообщений. Этого можно добиться, например, с помощью [долгосрочного опроса](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#long-polling).
 
-**Push model**
+**Модель с кнопкой**
 
-The client opens a long-lived connection with the server and once new data is available it will be pushed to the client. We can use [WebSockets](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#websockets) or [Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#server-sent-events-sse) for this.
+Клиент устанавливает долговременное соединение с сервером, и как только появляются новые данные, они передаются клиенту. Для этого можно использовать [WebSockets](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#websockets) или [Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#server-sent-events-sse).
 
-The pull model approach is not scalable as it will create unnecessary request overhead on our servers and most of the time the response will be empty, thus wasting our resources. To minimize latency, using the push model with [WebSockets](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#websockets) is a better choice because then we can push data to the client once it's available without any delay, given that the connection is open with the client. Also, WebSockets provide full-duplex communication, unlike [Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#server-sent-events-sse) which are only unidirectional.
+Подход с использованием модели «запрос-запрос» не масштабируем, поскольку он создаст ненужную нагрузку на серверы, и в большинстве случаев ответ будет пустым, что приведет к растрате ресурсов. Для минимизации задержки лучше использовать модель «отправка-запрос» с [WebSockets], поскольку в этом случае мы можем отправлять данные клиенту сразу после их получения без задержки, при условии, что соединение с клиентом открыто. Кроме того, WebSockets обеспечивают полнодуплексную связь, в отличие от [Server-Sent Events (SSE)], которые являются только однонаправленными.
 
-_Note: Learn more about [Long polling, WebSockets, Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events)._
+Примечание: Подробнее о [долгосрочном опросе, WebSockets, событиях, отправляемых сервером (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events).
 
-### Last seen
+### Последний раз замечен
 
-To implement the last seen functionality, we can use a [heartbeat](<https://en.wikipedia.org/wiki/Heartbeat_(computing)>) mechanism, where the client can periodically ping the servers indicating its liveness. Since this needs to be as low overhead as possible, we can store the last active timestamp in the cache as follows:
+Для реализации функции отслеживания последнего активного соединения мы можем использовать механизм [пульса](<https://en.wikipedia.org/wiki/Heartbeat_(computing)>), в рамках которого клиент может периодически отправлять пинги на серверы, подтверждая свою активность. Поскольку это должно быть максимально экономичным, мы можем хранить метку времени последнего активного соединения в кэше следующим образом:
 
-| Key    | Value               |
+| Ключ | Значение |
 | ------ | ------------------- |
-| User A | 2022-07-01T14:32:50 |
-| User B | 2022-07-05T05:10:35 |
-| User C | 2022-07-10T04:33:25 |
+| Пользователь A | 2022-07-01T14:32:50 |
+| Пользователь B | 2022-07-05T05:10:35 |
+| Пользователь C | 2022-07-10T04:33:25 |
 
-This will give us the last time the user was active. This functionality will be handled by the presence service combined with [Redis](https://redis.io) or [Memcached](https://memcached.org) as our cache.
+Это позволит нам узнать время последней активности пользователя. Данная функция будет обрабатываться службой присутствия в сочетании с [Redis](https://redis.io) или [Memcached](https://memcached.org) в качестве нашего кэша.
 
-Another way to implement this is to track the latest action of the user, once the last activity crosses a certain threshold, such as _"user hasn't performed any action in the last 30 seconds"_, we can show the user as offline and last seen with the last recorded timestamp. This will be more of a lazy update approach and might benefit us over heartbeat mechanism in certain cases.
+Другой способ реализации — отслеживать последнее действие пользователя. Как только последняя активность превысит определенный порог, например, "пользователь не совершал никаких действий за последние 30 секунд", мы можем отобразить пользователя как "оффлайн" и "последнее посещение" с указанием последнего зарегистрированного времени. Это будет более ленивый подход к обновлению, и в некоторых случаях он может оказаться предпочтительнее механизма "пульса".
 
-### Notifications
+### Уведомления
 
-Once a message is sent in a chat or a group, we will first check if the recipient is active or not, we can get this information by taking the user's active connection and last seen into consideration.
+После отправки сообщения в чате или группе мы сначала проверяем, активен ли получатель. Эту информацию можно получить, учитывая время активного подключения пользователя и дату последнего посещения.
 
-If the recipient is not active, the chat service will add an event to a [message queue](https://karanpratapsingh.com/courses/system-design/message-queues) with additional metadata such as the client's device platform which will be used to route the notification to the correct platform later on.
+Если получатель неактивен, служба чата добавит событие в [очередь сообщений](https://karanpratapsingh.com/courses/system-design/message-queues) с дополнительными метаданными, такими как платформа устройства клиента, которые будут использоваться для переадресации уведомления на нужную платформу позже.
 
-The notification service will then consume the event from the message queue and forward the request to [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging) or [Apple Push Notification Service (APNS)](https://developer.apple.com/documentation/usernotifications) based on the client's device platform (Android, iOS, web, etc). We can also add support for email and SMS.
+Затем служба уведомлений получит событие из очереди сообщений и перенаправит запрос в [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging) или [Apple Push Notification Service (APNS)](https://developer.apple.com/documentation/usernotifications) в зависимости от платформы устройства клиента (Android, iOS, веб и т. д.). Мы также можем добавить поддержку электронной почты и SMS.
 
-**Why are we using a message queue?**
+**Зачем мы используем очередь сообщений?**
 
-Since most message queues provide best-effort ordering which ensures that messages are generally delivered in the same order as they're sent and that a message is delivered at least once which is an important part of our service functionality.
+Поскольку большинство очередей сообщений используют порядок доставки «с наилучшими усилиями», это гарантирует, что сообщения, как правило, доставляются в том же порядке, в котором они были отправлены, и что каждое сообщение доставлено хотя бы один раз, что является важной частью функциональности нашего сервиса.
 
-While this seems like a classic [publish-subscribe](https://karanpratapsingh.com/courses/system-design/publish-subscribe) use case, it is actually not as mobile devices and browsers each have their own way of handling push notifications. Usually, notifications are handled externally via Firebase Cloud Messaging (FCM) or Apple Push Notification Service (APNS) unlike message fan-out which we commonly see in backend services. We can use something like [Amazon SQS](https://aws.amazon.com/sqs) or [RabbitMQ](https://www.rabbitmq.com) to support this functionality.
+Хотя это кажется классическим примером использования [publish-subscribe](https://karanpratapsingh.com/courses/system-design/publish-subscribe), на самом деле это не так, поскольку мобильные устройства и браузеры обрабатывают push-уведомления по-своему. Обычно уведомления обрабатываются извне через Firebase Cloud Messaging (FCM) или Apple Push Notification Service (APNS), в отличие от рассылки сообщений, которая обычно используется в бэкэнд-сервисах. Для поддержки этой функциональности можно использовать такие сервисы, как [Amazon SQS](https://aws.amazon.com/sqs) или [RabbitMQ](https://www.rabbitmq.com).
 
-### Read receipts
+### Подтверждения прочтения
 
-Handling read receipts can be tricky, for this use case we can wait for some sort of [Acknowledgment (ACK)](<https://en.wikipedia.org/wiki/Acknowledgement_(data_networks)>) from the client to determine if the message was delivered and update the corresponding `deliveredAt` field. Similarly, we will mark the message as seen once the user opens the chat and update the corresponding `seenAt` timestamp field.
+Обработка уведомлений о прочтении может быть сложной задачей. В данном случае мы можем дождаться подтверждения (ACK) от клиента, чтобы определить, было ли сообщение доставлено, и обновить соответствующее поле `deliveredAt`. Аналогично, мы пометим сообщение как прочитанное, как только пользователь откроет чат, и обновим соответствующее поле временной метки `seenAt`.
 
-### Design
+### Дизайн
 
-Now that we have identified some core components, let's do the first draft of our system design.
+Теперь, когда мы определили некоторые ключевые компоненты, давайте сделаем первый черновик проектирования нашей системы.
 
 ![whatsapp-basic-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/whatsapp/whatsapp-basic-design.png)
 
-## Detailed design
+## Детальный дизайн
 
-It's time to discuss our design decisions in detail.
+Пришло время подробно обсудить наши проектные решения.
 
-### Data Partitioning
+### Разделение данных
 
-To scale out our databases we will need to partition our data. Horizontal partitioning (aka [Sharding](https://karanpratapsingh.com/courses/system-design/sharding)) can be a good first step. We can use partitions schemes such as:
+Для масштабирования наших баз данных нам потребуется разделить данные на разделы. Хорошим первым шагом может стать горизонтальное разделение (также известное как шардинг)(https://karanpratapsingh.com/courses/system-design/sharding). Мы можем использовать такие схемы разделения, как:
 
-- Hash-Based Partitioning
-- List-Based Partitioning
-- Range Based Partitioning
-- Composite Partitioning
+- Разделение данных на основе хеширования
+- Разделение на основе списков
+- Разделение на основе диапазонов
+- Составное разбиение
 
-The above approaches can still cause uneven data and load distribution, we can solve this using [Consistent hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
+Вышеуказанные подходы все еще могут вызывать неравномерное распределение данных и нагрузки, эту проблему можно решить с помощью [согласованного хеширования](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
 
-_For more details, refer to [Sharding](https://karanpratapsingh.com/courses/system-design/sharding) and [Consistent Hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
+Для получения более подробной информации обратитесь к разделам [Шардинг](https://karanpratapsingh.com/courses/system-design/sharding) и [Последовательное хеширование](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
 
-### Caching
+### Кэширование
 
-In a messaging application, we have to be careful about using cache as our users expect the latest data, but many users will be requesting the same messages, especially in a group chat. So, to prevent usage spikes from our resources we can cache older messages.
+В мессенджерах необходимо тщательно подходить к использованию кэша, поскольку пользователи ожидают получения самых актуальных данных, но многие пользователи будут запрашивать одни и те же сообщения, особенно в групповых чатах. Поэтому, чтобы предотвратить резкое увеличение нагрузки на ресурсы, можно кэшировать более старые сообщения.
 
-Some group chats can have thousands of messages and sending that over the network will be really inefficient, to improve efficiency we can add pagination to our system APIs. This decision will be helpful for users with limited network bandwidth as they won't have to retrieve old messages unless requested.
+В некоторых групповых чатах могут быть тысячи сообщений, и отправка их по сети будет крайне неэффективной. Для повышения эффективности мы можем добавить пагинацию в наши системные API. Это решение будет полезно для пользователей с ограниченной пропускной способностью сети, поскольку им не придется получать доступ к старым сообщениям без предварительного запроса.
 
-**Which cache eviction policy to use?**
+**Какую политику удаления кэша использовать?**
 
-We can use solutions like [Redis](https://redis.io) or [Memcached](https://memcached.org) and cache 20% of the daily traffic but what kind of cache eviction policy would best fit our needs?
+Мы можем использовать такие решения, как [Redis](https://redis.io) или [Memcached](https://memcached.org), и кэшировать 20% ежедневного трафика, но какая политика вытеснения кэшированных данных лучше всего подойдет для наших нужд?
 
-[Least Recently Used (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) can be a good policy for our system. In this policy, we discard the least recently used key first.
+Политика [наименее недавно использованного ключа (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) может быть хорошей политикой для нашей системы. В этой политике мы сначала отбрасываем наименее недавно использованный ключ.
 
-**How to handle cache miss?**
+**Как справиться с промахом кэша?**
 
-Whenever there is a cache miss, our servers can hit the database directly and update the cache with the new entries.
+В случае промаха кэша наши серверы могут напрямую обращаться к базе данных и обновлять кэш новыми записями.
 
-_For more details, refer to [Caching](https://karanpratapsingh.com/courses/system-design/caching)._
+Для получения более подробной информации обратитесь к разделу [Кэширование](https://karanpratapsingh.com/courses/system-design/caching)._
 
-### Media access and storage
+### Доступ к медиафайлам и их хранение
 
-As we know, most of our storage space will be used for storing media files such as images, videos, or other files. Our media service will be handling both access and storage of the user media files.
+Как известно, большая часть нашего дискового пространства будет использоваться для хранения медиафайлов, таких как изображения, видео или другие файлы. Наш медиасервис будет обеспечивать как доступ, так и хранение медиафайлов пользователей.
 
-But where can we store files at scale? Well, [object storage](https://karanpratapsingh.com/courses/system-design/storage#object-storage) is what we're looking for. Object stores break data files up into pieces called objects. It then stores those objects in a single repository, which can be spread out across multiple networked systems. We can also use distributed file storage such as [HDFS](https://karanpratapsingh.com/courses/system-design/storage#hdfs) or [GlusterFS](https://www.gluster.org).
+Но где же можно хранить файлы в больших масштабах? Нам нужно объектное хранилище. Объектные хранилища разбивают файлы данных на части, называемые объектами. Затем эти объекты хранятся в едином репозитории, который может быть распределен по нескольким сетевым системам. Мы также можем использовать распределенные файловые хранилища, такие как HDFS или GlusterFS.
 
-_Fun fact: WhatsApp deletes media on its servers once it has been downloaded by the user._
+Интересный факт: WhatsApp удаляет медиафайлы со своих серверов после того, как пользователь их скачает.
 
-We can use object stores like [Amazon S3](https://aws.amazon.com/s3), [Azure Blob Storage](https://azure.microsoft.com/en-in/services/storage/blobs), or [Google Cloud Storage](https://cloud.google.com/storage) for this use case.
+Для этого варианта использования мы можем применять объектные хранилища, такие как [Amazon S3](https://aws.amazon.com/s3), [Azure Blob Storage](https://azure.microsoft.com/en-in/services/storage/blobs) или [Google Cloud Storage](https://cloud.google.com/storage).
 
-### Content Delivery Network (CDN)
+### Сеть доставки контента (CDN)
 
-[Content Delivery Network (CDN)](https://karanpratapsingh.com/courses/system-design/content-delivery-network) increases content availability and redundancy while reducing bandwidth costs. Generally, static files such as images, and videos are served from CDN. We can use services like [Amazon CloudFront](https://aws.amazon.com/cloudfront) or [Cloudflare CDN](https://www.cloudflare.com/cdn) for this use case.
+Сеть доставки контента (CDN) повышает доступность и избыточность контента, одновременно снижая затраты на пропускную способность. Как правило, статические файлы, такие как изображения и видео, обслуживаются через CDN. Для этого можно использовать такие сервисы, как Amazon CloudFront или Cloudflare CDN.
 
-### API gateway
+### API-шлюз
 
-Since we will be using multiple protocols like HTTP, WebSocket, TCP/IP, deploying multiple L4 (transport layer) or L7 (application layer) type load balancers separately for each protocol will be expensive. Instead, we can use an [API Gateway](https://karanpratapsingh.com/courses/system-design/api-gateway) that supports multiple protocols without any issues.
+Поскольку мы будем использовать несколько протоколов, таких как HTTP, WebSocket, TCP/IP, развертывание нескольких балансировщиков нагрузки уровня L4 (транспортный уровень) или уровня L7 (прикладной уровень) отдельно для каждого протокола будет дорогостоящим. Вместо этого мы можем использовать [API-шлюз](https://karanpratapsingh.com/courses/system-design/api-gateway), который поддерживает несколько протоколов без каких-либо проблем.
 
-API Gateway can also offer other features such as authentication, authorization, rate limiting, throttling, and API versioning which will improve the quality of our services.
+API Gateway также может предложить другие функции, такие как аутентификация, авторизация, ограничение скорости запросов, регулирование трафика и версионирование API, что повысит качество наших услуг.
 
-We can use services like [Amazon API Gateway](https://aws.amazon.com/api-gateway) or [Azure API Gateway](https://azure.microsoft.com/en-in/services/api-management) for this use case.
+Для решения этой задачи мы можем использовать такие сервисы, как [Amazon API Gateway](https://aws.amazon.com/api-gateway) или [Azure API Gateway](https://azure.microsoft.com/en-in/services/api-management).
 
-## Identify and resolve bottlenecks
+## Выявление и устранение узких мест
 
 ![whatsapp-advanced-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/whatsapp/whatsapp-advanced-design.png)
 
-Let us identify and resolve bottlenecks such as single points of failure in our design:
+Давайте выявим и устраним узкие места, такие как единые точки отказа в нашей конструкции:
 
-- "What if one of our services crashes?"
-- "How will we distribute our traffic between our components?"
-- "How can we reduce the load on our database?"
-- "How to improve the availability of our cache?"
-- "Wouldn't API Gateway be a single point of failure?"
-- "How can we make our notification system more robust?"
-- "How can we reduce media storage costs"?
-- "Does chat service has too much responsibility?"
+— А что, если один из наших сервисов выйдет из строя?
+— «Как мы будем распределять трафик между нашими компонентами?»
+— «Как мы можем снизить нагрузку на нашу базу данных?»
+— «Как повысить доступность нашего кэша?»
+— «Разве API Gateway не станет единой точкой отказа?»
+— «Как мы можем сделать нашу систему оповещений более надежной?»
+— «Как можно снизить затраты на хранение медиафайлов?»
+— «Не слишком ли много ответственности лежит на службе чата?»
 
-To make our system more resilient we can do the following:
+Для повышения отказоустойчивости нашей системы мы можем сделать следующее:
 
-- Running multiple instances of each of our services.
-- Introducing [load balancers](https://karanpratapsingh.com/courses/system-design/load-balancing) between clients, servers, databases, and cache servers.
-- Using multiple read replicas for our databases.
-- Multiple instances and replicas for our distributed cache.
-- We can have a standby replica of our API Gateway.
-- Exactly once delivery and message ordering is challenging in a distributed system, we can use a dedicated [message broker](https://karanpratapsingh.com/courses/system-design/message-brokers) such as [Apache Kafka](https://kafka.apache.org) or [NATS](https://nats.io) to make our notification system more robust.
-- We can add media processing and compression capabilities to the media service to compress large files similar to WhatsApp which will save a lot of storage space and reduce cost.
-- We can create a group service separate from the chat service to further decouple our services.
+- Запуск нескольких экземпляров каждой из наших служб.
+- Представляем [балансировщики нагрузки](https://karanpratapsingh.com/courses/system-design/load-balancing) между клиентами, серверами, базами данных и кэш-серверами.
+- Использование нескольких реплик для чтения в наших базах данных.
+- Множество экземпляров и реплик для нашего распределенного кэша.
+— Мы можем использовать резервную копию нашего API-шлюза.
+— Именно тогда, когда доставка и упорядочивание сообщений становятся сложной задачей в распределенной системе, мы можем использовать специализированный [брокер сообщений](https://karanpratapsingh.com/courses/system-design/message-brokers), такой как [Apache Kafka](https://kafka.apache.org) или [NATS](https://nats.io), чтобы сделать нашу систему уведомлений более надежной.
+— Мы можем добавить в медиасервис возможности обработки и сжатия мультимедиа, чтобы сжимать большие файлы, как это делает WhatsApp, что позволит значительно сэкономить место на диске и снизить затраты.
+— Мы можем создать отдельную службу для групп, не связанную со службой чата, чтобы еще больше разделить наши сервисы.
 
 # Twitter
 
-Let's design a [Twitter](https://twitter.com) like social media service, similar to services like [Facebook](https://facebook.com), [Instagram](https://instagram.com), etc.
+Давайте разработаем социальную сеть, похожую на [Twitter](https://twitter.com), аналогичную таким сервисам, как [Facebook](https://facebook.com), [Instagram](https://instagram.com) и т. д.
 
-## What is Twitter?
+## Что такое Twitter?
 
-Twitter is a social media service where users can read or post short messages (up to 280 characters) called tweets. It is available on the web and mobile platforms such as Android and iOS.
+Twitter — это социальная сеть, где пользователи могут читать или публиковать короткие сообщения (до 280 символов), называемые твитами. Он доступен в веб-версии и на мобильных платформах, таких как Android и iOS.
 
-## Requirements
+## Требования
 
-Our system should meet the following requirements:
+Наша система должна соответствовать следующим требованиям:
 
-### Functional requirements
+### Функциональные требования
 
-- Should be able to post new tweets (can be text, image, video, etc.).
-- Should be able to follow other users.
-- Should have a newsfeed feature consisting of tweets from the people the user is following.
-- Should be able to search tweets.
+- Должна быть возможность публиковать новые твиты (текст, изображение, видео и т. д.).
+— Должна быть возможность следить за другими пользователями.
+— Должна быть функция новостной ленты, состоящая из твитов от людей, на которых подписан пользователь.
+— Должна быть возможность поиска по твитам.
 
-### Non-Functional requirements
+### Нефункциональные требования
 
-- High availability with minimal latency.
-- The system should be scalable and efficient.
+- Высокая доступность с минимальной задержкой.
+- Система должна быть масштабируемой и эффективной.
 
-### Extended requirements
+### Расширенные требования
 
-- Metrics and analytics.
-- Retweet functionality.
-- Favorite tweets.
+- Метрики и аналитика.
+— Функция ретвита.
+- Любимые твиты.
 
-## Estimation and Constraints
+## Оценка и ограничения
 
-Let's start with the estimation and constraints.
+Начнём с оценки и ограничений.
 
-_Note: Make sure to check any scale or traffic-related assumptions with your interviewer._
+Примечание: Обязательно уточните у интервьюера любые предположения, касающиеся масштаба или интенсивности движения.
 
-### Traffic
+### Трафик
 
-This will be a read-heavy system, let us assume we have 1 billion total users with 200 million daily active users (DAU), and on average each user tweets 5 times a day. This gives us 1 billion tweets per day.
-
-$$
-200 \space million \times 5 \space tweets = 1 \space billion/day
-$$
-
-Tweets can also contain media such as images, or videos. We can assume that 10 percent of tweets are media files shared by the users, which gives us additional 100 million files we would need to store.
+Это будет система с высокой интенсивностью чтения. Предположим, у нас 1 миллиард пользователей, из которых 200 миллионов являются ежедневно активными пользователями (DAU), и в среднем каждый пользователь публикует твиты 5 раз в день. Это даст нам 1 миллиард твитов в день.
 
 $$
-10 \space percent \times 1 \space billion = 100 \space million/day
+200 миллионов × 5 твитов = 1 миллиард твитов в день
 $$
 
-**What would be Requests Per Second (RPS) for our system?**
-
-1 billion requests per day translate into 12K requests per second.
+Твиты также могут содержать медиафайлы, такие как изображения или видео. Можно предположить, что 10 процентов твитов — это медиафайлы, которыми делятся пользователи, что добавляет еще 100 миллионов файлов, которые нам потребуется хранить.
 
 $$
-\frac{1 \space billion}{(24 \space hrs \times 3600 \space seconds)} = \sim 12K \space requests/second
+10 процентов умножить на 1 миллиард = 100 миллионов/день
 $$
 
-### Storage
+**Каково будет количество запросов в секунду (RPS) для нашей системы?**
 
-If we assume each message on average is 100 bytes, we will require about 100 GB of database storage every day.
-
-$$
-1 \space billion \times 100 \space bytes = \sim 100 \space GB/day
-$$
-
-We also know that around 10 percent of our daily messages (100 million) are media files per our requirements. If we assume each file is 50 KB on average, we will require 5 TB of storage every day.
+1 миллиард запросов в день соответствует 12 тысячам запросов в секунду.
 
 $$
-100 \space million \times 50 \space KB = 5 \space TB/day
+1 миллиард (24 часа × 3600 секунд) = ~12 тыс. запросов в секунду
 $$
 
-And for 10 years, we will require about 19 PB of storage.
+### Хранилище
+
+Если предположить, что каждое сообщение в среднем составляет 100 байт, нам потребуется около 100 ГБ хранилища для базы данных каждый день.
 
 $$
-(5 \space TB + 0.1 \space TB) \times 365 \space days \times 10 \space years = \sim 19 \space PB
+1 миллиард × 100 байт = ~100 ГБ/день
 $$
 
-### Bandwidth
+Мы также знаем, что около 10 процентов наших ежедневных сообщений (100 миллионов) — это медиафайлы, что соответствует нашим потребностям. Если предположить, что каждый файл в среднем имеет размер 50 КБ, нам потребуется 5 ТБ хранилища каждый день.
 
-As our system is handling 5.1 TB of ingress every day, we will require a minimum bandwidth of around 60 MB per second.
+$$
+100 миллионов × 50 КБ = 5 ТБ/день
+$$
+
+А за 10 лет нам потребуется около 19 ПБ хранилища.
+
+$$
+(5 ТБ + 0,1 ТБ) × 365 дней × 10 лет = ~19 ПБ
+$$
+
+### Пропускная способность
+
+Поскольку наша система обрабатывает 5,1 ТБ входящего трафика ежедневно, нам потребуется минимальная пропускная способность около 60 МБ в секунду.
 
 $$
 \frac{5.1 \space TB}{(24 \space hrs \times 3600 \space seconds)} = \sim 60 \space MB/second
 $$
 
-### High-level estimate
+### Оценка высокого уровня
 
-Here is our high-level estimate:
+Вот наша приблизительная оценка:
 
-| Type                      | Estimate    |
+| Тип | Оценка |
 | ------------------------- | ----------- |
-| Daily active users (DAU)  | 100 million |
-| Requests per second (RPS) | 12K/s       |
-| Storage (per day)         | ~5.1 TB     |
-| Storage (10 years)        | ~19 PB      |
-| Bandwidth                 | ~60 MB/s    |
+| Ежедневно активных пользователей (DAU) | 100 миллионов |
+| Запросов в секунду (RPS) | 12K/с |
+| Объем хранилища (в день) | ~5,1 ТБ |
+| Срок хранения (10 лет) | ~19 ПБ |
+| Пропускная способность | ~60 МБ/с |
 
-## Data model design
+## Разработка модели данных
 
-This is the general data model which reflects our requirements.
+Это общая модель данных, отражающая наши требования.
 
 ![twitter-datamodel](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/twitter/twitter-datamodel.png)
 
-We have the following tables:
+У нас имеются следующие таблицы:
 
-**users**
+**пользователи**
 
-This table will contain a user's information such as `name`, `email`, `dob`, and other details.
+В этой таблице будет содержаться информация о пользователе, такая как имя, адрес электронной почты, дата рождения и другие данные.
 
-**tweets**
+**твиты**
 
-As the name suggests, this table will store tweets and their properties such as `type` (text, image, video, etc.), `content`, etc. We will also store the corresponding `userID`.
+Как следует из названия, в этой таблице будут храниться твиты и их свойства, такие как `type` (текст, изображение, видео и т. д.), `content` и т. д. Также мы будем хранить соответствующий `userID`.
 
-**favorites**
+**избранное**
 
-This table maps tweets with users for the favorite tweets functionality in our application.
+В этой таблице показано соответствие твитов пользователям в функции добавления твитов в избранное в нашем приложении.
 
-**followers**
+**подписчики**
 
-This table maps the followers and [followees](https://en.wiktionary.org/wiki/followee) as users can follow each other (N:M relationship).
+В этой таблице показано, как пользователи могут подписываться друг на друга (отношение N:M), то есть на кого подписаться (подписчики и те, на кого подписываются).
 
-**feeds**
+**каналы**
 
-This table stores feed properties with the corresponding `userID`.
+В этой таблице хранятся свойства ленты с соответствующим `userID`.
 
 **feeds_tweets**
 
-This table maps tweets and feed (N:M relationship).
+В этой таблице представлено сопоставление твитов и ленты новостей (соотношение N:M).
 
-### What kind of database should we use?
+### Какую базу данных нам следует использовать?
 
-While our data model seems quite relational, we don't necessarily need to store everything in a single database, as this can limit our scalability and quickly become a bottleneck.
+Хотя наша модель данных кажется достаточно реляционной, нам не обязательно хранить все в одной базе данных, поскольку это может ограничить масштабируемость и быстро стать узким местом.
 
-We will split the data between different services each having ownership over a particular table. Then we can use a relational database such as [PostgreSQL](https://www.postgresql.org) or a distributed NoSQL database such as [Apache Cassandra](https://cassandra.apache.org/_/index.html) for our use case.
+Мы разделим данные между различными сервисами, каждый из которых будет отвечать за определенную таблицу. Затем мы можем использовать реляционную базу данных, такую ​​как [PostgreSQL](https://www.postgresql.org), или распределенную NoSQL-базу данных, такую ​​как [Apache Cassandra](https://cassandra.apache.org/_/index.html), для нашего случая.
 
-## API design
+## Разработка API
 
-Let us do a basic API design for our services:
+Давайте разработаем базовый API-дизайн для наших сервисов:
 
-### Post a tweet
+### Опубликовать твит
 
-This API will allow the user to post a tweet on the platform.
+Этот API позволит пользователю публиковать твиты на платформе.
 
 ```tsx
 postTweet(userID: UUID, content: string, mediaURL?: string): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-User ID (`UUID`): ID of the user.
+Идентификатор пользователя (`UUID`): ID пользователя.
 
-Content (`string`): Contents of the tweet.
+Content (`string`): Содержимое твита.
 
-Media URL (`string`): URL of the attached media _(optional)_.
+URL медиафайла (`строка`): URL прикрепленного медиафайла (необязательно).
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Follow or unfollow a user
+### Подписаться или отписаться от пользователя
 
-This API will allow the user to follow or unfollow another user.
+Этот API позволит пользователю подписаться на другого пользователя или отписаться от него.
 
 ```tsx
 follow(followerID: UUID, followeeID: UUID): boolean
 unfollow(followerID: UUID, followeeID: UUID): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-Follower ID (`UUID`): ID of the current user.
+Идентификатор подписчика (`UUID`): идентификатор текущего пользователя.
 
-Followee ID (`UUID`): ID of the user we want to follow or unfollow.
+Идентификатор пользователя, на которого мы хотим подписаться или от которого хотим отписаться.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Get newsfeed
+### Получить новостную ленту
 
-This API will return all the tweets to be shown within a given newsfeed.
+Этот API вернет все твиты, которые будут показаны в заданной ленте новостей.
 
 ```tsx
 getNewsfeed(userID: UUID): Tweet[]
 ```
 
-**Parameters**
+**Параметры**
 
-User ID (`UUID`): ID of the user.
+Идентификатор пользователя (`UUID`): ID пользователя.
 
-**Returns**
+**Возврат товара**
 
-Tweets (`Tweet[]`): All the tweets to be shown within a given newsfeed.
+Твиты (`Tweet[]`): Все твиты, которые будут отображаться в данной ленте новостей.
 
-## High-level design
+## Проектирование высокого уровня
 
-Now let us do a high-level design of our system.
+Теперь давайте разработаем высокоуровневый проект нашей системы.
 
-### Architecture
+### Архитектура
 
-We will be using [microservices architecture](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices) since it will make it easier to horizontally scale and decouple our services. Each service will have ownership of its own data model. Let's try to divide our system into some core services.
+Мы будем использовать [микросервисную архитектуру](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices), поскольку она упростит горизонтальное масштабирование и децентрализацию наших сервисов. Каждый сервис будет владеть собственной моделью данных. Давайте попробуем разделить нашу систему на несколько основных сервисов.
 
-**User Service**
+**Служба поддержки пользователей**
 
-This service handles user-related concerns such as authentication and user information.
+Данная служба обрабатывает вопросы, связанные с пользователями, такие как аутентификация и информация о пользователях.
 
-**Newsfeed Service**
+**Служба новостной ленты**
 
-This service will handle the generation and publishing of user newsfeeds. It will be discussed in detail separately.
+Данная услуга будет отвечать за генерацию и публикацию новостных лент пользователей. Подробное описание будет дано отдельно.
 
-**Tweet Service**
+**Твиттер-сервис**
 
-The tweet service will handle tweet-related use cases such as posting a tweet, favorites, etc.
+Сервис для работы с твитами будет обрабатывать сценарии использования, связанные с твитами, такие как публикация твитов, добавление в избранное и т. д.
 
-**Search Service**
+**Поисковая служба**
 
-The service is responsible for handling search-related functionality. It will be discussed in detail separately.
+Данный сервис отвечает за функциональность, связанную с поиском. Подробности будут рассмотрены отдельно.
 
-**Media service**
+**Медиа-служба**
 
-This service will handle the media (images, videos, files, etc.) uploads. It will be discussed in detail separately.
+Данная услуга будет обрабатывать загрузку медиафайлов (изображений, видео, файлов и т. д.). Подробности будут рассмотрены отдельно.
 
-**Notification Service**
+**Служба уведомлений**
 
-This service will simply send push notifications to the users.
+Этот сервис будет просто отправлять push-уведомления пользователям.
 
-**Analytics Service**
+**Аналитическая служба**
 
-This service will be used for metrics and analytics use cases.
+Данный сервис будет использоваться для сбора метрик и аналитических данных.
 
-**What about inter-service communication and service discovery?**
+**А как насчет межведомственной коммуникации и поиска новых услуг?**
 
-Since our architecture is microservices-based, services will be communicating with each other as well. Generally, REST or HTTP performs well but we can further improve the performance using [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc) which is more lightweight and efficient.
+Поскольку наша архитектура основана на микросервисах, сервисы также будут взаимодействовать друг с другом. Как правило, REST или HTTP обеспечивают хорошую производительность, но мы можем еще больше повысить производительность, используя [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc), который является более легковесным и эффективным.
 
-[Service discovery](https://karanpratapsingh.com/courses/system-design/service-discovery) is another thing we will have to take into account. We can also use a service mesh that enables managed, observable, and secure communication between individual services.
+Обнаружение сервисов — это еще один аспект, который нам необходимо учесть. Мы также можем использовать сервисную сетку, которая обеспечивает управляемую, наблюдаемую и безопасную связь между отдельными сервисами.
 
-_Note: Learn more about [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) and how they compare with each other._
+Примечание: Узнайте больше о [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) и о том, чем они отличаются друг от друга.
 
-### Newsfeed
+### Лента новостей
 
-When it comes to the newsfeed, it seems easy enough to implement, but there are a lot of things that can make or break this feature. So, let's divide our problem into two parts:
+Что касается новостной ленты, то её реализация кажется достаточно простой, но на успех или провал этой функции влияет множество факторов. Поэтому давайте разделим нашу проблему на две части:
 
-**Generation**
+**Поколение**
 
-Let's assume we want to generate the feed for user A, we will perform the following steps:
+Предположим, мы хотим сгенерировать ленту новостей для пользователя А. Для этого выполним следующие шаги:
 
-1. Retrieve the IDs of all the users and entities (hashtags, topics, etc.) user A follows.
-2. Fetch the relevant tweets for each of the retrieved IDs.
-3. Use a ranking algorithm to rank the tweets based on parameters such as relevance, time, engagement, etc.
-4. Return the ranked tweets data to the client in a paginated manner.
+1. Получите идентификаторы всех пользователей и объектов (хэштегов, тем и т. д.), на которых подписан пользователь A.
+2. Получите соответствующие твиты для каждого из полученных идентификаторов.
+3. Используйте алгоритм ранжирования для ранжирования твитов на основе таких параметров, как релевантность, время публикации, вовлеченность и т. д.
+4. Верните клиенту данные о ранжированных твитах в постраничном формате.
 
-Feed generation is an intensive process and can take quite a lot of time, especially for users following a lot of people. To improve the performance, the feed can be pre-generated and stored in the cache, then we can have a mechanism to periodically update the feed and apply our ranking algorithm to the new tweets.
+Генерация ленты — ресурсоемкий процесс, занимающий много времени, особенно для пользователей, подписанных на большое количество людей. Для повышения производительности ленту можно предварительно генерировать и хранить в кэше, а затем использовать механизм периодического обновления ленты и применять наш алгоритм ранжирования к новым твитам.
 
-**Publishing**
+**Издательский**
 
-Publishing is the step where the feed data is pushed according to each specific user. This can be a quite heavy operation, as a user may have millions of friends or followers. To deal with this, we have three different approaches:
+Публикация — это этап, на котором данные ленты передаются каждому конкретному пользователю. Это может быть довольно ресурсоемкая операция, поскольку у пользователя могут быть миллионы друзей или подписчиков. Для решения этой проблемы мы используем три различных подхода:
 
-- Pull Model (or Fan-out on load)
+- Модель "вытягивания" (или "разветвление" под нагрузкой)
 
 ![newsfeed-pull-model](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/twitter/newsfeed-pull-model.png)
 
-When a user creates a tweet, and a follower reloads their newsfeed, the feed is created and stored in memory. The most recent feed is only loaded when the user requests it. This approach reduces the number of write operations on our database.
+Когда пользователь создает твит, а его подписчик обновляет свою ленту новостей, лента создается и сохраняется в памяти. Самая последняя версия ленты загружается только по запросу пользователя. Такой подход уменьшает количество операций записи в нашу базу данных.
 
-The downside of this approach is that the users will not be able to view recent feeds unless they "pull" the data from the server, which will increase the number of read operations on the server.
+Недостаток такого подхода заключается в том, что пользователи не смогут просматривать последние записи, если не «загрузят» данные с сервера, что увеличит количество операций чтения на сервере.
 
-- Push Model (or Fan-out on write)
+- Модель "push" (или "fan out" при записи)
 
 ![newsfeed-push-model](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/twitter/newsfeed-push-model.png)
 
-In this model, once a user creates a tweet, it is "pushed" to all the follower's feeds immediately. This prevents the system from having to go through a user's entire followers list to check for updates.
+В этой модели, как только пользователь создает твит, он немедленно «отправляется» во все ленты подписчиков. Это избавляет систему от необходимости просматривать весь список подписчиков пользователя для проверки обновлений.
 
-However, the downside of this approach is that it would increase the number of write operations on the database.
+Однако недостатком такого подхода является увеличение количества операций записи в базу данных.
 
-- Hybrid Model
+- Гибридная модель
 
-A third approach is a hybrid model between the pull and push model. It combines the beneficial features of the above two models and tries to provide a balanced approach between the two.
+Третий подход представляет собой гибридную модель, сочетающую в себе элементы моделей «притяжения» и «отталкивания». Он объединяет преимущества двух вышеупомянутых моделей и стремится обеспечить сбалансированный подход между ними.
 
-The hybrid model allows only users with a lesser number of followers to use the push model. For users with a higher number of followers such as celebrities, the pull model is used.
+Гибридная модель позволяет использовать модель push-уведомлений только пользователям с меньшим количеством подписчиков. Для пользователей с большим количеством подписчиков, таких как знаменитости, используется модель pull-уведомлений.
 
-### Ranking Algorithm
+### Алгоритм ранжирования
 
-As we discussed, we will need a ranking algorithm to rank each tweet according to its relevance to each specific user.
+Как мы уже обсуждали, нам понадобится алгоритм ранжирования, который будет определять релевантность каждого твита для конкретного пользователя.
 
-For example, Facebook used to utilize an [EdgeRank](https://en.wikipedia.org/wiki/EdgeRank) algorithm. Here, the rank of each feed item is described by:
+Например, Facebook раньше использовал алгоритм EdgeRank. В этом алгоритме ранжирование каждого элемента ленты описывается следующим образом:
 
 $$
-Rank = Affinity \times Weight \times Decay
+Ранг = Сродство × Вес × Распад
 $$
 
-Where,
+Где,
 
-`Affinity`: is the "closeness" of the user to the creator of the edge. If a user frequently likes, comments, or messages the edge creator, then the value of affinity will be higher, resulting in a higher rank for the post.
+«Степень близости»: это показатель «близости» пользователя к создателю релевантности. Если пользователь часто ставит лайки, комментирует или отправляет сообщения создателю релевантности, то значение «степень близости» будет выше, что приведет к более высокому рейтингу публикации.
 
-`Weight`: is the value assigned according to each edge. A comment can have a higher weightage than likes, and thus a post with more comments is more likely to get a higher rank.
+`Вес`: это значение, присваиваемое каждому ребру. Комментарий может иметь больший вес, чем лайки, поэтому пост с большим количеством комментариев с большей вероятностью получит более высокий рейтинг.
 
-`Decay`: is the measure of the creation of the edge. The older the edge, the lesser will be the value of decay and eventually the rank.
+«Распад» — это показатель времени создания ребра. Чем старше ребро, тем меньше будет значение распада и, в конечном итоге, его ранг.
 
-Nowadays, algorithms are much more complex and ranking is done using machine learning models which can take thousands of factors into consideration.
+В настоящее время алгоритмы стали намного сложнее, и ранжирование осуществляется с помощью моделей машинного обучения, которые могут учитывать тысячи факторов.
 
-### Retweets
+### Ретвиты
 
-Retweets are one of our extended requirements. To implement this feature, we can simply create a new tweet with the user id of the user retweeting the original tweet and then modify the `type` enum and `content` property of the new tweet to link it with the original tweet.
+Ретвиты — одно из наших дополнительных требований. Для реализации этой функции мы можем просто создать новый твит с идентификатором пользователя, ретвитнувшего исходный твит, а затем изменить перечисление `type` и свойство `content` нового твита, чтобы связать его с исходным твитом.
 
-For example, the `type` enum property can be of type tweet, similar to text, video, etc and `content` can be the id of the original tweet. Here the first row indicates the original tweet while the second row is how we can represent a retweet.
+Например, свойство перечисления `type` может иметь тип tweet, аналогично тексту, видео и т. д., а `content` может быть идентификатором исходного твита. Здесь первая строка указывает на исходный твит, а вторая — на то, как можно представить ретвит.
 
-| id                  | userID              | type  | content                      | createdAt     |
+| id | userID | type | content | createdAt |
 | ------------------- | ------------------- | ----- | ---------------------------- | ------------- |
-| ad34-291a-45f6-b36c | 7a2c-62c4-4dc8-b1bb | text  | Hey, this is my first tweet… | 1658905644054 |
-| f064-49ad-9aa2-84a6 | 6aa2-2bc9-4331-879f | tweet | ad34-291a-45f6-b36c          | 1658906165427 |
+| ad34-291a-45f6-b36c | 7a2c-62c4-4dc8-b1bb | текст | Привет, это мой первый твит… | 1658905644054 |
+| f064-49ad-9aa2-84a6 | 6aa2-2bc9-4331-879f | твит | ad34-291a-45f6-b36c | 1658906165427 |
 
-This is a very basic implementation. To improve this we can create a separate table itself to store retweets.
+Это очень простая реализация. Для её улучшения мы можем создать отдельную таблицу для хранения ретвитов.
 
-### Search
+### Поиск
 
-Sometimes traditional DBMS are not performant enough, we need something which allows us to store, search, and analyze huge volumes of data quickly and in near real-time and give results within milliseconds. [Elasticsearch](https://www.elastic.co) can help us with this use case.
+Иногда традиционные СУБД недостаточно производительны, нам нужно что-то, что позволит быстро и практически в режиме реального времени хранить, искать и анализировать огромные объемы данных, получая результаты в течение миллисекунд. [Elasticsearch](https://www.elastic.co) может помочь нам в этом случае.
 
-[Elasticsearch](https://www.elastic.co) is a distributed, free and open search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. It is built on top of [Apache Lucene](https://lucene.apache.org).
+Elasticsearch (https://www.elastic.co) — это распределенная, бесплатная и открытая поисковая и аналитическая система для всех типов данных, включая текстовые, числовые, геопространственные, структурированные и неструктурированные. Она построена на основе Apache Lucene (https://lucene.apache.org).
 
-**How do we identify trending topics?**
+**Как мы определяем актуальные темы?**
 
-Trending functionality will be based on top of the search functionality. We can cache the most frequently searched queries, hashtags, and topics in the last `N` seconds and update them every `M` seconds using some sort of batch job mechanism. Our ranking algorithm can also be applied to the trending topics to give them more weight and personalize them for the user.
+Функция отображения трендов будет основана на функции поиска. Мы можем кэшировать наиболее часто запрашиваемые запросы, хэштеги и темы за последние `N` секунд и обновлять их каждые `M` секунд, используя какой-либо механизм пакетной обработки. Наш алгоритм ранжирования также может применяться к трендовым темам, чтобы придать им больший вес и персонализировать их для пользователя.
 
-### Notifications
+### Уведомления
 
-Push notifications are an integral part of any social media platform. We can use a message queue or a message broker such as [Apache Kafka](https://kafka.apache.org) with the notification service to dispatch requests to [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging) or [Apple Push Notification Service (APNS)](https://developer.apple.com/documentation/usernotifications) which will handle the delivery of the push notifications to user devices.
+Push-уведомления являются неотъемлемой частью любой социальной сети. Мы можем использовать очередь сообщений или брокер сообщений, такой как [Apache Kafka](https://kafka.apache.org), со службой уведомлений для отправки запросов в [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging) или [Apple Push Notification Service (APNS)](https://developer.apple.com/documentation/usernotifications), которые будут обрабатывать доставку push-уведомлений на устройства пользователей.
 
-_For more details, refer to the [WhatsApp](https://karanpratapsingh.com/courses/system-design/whatsapp#notifications) system design where we discuss push notifications in detail._
+Для получения более подробной информации обратитесь к [WhatsApp](https://karanpratapsingh.com/courses/system-design/whatsapp#notifications), где мы подробно обсуждаем push-уведомления._
 
-## Detailed design
+## Детальный дизайн
 
-It's time to discuss our design decisions in detail.
+Пришло время подробно обсудить наши проектные решения.
 
-### Data Partitioning
+### Разделение данных
 
-To scale out our databases we will need to partition our data. Horizontal partitioning (aka [Sharding](https://karanpratapsingh.com/courses/system-design/sharding)) can be a good first step. We can use partitions schemes such as:
+Для масштабирования наших баз данных нам потребуется разделить данные на разделы. Хорошим первым шагом может стать горизонтальное разделение (также известное как шардинг)(https://karanpratapsingh.com/courses/system-design/sharding). Мы можем использовать такие схемы разделения, как:
 
-- Hash-Based Partitioning
-- List-Based Partitioning
-- Range Based Partitioning
-- Composite Partitioning
+- Разделение данных на основе хеширования
+- Разделение на основе списков
+- Разделение на основе диапазонов
+- Составное разбиение
 
-The above approaches can still cause uneven data and load distribution, we can solve this using [Consistent hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
+Вышеуказанные подходы все еще могут вызывать неравномерное распределение данных и нагрузки, эту проблему можно решить с помощью [согласованного хеширования](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
 
-_For more details, refer to [Sharding](https://karanpratapsingh.com/courses/system-design/sharding) and [Consistent Hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
+Для получения более подробной информации обратитесь к разделам [Шардинг](https://karanpratapsingh.com/courses/system-design/sharding) и [Последовательное хеширование](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
 
-### Mutual friends
+### Общие друзья
 
-For mutual friends, we can build a social graph for every user. Each node in the graph will represent a user and a directional edge will represent followers and followees. After that, we can traverse the followers of a user to find and suggest a mutual friend. This would require a graph database such as [Neo4j](https://neo4j.com) or [ArangoDB](https://www.arangodb.com).
+Для поиска общих друзей мы можем построить социальный граф для каждого пользователя. Каждый узел графа будет представлять пользователя, а направленное ребро — подписчиков и тех, на кого подписан пользователь. После этого мы можем пройтись по подписчикам пользователя, чтобы найти и предложить общего друга. Для этого потребуется база данных на основе графов, такая как [Neo4j](https://neo4j.com) или [ArangoDB](https://www.arangodb.com).
 
-This is a pretty simple algorithm, to improve our suggestion accuracy, we will need to incorporate a recommendation model which uses machine learning as part of our algorithm.
+Это довольно простой алгоритм. Для повышения точности наших рекомендаций нам потребуется включить в него модель рекомендаций, использующую машинное обучение.
 
-### Metrics and Analytics
+### Метрики и аналитика
 
-Recording analytics and metrics is one of our extended requirements. As we will be using [Apache Kafka](https://kafka.apache.org) to publish all sorts of events, we can process these events and run analytics on the data using [Apache Spark](https://spark.apache.org) which is an open-source unified analytics engine for large-scale data processing.
+Запись аналитических данных и метрик — одно из наших дополнительных требований. Поскольку мы будем использовать [Apache Kafka](https://kafka.apache.org) для публикации различных событий, мы сможем обрабатывать эти события и проводить аналитику данных с помощью [Apache Spark](https://spark.apache.org), открытого унифицированного аналитического движка для обработки больших объемов данных.
 
-### Caching
+### Кэширование
 
-In a social media application, we have to be careful about using cache as our users expect the latest data. So, to prevent usage spikes from our resources we can cache the top 20% of the tweets.
+В приложениях для социальных сетей необходимо тщательно подходить к использованию кэша, поскольку пользователи ожидают самых актуальных данных. Поэтому, чтобы предотвратить резкие скачки нагрузки на ресурсы, можно кэшировать 20% самых популярных твитов.
 
-To further improve efficiency we can add pagination to our system APIs. This decision will be helpful for users with limited network bandwidth as they won't have to retrieve old messages unless requested.
+Для дальнейшего повышения эффективности мы можем добавить пагинацию в API нашей системы. Это решение будет полезно для пользователей с ограниченной пропускной способностью сети, поскольку им не придется получать старые сообщения без предварительного запроса.
 
-**Which cache eviction policy to use?**
+**Какую политику удаления кэша использовать?**
 
-We can use solutions like [Redis](https://redis.io) or [Memcached](https://memcached.org) and cache 20% of the daily traffic but what kind of cache eviction policy would best fit our needs?
+Мы можем использовать такие решения, как [Redis](https://redis.io) или [Memcached](https://memcached.org), и кэшировать 20% ежедневного трафика, но какая политика вытеснения кэшированных данных лучше всего подойдет для наших нужд?
 
-[Least Recently Used (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) can be a good policy for our system. In this policy, we discard the least recently used key first.
+Политика [наименее недавно использованного ключа (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) может быть хорошей политикой для нашей системы. В этой политике мы сначала отбрасываем наименее недавно использованный ключ.
 
-**How to handle cache miss?**
+**Как справиться с промахом кэша?**
 
-Whenever there is a cache miss, our servers can hit the database directly and update the cache with the new entries.
+В случае промаха кэша наши серверы могут напрямую обращаться к базе данных и обновлять кэш новыми записями.
 
-_For more details, refer to [Caching](https://karanpratapsingh.com/courses/system-design/caching)._
+Для получения более подробной информации обратитесь к разделу [Кэширование](https://karanpratapsingh.com/courses/system-design/caching)._
 
-### Media access and storage
+### Доступ к медиафайлам и их хранение
 
-As we know, most of our storage space will be used for storing media files such as images, videos, or other files. Our media service will be handling both access and storage of the user media files.
+Как известно, большая часть нашего дискового пространства будет использоваться для хранения медиафайлов, таких как изображения, видео или другие файлы. Наш медиасервис будет обеспечивать как доступ, так и хранение медиафайлов пользователей.
 
-But where can we store files at scale? Well, [object storage](https://karanpratapsingh.com/courses/system-design/storage#object-storage) is what we're looking for. Object stores break data files up into pieces called objects. It then stores those objects in a single repository, which can be spread out across multiple networked systems. We can also use distributed file storage such as [HDFS](https://karanpratapsingh.com/courses/system-design/storage#hdfs) or [GlusterFS](https://www.gluster.org).
+Но где же можно хранить файлы в больших масштабах? Нам нужно объектное хранилище. Объектные хранилища разбивают файлы данных на части, называемые объектами. Затем эти объекты хранятся в едином репозитории, который может быть распределен по нескольким сетевым системам. Мы также можем использовать распределенные файловые хранилища, такие как HDFS или GlusterFS.
 
-### Content Delivery Network (CDN)
+### Сеть доставки контента (CDN)
 
-[Content Delivery Network (CDN)](https://karanpratapsingh.com/courses/system-design/content-delivery-network) increases content availability and redundancy while reducing bandwidth costs. Generally, static files such as images, and videos are served from CDN. We can use services like [Amazon CloudFront](https://aws.amazon.com/cloudfront) or [Cloudflare CDN](https://www.cloudflare.com/cdn) for this use case.
+Сеть доставки контента (CDN) повышает доступность и избыточность контента, одновременно снижая затраты на пропускную способность. Как правило, статические файлы, такие как изображения и видео, обслуживаются через CDN. Для этого можно использовать такие сервисы, как Amazon CloudFront или Cloudflare CDN.
 
-## Identify and resolve bottlenecks
+## Выявление и устранение узких мест
 
 ![twitter-advanced-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/twitter/twitter-advanced-design.png)
 
-Let us identify and resolve bottlenecks such as single points of failure in our design:
+Давайте выявим и устраним узкие места, такие как единые точки отказа в нашей конструкции:
 
-- "What if one of our services crashes?"
-- "How will we distribute our traffic between our components?"
-- "How can we reduce the load on our database?"
-- "How to improve the availability of our cache?"
-- "How can we make our notification system more robust?"
-- "How can we reduce media storage costs"?
+— А что, если один из наших сервисов выйдет из строя?
+— «Как мы будем распределять трафик между нашими компонентами?»
+— «Как мы можем снизить нагрузку на нашу базу данных?»
+— «Как повысить доступность нашего кэша?»
+— «Как мы можем сделать нашу систему оповещений более надежной?»
+— «Как можно снизить затраты на хранение медиафайлов?»
 
-To make our system more resilient we can do the following:
+Для повышения отказоустойчивости нашей системы мы можем сделать следующее:
 
-- Running multiple instances of each of our services.
-- Introducing [load balancers](https://karanpratapsingh.com/courses/system-design/load-balancing) between clients, servers, databases, and cache servers.
-- Using multiple read replicas for our databases.
-- Multiple instances and replicas for our distributed cache.
-- Exactly once delivery and message ordering is challenging in a distributed system, we can use a dedicated [message broker](https://karanpratapsingh.com/courses/system-design/message-brokers) such as [Apache Kafka](https://kafka.apache.org) or [NATS](https://nats.io) to make our notification system more robust.
-- We can add media processing and compression capabilities to the media service to compress large files which will save a lot of storage space and reduce cost.
+- Запуск нескольких экземпляров каждой из наших служб.
+- Представляем [балансировщики нагрузки](https://karanpratapsingh.com/courses/system-design/load-balancing) между клиентами, серверами, базами данных и кэш-серверами.
+- Использование нескольких реплик для чтения в наших базах данных.
+- Множество экземпляров и реплик для нашего распределенного кэша.
+— Именно тогда, когда доставка и упорядочивание сообщений становятся сложной задачей в распределенной системе, мы можем использовать специализированный [брокер сообщений](https://karanpratapsingh.com/courses/system-design/message-brokers), такой как [Apache Kafka](https://kafka.apache.org) или [NATS](https://nats.io), чтобы сделать нашу систему уведомлений более надежной.
+— Мы можем добавить в медиасервис возможности обработки и сжатия мультимедиа для сжатия больших файлов, что позволит значительно сэкономить место на диске и снизить затраты.
 
 # Netflix
 
-Let's design a [Netflix](https://netflix.com) like video streaming service, similar to services like [Amazon Prime Video](https://www.primevideo.com), [Disney Plus](https://www.disneyplus.com), [Hulu](https://www.hulu.com), [Youtube](https://youtube.com), [Vimeo](https://vimeo.com), etc.
+Давайте разработаем сервис потокового видео, похожий на [Netflix](https://netflix.com), аналогичный таким сервисам, как [Amazon Prime Video](https://www.primevideo.com), [Disney Plus](https://www.disneyplus.com), [Hulu](https://www.hulu.com), [Youtube](https://youtube.com), [Vimeo](https://vimeo.com) и т. д.
 
-## What is Netflix?
+## Что такое Netflix?
 
-Netflix is a subscription-based streaming service that allows its members to watch TV shows and movies on an internet-connected device. It is available on platforms such as the Web, iOS, Android, TV, etc.
+Netflix — это потоковый сервис по подписке, позволяющий своим подписчикам смотреть телешоу и фильмы на устройствах с подключением к интернету. Он доступен на таких платформах, как веб-браузер, iOS, Android, телевизор и т.д.
 
-## Requirements
+## Требования
 
-Our system should meet the following requirements:
+Наша система должна соответствовать следующим требованиям:
 
-### Functional requirements
+### Функциональные требования
 
-- Users should be able to stream and share videos.
-- The content team (or users in YouTube's case) should be able to upload new videos (movies, tv shows episodes, and other content).
-- Users should be able to search for videos using titles or tags.
-- Users should be able to comment on a video similar to YouTube.
+— Пользователи должны иметь возможность транслировать и делиться видео.
+- Команда, отвечающая за контент (или пользователи в случае YouTube), должна иметь возможность загружать новые видео (фильмы, эпизоды телешоу и другой контент).
+— Пользователи должны иметь возможность искать видео по названиям или тегам.
+— Пользователи должны иметь возможность оставлять комментарии к видео, как на YouTube.
 
-### Non-Functional requirements
+### Нефункциональные требования
 
-- High availability with minimal latency.
-- High reliability, no uploads should be lost.
-- The system should be scalable and efficient.
+- Высокая доступность с минимальной задержкой.
+- Высокая надежность, никакие загрузки не должны быть потеряны.
+- Система должна быть масштабируемой и эффективной.
 
-### Extended requirements
+### Расширенные требования
 
-- Certain content should be [geo-blocked](https://en.wikipedia.org/wiki/Geo-blocking).
-- Resume video playback from the point user left off.
-- Record metrics and analytics of videos.
+- Определенный контент следует блокировать по географическому признаку (https://en.wikipedia.org/wiki/Geo-blocking).
+- Возобновить воспроизведение видео с того места, где пользователь остановился.
+- Записывать метрики и аналитические данные видео.
 
-## Estimation and Constraints
+## Оценка и ограничения
 
-Let's start with the estimation and constraints.
+Начнём с оценки и ограничений.
 
-_Note: Make sure to check any scale or traffic-related assumptions with your interviewer._
+Примечание: Обязательно уточните у интервьюера любые предположения, касающиеся масштаба или интенсивности движения.
 
-### Traffic
+### Трафик
 
-This will be a read-heavy system, let us assume we have 1 billion total users with 200 million daily active users (DAU), and on average each user watches 5 videos a day. This gives us 1 billion videos watched per day.
-
-$$
-200 \space million \times 5 \space videos = 1 \space billion/day
-$$
-
-Assuming a `200:1` read/write ratio, about 5 million videos will be uploaded every day.
+Это будет система с высокой интенсивностью чтения. Предположим, у нас 1 миллиард пользователей, из которых 200 миллионов — ежедневно активные пользователи (DAU), и в среднем каждый пользователь смотрит 5 видео в день. Это даст нам 1 миллиард просмотренных видео в день.
 
 $$
-\frac{1}{200} \times 1 \space billion = 5 \space million/day
+200 миллионов × 5 видеороликов = 1 миллиард в день
 $$
 
-**What would be Requests Per Second (RPS) for our system?**
-
-1 billion requests per day translate into 12K requests per second.
+При соотношении чтения/записи 200:1, ежедневно будет загружаться около 5 миллионов видеороликов.
 
 $$
-\frac{1 \space billion}{(24 \space hrs \times 3600 \space seconds)} = \sim 12K \space requests/second
+\frac{1}{200} \times 1 \space миллиард = 5 \space миллионов/день
 $$
 
-### Storage
+**Каково будет количество запросов в секунду (RPS) для нашей системы?**
 
-If we assume each video is 100 MB on average, we will require about 500 TB of storage every day.
-
-$$
-5 \space million \times 100 \space MB = 500 \space TB/day
-$$
-
-And for 10 years, we will require an astounding 1,825 PB of storage.
+1 миллиард запросов в день соответствует 12 тысячам запросов в секунду.
 
 $$
-500 \space TB \times 365 \space days \times 10 \space years = \sim 1,825 \space PB
+1 миллиард (24 часа × 3600 секунд) = ~12 тыс. запросов в секунду
 $$
 
-### Bandwidth
+### Хранилище
 
-As our system is handling 500 TB of ingress every day, we will require a minimum bandwidth of around 5.8 GB per second.
+Если предположить, что средний размер каждого видеофайла составляет 100 МБ, то нам потребуется около 500 ТБ хранилища каждый день.
 
 $$
-\frac{500 \space TB}{(24 \space hrs \times 3600 \space seconds)} = \sim 5.8 \space GB/second
+5 миллионов × 100 МБ = 500 ТБ/день
 $$
 
-### High-level estimate
+А в течение 10 лет нам потребуется поразительный объем хранилища — 1825 ПБ.
 
-Here is our high-level estimate:
+$$
+500 ТБ × 365 дней × 10 лет = ~1825 ПБ
+$$
 
-| Type                      | Estimate    |
+### Пропускная способность
+
+Поскольку наша система обрабатывает 500 ТБ входящего трафика ежедневно, нам потребуется минимальная пропускная способность около 5,8 ГБ в секунду.
+
+$$
+\frac{500 \space ТБ}{(24 \space часа \times 3600 \space секунд)} = \sim 5.8 \space ГБ/секунда
+$$
+
+### Оценка высокого уровня
+
+Вот наша приблизительная оценка:
+
+| Тип | Оценка |
 | ------------------------- | ----------- |
-| Daily active users (DAU)  | 200 million |
-| Requests per second (RPS) | 12K/s       |
-| Storage (per day)         | ~500 TB     |
-| Storage (10 years)        | ~1,825 PB   |
-| Bandwidth                 | ~5.8 GB/s   |
+| Ежедневно активных пользователей (DAU) | 200 миллионов |
+| Запросов в секунду (RPS) | 12K/с |
+| Объем хранилища (в день) | ~500 ТБ |
+| Срок хранения (10 лет) | ~1825 ПБ |
+| Пропускная способность | ~5,8 ГБ/с |
 
-## Data model design
+## Разработка модели данных
 
-This is the general data model which reflects our requirements.
+Это общая модель данных, отражающая наши требования.
 
 ![netflix-datamodel](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/netflix/netflix-datamodel.png)
 
-We have the following tables:
+У нас имеются следующие таблицы:
 
-**users**
+**пользователи**
 
-This table will contain a user's information such as `name`, `email`, `dob`, and other details.
+В этой таблице будет содержаться информация о пользователе, такая как имя, адрес электронной почты, дата рождения и другие данные.
 
-**videos**
+**видео**
 
-As the name suggests, this table will store videos and their properties such as `title`, `streamURL`, `tags`, etc. We will also store the corresponding `userID`.
+Как следует из названия, в этой таблице будут храниться видео и их свойства, такие как `title`, `streamURL`, `tags` и т. д. Также будет храниться соответствующий `userID`.
 
-**tags**
+**теги**
 
-This table will simply store tags associated with a video.
+В этой таблице будут храниться только теги, связанные с видео.
 
-**views**
+**просмотров**
 
-This table helps us to store all the views received on a video.
+Эта таблица помогает нам хранить все просмотры, полученные видеороликом.
 
-**comments**
+**комментарии**
 
-This table stores all the comments received on a video (like YouTube).
+В этой таблице хранятся все комментарии, полученные к видео (как на YouTube).
 
-### What kind of database should we use?
+### Какую базу данных нам следует использовать?
 
-While our data model seems quite relational, we don't necessarily need to store everything in a single database, as this can limit our scalability and quickly become a bottleneck.
+Хотя наша модель данных кажется достаточно реляционной, нам не обязательно хранить все в одной базе данных, поскольку это может ограничить масштабируемость и быстро стать узким местом.
 
-We will split the data between different services each having ownership over a particular table. Then we can use a relational database such as [PostgreSQL](https://www.postgresql.org) or a distributed NoSQL database such as [Apache Cassandra](https://cassandra.apache.org/_/index.html) for our use case.
+Мы разделим данные между различными сервисами, каждый из которых будет отвечать за определенную таблицу. Затем мы можем использовать реляционную базу данных, такую ​​как [PostgreSQL](https://www.postgresql.org), или распределенную NoSQL-базу данных, такую ​​как [Apache Cassandra](https://cassandra.apache.org/_/index.html), для нашего случая.
 
-## API design
+## Разработка API
 
-Let us do a basic API design for our services:
+Давайте разработаем базовый API-дизайн для наших сервисов:
 
-### Upload a video
+### Загрузить видео
 
-Given a byte stream, this API enables video to be uploaded to our service.
+Этот API, предоставляя поток байтов, позволяет загружать видео в наш сервис.
 
 ```tsx
 uploadVideo(title: string, description: string, data: Stream<byte>, tags?: string[]): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-Title (`string`): Title of the new video.
+Заголовок (`string`): Название нового видео.
 
-Description (`string`): Description of the new video.
+Описание (`string`): Описание нового видео.
 
-Data (`byte[]`): Byte stream of the video data.
+Данные (`byte[]`): Поток байтов видеоданных.
 
-Tags (`string[]`): Tags for the video _(optional)_.
+Теги (`string[]`): Теги для видео _(необязательно)_.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Streaming a video
+### Потоковая передача видео
 
-This API allows our users to stream a video with the preferred codec and resolution.
+Этот API позволяет нашим пользователям транслировать видео с выбранным кодеком и разрешением.
 
 ```tsx
 streamVideo(videoID: UUID, codec: Enum<string>, resolution: Tuple<int>, offset?: int): VideoStream
 ```
 
-**Parameters**
+**Параметры**
 
-Video ID (`UUID`): ID of the video that needs to be streamed.
+Идентификатор видео (`UUID`): идентификатор видео, которое необходимо транслировать.
 
-Codec (`Enum<string>`): Required [codec](https://en.wikipedia.org/wiki/Video_codec) of the requested video, such as `h.265`, `h.264`, `VP9`, etc.
+Кодек (`Enum<string>`): Обязательный [кодек](https://en.wikipedia.org/wiki/Video_codec) для запрашиваемого видео, например, `h.265`, `h.264`, `VP9` и т. д.
 
-Resolution (`Tuple<int>`): [Resolution](https://en.wikipedia.org/wiki/Display_resolution) of the requested video.
+Разрешение (`Tuple<int>`): [Разрешение](https://en.wikipedia.org/wiki/Display_resolution) запрошенного видео.
 
-Offset (`int`): Offset of the video stream in seconds to stream data from any point in the video _(optional)_.
+Смещение (`целое число`): Смещение видеопотока в секундах для передачи данных из любой точки видео (необязательно).
 
-**Returns**
+**Возврат товара**
 
-Stream (`VideoStream`): Data stream of the requested video.
+Поток (`VideoStream`): Поток данных запрошенного видео.
 
-### Search for a video
+### Поиск видео
 
-This API will enable our users to search for a video based on its title or tags.
+Этот API позволит нашим пользователям искать видео по названию или тегам.
 
 ```tsx
 searchVideo(query: string, nextPage?: string): Video[]
 ```
 
-**Parameters**
+**Параметры**
 
-Query (`string`): Search query from the user.
+Запрос (`string`): Поисковый запрос пользователя.
 
-Next Page (`string`): Token for the next page, this can be used for pagination _(optional)_.
+Следующая страница (`строка`): Токен для следующей страницы, может использоваться для постраничной навигации (необязательно).
 
-**Returns**
+**Возврат товара**
 
-Videos (`Video[]`): All the videos available for a particular search query.
+Видео (`Video[]`): Все видео, доступные по определенному поисковому запросу.
 
-### Add a comment
+### Добавить комментарий
 
-This API will allow our users to post a comment on a video (like YouTube).
+Этот API позволит нашим пользователям оставлять комментарии к видео (как на YouTube).
 
 ```tsx
 comment(videoID: UUID, comment: string): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-VideoID (`UUID`): ID of the video user wants to comment on.
+VideoID (`UUID`): ID видео, которое пользователь хочет прокомментировать.
 
-Comment (`string`): The text content of the comment.
+Комментарий (`строка`): Текстовое содержимое комментария.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-## High-level design
+## Проектирование высокого уровня
 
-Now let us do a high-level design of our system.
+Теперь давайте разработаем высокоуровневый проект нашей системы.
 
-### Architecture
+### Архитектура
 
-We will be using [microservices architecture](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices) since it will make it easier to horizontally scale and decouple our services. Each service will have ownership of its own data model. Let's try to divide our system into some core services.
+Мы будем использовать [микросервисную архитектуру](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices), поскольку она упростит горизонтальное масштабирование и децентрализацию наших сервисов. Каждый сервис будет владеть собственной моделью данных. Давайте попробуем разделить нашу систему на несколько основных сервисов.
 
-**User Service**
+**Служба поддержки пользователей**
 
-This service handles user-related concerns such as authentication and user information.
+Данная служба обрабатывает вопросы, связанные с пользователями, такие как аутентификация и информация о пользователях.
 
-**Stream Service**
+**Трансляционный сервис**
 
-The stream service will handle video streaming-related functionality.
+Сервис потокового вещания будет отвечать за функциональность, связанную с потоковой передачей видео.
 
-**Search Service**
+**Поисковая служба**
 
-The service is responsible for handling search-related functionality. It will be discussed in detail separately.
+Данный сервис отвечает за функциональность, связанную с поиском. Подробности будут рассмотрены отдельно.
 
-**Media service**
+**Медиа-служба**
 
-This service will handle the video uploads and processing. It will be discussed in detail separately.
+Данная услуга будет заниматься загрузкой и обработкой видео. Подробности будут рассмотрены отдельно.
 
-**Analytics Service**
+**Аналитическая служба**
 
-This service will be used for metrics and analytics use cases.
+Данный сервис будет использоваться для сбора метрик и аналитических данных.
 
-**What about inter-service communication and service discovery?**
+**А как насчет межведомственной коммуникации и поиска новых услуг?**
 
-Since our architecture is microservices-based, services will be communicating with each other as well. Generally, REST or HTTP performs well but we can further improve the performance using [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc) which is more lightweight and efficient.
+Поскольку наша архитектура основана на микросервисах, сервисы также будут взаимодействовать друг с другом. Как правило, REST или HTTP обеспечивают хорошую производительность, но мы можем еще больше повысить производительность, используя [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc), который является более легковесным и эффективным.
 
-[Service discovery](https://karanpratapsingh.com/courses/system-design/service-discovery) is another thing we will have to take into account. We can also use a service mesh that enables managed, observable, and secure communication between individual services.
+Обнаружение сервисов — это еще один аспект, который нам необходимо учесть. Мы также можем использовать сервисную сетку, которая обеспечивает управляемую, наблюдаемую и безопасную связь между отдельными сервисами.
 
-_Note: Learn more about [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) and how they compare with each other._
+Примечание: Узнайте больше о [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) и о том, чем они отличаются друг от друга.
 
-### Video processing
+### Обработка видео
 
 ![video-processing-pipeline](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/netflix/video-processing-pipeline.png)
 
-There are so many variables in play when it comes to processing a video. For example, an average data size of two-hour raw 8K footage from a high-end camera can easily be up to 4 TB, thus we need to have some kind of processing to reduce both storage and delivery costs.
+При обработке видео необходимо учитывать множество переменных. Например, средний размер двухчасового необработанного видеоматериала в разрешении 8K, снятого на высококачественную камеру, может легко достигать 4 ТБ, поэтому нам необходим какой-либо метод обработки для снижения как затрат на хранение, так и на доставку.
 
-Here's how we can process videos once they're uploaded by the content team (or users in YouTube's case) and are queued for processing in our [message queue](https://karanpratapsingh.com/courses/system-design/message-queues).
+Вот как мы можем обрабатывать видео после того, как они загружены командой по контенту (или пользователями в случае YouTube) и поставлены в очередь на обработку в нашей [очереди сообщений](https://karanpratapsingh.com/courses/system-design/message-queues).
 
-Let's discuss how this works:
+Давайте обсудим, как это работает:
 
-- **File Chunker**
+- **Разбивка файлов**
 
 ![file-chunking](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/netflix/file-chunking.png)
 
-This is the first step of our processing pipeline. File chunking is the process of splitting a file into smaller pieces called chunks. It can help us eliminate duplicate copies of repeating data on storage, and reduces the amount of data sent over the network by only selecting changed chunks.
+Это первый этап нашего конвейера обработки. Разбиение файла на части — это процесс разделения файла на более мелкие фрагменты, называемые блоками. Это помогает нам исключить дубликаты повторяющихся данных в хранилище и уменьшает объем данных, передаваемых по сети, за счет выбора только измененных блоков.
 
-Usually, a video file can be split into equal size chunks based on timestamps but Netflix instead splits chunks based on scenes. This slight variation becomes a huge factor for a better user experience since whenever the client requests a chunk from the server, there is a lower chance of interruption as a complete scene will be retrieved.
+Обычно видеофайл можно разбить на фрагменты одинакового размера на основе временных меток, но Netflix вместо этого разбивает фрагменты на основе сцен. Это небольшое различие становится важным фактором для улучшения пользовательского опыта, поскольку при запросе клиентом фрагмента с сервера снижается вероятность прерывания, так как будет получена полная сцена.
 
-- **Content Filter**
+- **Фильтр содержимого**
 
-This step checks if the video adheres to the content policy of the platform. This can be pre-approved as in the case of Netflix according to [content rating](https://en.wikipedia.org/wiki/Motion_picture_content_rating_system) of the media or can be strictly enforced like by YouTube.
+На этом этапе проверяется, соответствует ли видео политике платформы в отношении контента. Это может быть предварительное одобрение, как в случае с Netflix, в соответствии с [системой рейтинга контента](https://en.wikipedia.org/wiki/Motion_picture_content_rating_system) медиаконтента, или же строгое соблюдение, как в случае с YouTube.
 
-This entire process is done by a machine learning model which performs copyright, piracy, and NSFW checks. If issues are found, we can push the task to a [dead-letter queue (DLQ)](https://karanpratapsingh.com/courses/system-design/message-queues#dead-letter-queues) and someone from the moderation team can do further inspection.
+Весь этот процесс осуществляется с помощью модели машинного обучения, которая проверяет соблюдение авторских прав, борьбу с пиратством и наличие контента, не предназначенного для просмотра несовершеннолетними. В случае обнаружения проблем мы можем отправить задачу в очередь недоставленных сообщений (DLQ), и кто-то из команды модераторов проведет дальнейшую проверку.
 
-- **Transcoder**
+- **Транскодер**
 
-[Transcoding](https://en.wikipedia.org/wiki/Transcoding) is a process in which the original data is decoded to an intermediate uncompressed format, which is then encoded into the target format. This process uses different [codecs](https://en.wikipedia.org/wiki/Video_codec) to perform bitrate adjustment, image downsampling, or re-encoding the media.
+Транскодирование — это процесс, при котором исходные данные декодируются в промежуточный несжатый формат, который затем кодируется в целевой формат. В этом процессе используются различные кодеки для корректировки битрейта, уменьшения разрешения изображения или перекодирования медиафайлов.
 
-This results in a smaller size file and a much more optimized format for the target devices. Standalone solutions such as [FFmpeg](https://ffmpeg.org) or cloud-based solutions like [AWS Elemental MediaConvert](https://aws.amazon.com/mediaconvert) can be used to implement this step of the pipeline.
+В результате получается файл меньшего размера и гораздо более оптимизированный формат для целевых устройств. Для реализации этого этапа конвейера можно использовать автономные решения, такие как [FFmpeg](https://ffmpeg.org), или облачные решения, такие как [AWS Elemental MediaConvert](https://aws.amazon.com/mediaconvert).
 
-- **Quality Conversion**
+- **Качественная конверсия**
 
-This is the last step of the processing pipeline and as the name suggests, this step handles the conversion of the transcoded media from the previous step into different resolutions such as 4K, 1440p, 1080p, 720p, etc.
+Это последний этап конвейера обработки, и, как следует из названия, на этом этапе происходит преобразование транскодированного медиаконтента с предыдущего этапа в различные разрешения, такие как 4K, 1440p, 1080p, 720p и т. д.
 
-It allows us to fetch the desired quality of the video as per the user's request, and once the media file finishes processing, it gets uploaded to a distributed file storage such as [HDFS](https://karanpratapsingh.com/courses/system-design/storage#hdfs), [GlusterFS](https://www.gluster.org), or an [object storage](https://karanpratapsingh.com/courses/system-design/storage#object-storage) such as [Amazon S3](https://aws.amazon.com/s3) for later retrieval during streaming.
+Это позволяет нам получать видео желаемого качества в соответствии с запросом пользователя, и после завершения обработки медиафайл загружается в распределенное файловое хранилище, такое как [HDFS](https://karanpratapsingh.com/courses/system-design/storage#hdfs), [GlusterFS](https://www.gluster.org) или [объектное хранилище](https://karanpratapsingh.com/courses/system-design/storage#object-storage), например, [Amazon S3](https://aws.amazon.com/s3), для последующего извлечения во время потоковой передачи.
 
-_Note: We can add additional steps such as subtitles and thumbnails generation as part of our pipeline._
+Примечание: В рамках нашего рабочего процесса мы можем добавить дополнительные этапы, такие как генерация субтитров и миниатюр.
 
-**Why are we using a message queue?**
+**Зачем мы используем очередь сообщений?**
 
-Processing videos as a long-running task and using a [message queue](https://karanpratapsingh.com/courses/system-design/message-queues) makes much more sense. It also decouples our video processing pipeline from the upload functionality. We can use something like [Amazon SQS](https://aws.amazon.com/sqs) or [RabbitMQ](https://www.rabbitmq.com) to support this.
+Обработка видео как длительная задача и использование [очереди сообщений](https://karanpratapsingh.com/courses/system-design/message-queues) гораздо целесообразнее. Это также отделяет наш конвейер обработки видео от функциональности загрузки. Для этого можно использовать такие сервисы, как [Amazon SQS](https://aws.amazon.com/sqs) или [RabbitMQ](https://www.rabbitmq.com).
 
-### Video streaming
+### Видеостриминг
 
-Video streaming is a challenging task from both the client and server perspectives. Moreover, internet connection speeds vary quite a lot between different users. To make sure users don't re-fetch the same content, we can use a [Content Delivery Network (CDN)](https://karanpratapsingh.com/courses/system-design/content-delivery-network).
+Потоковая передача видео — сложная задача как с точки зрения клиента, так и сервера. Кроме того, скорость интернет-соединения у разных пользователей сильно различается. Чтобы гарантировать, что пользователи не будут повторно загружать один и тот же контент, можно использовать [сеть доставки контента (CDN)](https://karanpratapsingh.com/courses/system-design/content-delivery-network).
 
-Netflix takes this a step further with its [Open Connect](https://openconnect.netflix.com) program. In this approach, they partner with thousands of Internet Service Providers (ISPs) to localize their traffic and deliver their content more efficiently.
+Netflix идёт ещё дальше со своей программой [Open Connect](https://openconnect.netflix.com). В рамках этого подхода компания сотрудничает с тысячами интернет-провайдеров (ISP), чтобы локализовать свой трафик и более эффективно доставлять контент.
 
-**What is the difference between Netflix's Open Connect and a traditional Content Delivery Network (CDN)?**
+**В чём разница между Open Connect от Netflix и традиционной сетью доставки контента (CDN)?**
 
-Netflix Open Connect is a purpose-built [Content Delivery Network (CDN)](https://karanpratapsingh.com/courses/system-design/content-delivery-network) responsible for serving Netflix's video traffic. Around 95% of the traffic globally is delivered via direct connections between Open Connect and the ISPs their customers use to access the internet.
+Netflix Open Connect — это специально разработанная сеть доставки контента (CDN), отвечающая за обработку видеотрафика Netflix. Около 95% мирового трафика доставляется через прямые соединения между Open Connect и интернет-провайдерами, которые их клиенты используют для доступа в интернет.
 
-Currently, they have Open Connect Appliances (OCAs) in over 1000 separate locations around the world. In case of issues, Open Connect Appliances (OCAs) can failover, and the traffic can be re-routed to Netflix servers.
+В настоящее время устройства Open Connect Appliances (OCA) установлены более чем в 1000 точках по всему миру. В случае возникновения проблем устройства Open Connect Appliances (OCA) могут переключиться на резервный сервер, и трафик будет перенаправлен на серверы Netflix.
 
-Additionally, we can use [Adaptive bitrate streaming](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) protocols such as [HTTP Live Streaming (HLS)](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) which is designed for reliability and it dynamically adapts to network conditions by optimizing playback for the available speed of the connections.
+Кроме того, мы можем использовать протоколы [адаптивной потоковой передачи данных](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming), такие как [HTTP Live Streaming (HLS)](https://en.wikipedia.org/wiki/HTTP_Live_Streaming), которые разработаны для обеспечения надежности и динамически адаптируются к условиям сети, оптимизируя воспроизведение в соответствии с доступной скоростью соединения.
 
-Lastly, for playing the video from where the user left off (part of our extended requirements), we can simply use the `offset` property we stored in the `views` table to retrieve the scene chunk at that particular timestamp and resume the playback for the user.
+Наконец, для воспроизведения видео с того места, где пользователь остановился (что является частью наших расширенных требований), мы можем просто использовать свойство `offset`, которое мы сохранили в таблице `views`, чтобы получить фрагмент сцены в этот конкретный момент времени и возобновить воспроизведение для пользователя.
 
-### Searching
+### Идет поиск
 
-Sometimes traditional DBMS are not performant enough, we need something which allows us to store, search, and analyze huge volumes of data quickly and in near real-time and give results within milliseconds. [Elasticsearch](https://www.elastic.co) can help us with this use case.
+Иногда традиционные СУБД недостаточно производительны, нам нужно что-то, что позволит быстро и практически в режиме реального времени хранить, искать и анализировать огромные объемы данных, получая результаты в течение миллисекунд. [Elasticsearch](https://www.elastic.co) может помочь нам в этом случае.
 
-[Elasticsearch](https://www.elastic.co) is a distributed, free and open search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. It is built on top of [Apache Lucene](https://lucene.apache.org).
+Elasticsearch (https://www.elastic.co) — это распределенная, бесплатная и открытая поисковая и аналитическая система для всех типов данных, включая текстовые, числовые, геопространственные, структурированные и неструктурированные. Она построена на основе Apache Lucene (https://lucene.apache.org).
 
-**How do we identify trending content?**
+**Как определить трендовый контент?**
 
-Trending functionality will be based on top of the search functionality. We can cache the most frequently searched queries in the last `N` seconds and update them every `M` seconds using some sort of batch job mechanism.
+Функция отслеживания трендов будет основана на функции поиска. Мы можем кэшировать наиболее часто используемые запросы за последние `N` секунд и обновлять их каждые `M` секунд, используя какой-либо механизм пакетной обработки.
 
-### Sharing
+### Обмен
 
-Sharing content is an important part of any platform, for this, we can have some sort of URL shortener service in place that can generate short URLs for the users to share.
+Обмен контентом — важная часть любой платформы, поэтому для этого можно использовать сервисы сокращения URL-адресов, которые будут генерировать короткие ссылки для пользователей.
 
-_For more details, refer to the [URL Shortener](https://karanpratapsingh.com/courses/system-design/url-shortener) system design._
+Для получения более подробной информации обратитесь к проекту системы [сокращения URL-адресов](https://karanpratapsingh.com/courses/system-design/url-shortener)._
 
-## Detailed design
+## Детальный дизайн
 
-It's time to discuss our design decisions in detail.
+Пришло время подробно обсудить наши проектные решения.
 
-### Data Partitioning
+### Разделение данных
 
-To scale out our databases we will need to partition our data. Horizontal partitioning (aka [Sharding](https://karanpratapsingh.com/courses/system-design/sharding)) can be a good first step. We can use partitions schemes such as:
+Для масштабирования наших баз данных нам потребуется разделить данные на разделы. Хорошим первым шагом может стать горизонтальное разделение (также известное как шардинг)(https://karanpratapsingh.com/courses/system-design/sharding). Мы можем использовать такие схемы разделения, как:
 
-- Hash-Based Partitioning
-- List-Based Partitioning
-- Range Based Partitioning
-- Composite Partitioning
+- Разделение данных на основе хеширования
+- Разделение на основе списков
+- Разделение на основе диапазонов
+- Составное разбиение
 
-The above approaches can still cause uneven data and load distribution, we can solve this using [Consistent hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
+Вышеуказанные подходы все еще могут вызывать неравномерное распределение данных и нагрузки, эту проблему можно решить с помощью [согласованного хеширования](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
 
-_For more details, refer to [Sharding](https://karanpratapsingh.com/courses/system-design/sharding) and [Consistent Hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
+Для получения более подробной информации обратитесь к разделам [Шардинг](https://karanpratapsingh.com/courses/system-design/sharding) и [Последовательное хеширование](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
 
-### Geo-blocking
+### Геоблокировка
 
-Platforms like Netflix and YouTube use [Geo-blocking](https://en.wikipedia.org/wiki/Geo-blocking) to restrict content in certain geographical areas or countries. This is primarily done due to legal distribution laws that Netflix has to adhere to when they make a deal with the production and distribution companies. In the case of YouTube, this will be controlled by the user during the publishing of the content.
+Такие платформы, как Netflix и YouTube, используют геоблокировку для ограничения доступа к контенту в определенных географических регионах или странах. Это делается в основном из-за законов о распространении контента, которым Netflix обязан следовать при заключении сделок с компаниями-производителями и дистрибьюторами. В случае с YouTube это контролируется пользователем во время публикации контента.
 
-We can determine the user's location either using their [IP](https://karanpratapsingh.com/courses/system-design/ip) or region settings in their profile then use services like [Amazon CloudFront](https://aws.amazon.com/cloudfront) which supports a geographic restrictions feature or a [geolocation routing policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-geo.html) with [Amazon Route53](https://aws.amazon.com/route53) to restrict the content and re-route the user to an error page if the content is not available in that particular region or country.
+Мы можем определить местоположение пользователя, используя его IP-адрес или региональные настройки в его профиле, а затем использовать такие сервисы, как Amazon CloudFront, который поддерживает функцию географических ограничений, или политику маршрутизации на основе геолокации с помощью Amazon Route53, чтобы ограничить доступ к контенту и перенаправить пользователя на страницу ошибки, если контент недоступен в данном регионе или стране.
 
-### Recommendations
+### Рекомендации
 
-Netflix uses a machine learning model which uses the user's viewing history to predict what the user might like to watch next, an algorithm like [Collaborative Filtering](https://en.wikipedia.org/wiki/Collaborative_filtering) can be used.
+Netflix использует модель машинного обучения, которая, опираясь на историю просмотров пользователя, предсказывает, что ему может понравиться посмотреть дальше; для этого можно использовать алгоритм, подобный [коллаборативной фильтрации](https://en.wikipedia.org/wiki/Collaborative_filtering).
 
-However, Netflix (like YouTube) uses its own algorithm called Netflix Recommendation Engine which can track several data points such as:
+Однако Netflix (как и YouTube) использует собственный алгоритм, называемый «Система рекомендаций Netflix», который может отслеживать несколько параметров, таких как:
 
-- User profile information like age, gender, and location.
-- Browsing and scrolling behavior of the user.
-- Time and date a user watched a title.
-- The device which was used to stream the content.
-- The number of searches and what terms were searched.
+- Информация из профиля пользователя, такая как возраст, пол и местоположение.
+- Поведение пользователя при просмотре и прокрутке страниц.
+- Время и дата просмотра пользователем фильма.
+- Устройство, которое использовалось для потоковой передачи контента.
+- Количество поисковых запросов и используемые термины.
 
-_For more detail, refer to [Netflix recommendation research](https://research.netflix.com/research-area/recommendations)._
+Для получения более подробной информации обратитесь к [исследованию рекомендаций Netflix](https://research.netflix.com/research-area/recommendations)._
 
-### Metrics and Analytics
+### Метрики и аналитика
 
-Recording analytics and metrics is one of our extended requirements. We can capture the data from different services and run analytics on the data using [Apache Spark](https://spark.apache.org) which is an open-source unified analytics engine for large-scale data processing. Additionally, we can store critical metadata in the views table to increase data points within our data.
+Запись аналитических данных и метрик — одно из наших дополнительных требований. Мы можем собирать данные из различных сервисов и проводить аналитику с помощью Apache Spark (https://spark.apache.org), открытого унифицированного аналитического движка для обработки больших объемов данных. Кроме того, мы можем хранить важные метаданные в таблице представлений, чтобы увеличить количество точек данных в нашей базе данных.
 
-### Caching
+### Кэширование
 
-In a streaming platform, caching is important. We have to be able to cache as much static media content as possible to improve user experience. We can use solutions like [Redis](https://redis.io) or [Memcached](https://memcached.org) but what kind of cache eviction policy would best fit our needs?
+На стриминговой платформе кэширование имеет важное значение. Нам необходимо кэшировать как можно больше статического медиаконтента, чтобы улучшить пользовательский опыт. Мы можем использовать такие решения, как [Redis](https://redis.io) или [Memcached](https://memcached.org), но какая политика вытеснения кэша лучше всего подойдет для наших нужд?
 
-**Which cache eviction policy to use?**
+**Какую политику удаления кэша использовать?**
 
-[Least Recently Used (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) can be a good policy for our system. In this policy, we discard the least recently used key first.
+Политика [наименее недавно использованного ключа (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) может быть хорошей политикой для нашей системы. В этой политике мы сначала отбрасываем наименее недавно использованный ключ.
 
-**How to handle cache miss?**
+**Как справиться с промахом кэша?**
 
-Whenever there is a cache miss, our servers can hit the database directly and update the cache with the new entries.
+В случае промаха кэша наши серверы могут напрямую обращаться к базе данных и обновлять кэш новыми записями.
 
-_For more details, refer to [Caching](https://karanpratapsingh.com/courses/system-design/caching)._
+Для получения более подробной информации обратитесь к разделу [Кэширование](https://karanpratapsingh.com/courses/system-design/caching)._
 
-### Media streaming and storage
+### Потоковая передача и хранение мультимедиа
 
-As most of our storage space will be used for storing media files such as thumbnails and videos. Per our discussion earlier, the media service will be handling both the upload and processing of media files.
+Поскольку большая часть нашего дискового пространства будет использоваться для хранения медиафайлов, таких как миниатюры и видео, как мы уже обсуждали ранее, медиасервис будет заниматься как загрузкой, так и обработкой медиафайлов.
 
-We will use distributed file storage such as [HDFS](https://karanpratapsingh.com/courses/system-design/storage#hdfs), [GlusterFS](https://www.gluster.org), or an [object storage](https://karanpratapsingh.com/courses/system-design/storage#object-storage) such as [Amazon S3](https://aws.amazon.com/s3) for storage and streaming of the content.
+Для хранения и потоковой передачи контента мы будем использовать распределенные файловые хранилища, такие как [HDFS](https://karanpratapsingh.com/courses/system-design/storage#hdfs), [GlusterFS](https://www.gluster.org) или [объектное хранилище](https://karanpratapsingh.com/courses/system-design/storage#object-storage), например [Amazon S3](https://aws.amazon.com/s3).
 
-### Content Delivery Network (CDN)
+### Сеть доставки контента (CDN)
 
-[Content Delivery Network (CDN)](https://karanpratapsingh.com/courses/system-design/content-delivery-network) increases content availability and redundancy while reducing bandwidth costs. Generally, static files such as images, and videos are served from CDN. We can use services like [Amazon CloudFront](https://aws.amazon.com/cloudfront) or [Cloudflare CDN](https://www.cloudflare.com/cdn) for this use case.
+Сеть доставки контента (CDN) повышает доступность и избыточность контента, одновременно снижая затраты на пропускную способность. Как правило, статические файлы, такие как изображения и видео, обслуживаются через CDN. Для этого можно использовать такие сервисы, как Amazon CloudFront или Cloudflare CDN.
 
-## Identify and resolve bottlenecks
+## Выявление и устранение узких мест
 
 ![netflix-advanced-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/netflix/netflix-advanced-design.png)
 
-Let us identify and resolve bottlenecks such as single points of failure in our design:
+Давайте выявим и устраним узкие места, такие как единые точки отказа в нашей конструкции:
 
-- "What if one of our services crashes?"
-- "How will we distribute our traffic between our components?"
-- "How can we reduce the load on our database?"
-- "How to improve the availability of our cache?"
+— А что, если один из наших сервисов выйдет из строя?
+— «Как мы будем распределять трафик между нашими компонентами?»
+— «Как мы можем снизить нагрузку на нашу базу данных?»
+— «Как повысить доступность нашего кэша?»
 
-To make our system more resilient we can do the following:
+Для повышения отказоустойчивости нашей системы мы можем сделать следующее:
 
-- Running multiple instances of each of our services.
-- Introducing [load balancers](https://karanpratapsingh.com/courses/system-design/load-balancing) between clients, servers, databases, and cache servers.
-- Using multiple read replicas for our databases.
-- Multiple instances and replicas for our distributed cache.
+- Запуск нескольких экземпляров каждой из наших служб.
+- Представляем [балансировщики нагрузки](https://karanpratapsingh.com/courses/system-design/load-balancing) между клиентами, серверами, базами данных и кэш-серверами.
+- Использование нескольких реплик для чтения в наших базах данных.
+- Множество экземпляров и реплик для нашего распределенного кэша.
 
 # Uber
 
-Let's design an [Uber](https://uber.com) like ride-hailing service, similar to services like [Lyft](https://www.lyft.com), [OLA Cabs](https://www.olacabs.com), etc.
+Давайте разработаем сервис заказа такси, похожий на [Uber](https://uber.com), аналогичный таким сервисам, как [Lyft](https://www.lyft.com), [OLA Cabs](https://www.olacabs.com) и т. д.
 
-## What is Uber?
+## Что такое Uber?
 
-Uber is a mobility service provider, allowing users to book rides and a driver to transport them in a way similar to a taxi. It is available on the web and mobile platforms such as Android and iOS.
+Uber — это сервис мобильных услуг, позволяющий пользователям заказывать поездки, а водителю — перевозить их аналогично такси. Он доступен в веб-версии и на мобильных платформах, таких как Android и iOS.
 
-## Requirements
+## Требования
 
-Our system should meet the following requirements:
+Наша система должна соответствовать следующим требованиям:
 
-### Functional requirements
+### Функциональные требования
 
-We will design our system for two types of users: Customers and Drivers.
+Мы разработаем нашу систему для двух типов пользователей: клиентов и водителей.
 
-**Customers**
+**Клиенты**
 
-- Customers should be able to see all the cabs in the vicinity with an ETA and pricing information.
-- Customers should be able to book a cab to a destination.
-- Customers should be able to see the location of the driver.
+- Клиенты должны видеть все такси в окрестностях, а также информацию о времени прибытия и ценах.
+- Клиенты должны иметь возможность заказать такси до места назначения.
+- Клиенты должны иметь возможность видеть местоположение водителя.
 
-**Drivers**
+**Водители**
 
-- Drivers should be able to accept or deny the customer-requested ride.
-- Once a driver accepts the ride, they should see the pickup location of the customer.
-- Drivers should be able to mark the trip as complete on reaching the destination.
+- Водители должны иметь возможность принять или отклонить запрос клиента на поездку.
+— После того, как водитель примет заказ, он должен увидеть место посадки клиента.
+- Водители должны иметь возможность отметить поездку как завершенную по прибытии в пункт назначения.
 
-### Non-Functional requirements
+### Нефункциональные требования
 
-- High reliability.
-- High availability with minimal latency.
-- The system should be scalable and efficient.
+- Высокая надежность.
+- Высокая доступность с минимальной задержкой.
+- Система должна быть масштабируемой и эффективной.
 
-### Extended requirements
+### Расширенные требования
 
-- Customers can rate the trip after it's completed.
-- Payment processing.
-- Metrics and analytics.
+- Клиенты могут оценить поездку после ее завершения.
+- Обработка платежей.
+- Метрики и аналитика.
 
-## Estimation and Constraints
+## Оценка и ограничения
 
-Let's start with the estimation and constraints.
+Начнём с оценки и ограничений.
 
-_Note: Make sure to check any scale or traffic-related assumptions with your interviewer._
+Примечание: Обязательно уточните у интервьюера любые предположения, касающиеся масштаба или интенсивности движения.
 
-### Traffic
+### Трафик
 
-Let us assume we have 100 million daily active users (DAU) with 1 million drivers and on average our platform enables 10 million rides daily.
+Предположим, у нас 100 миллионов активных пользователей в день (DAU), 1 миллион водителей, и в среднем наша платформа обеспечивает 10 миллионов поездок в день.
 
-If on average each user performs 10 actions (such as request a check available rides, fares, book rides, etc.) we will have to handle 1 billion requests daily.
-
-$$
-100 \space million \times 10 \space actions = 1 \space billion/day
-$$
-
-**What would be Requests Per Second (RPS) for our system?**
-
-1 billion requests per day translate into 12K requests per second.
+Если в среднем каждый пользователь выполняет 10 действий (например, запрашивает проверку наличия свободных мест, тарифов, бронирует поездки и т. д.), нам придется обрабатывать 1 миллиард запросов в день.
 
 $$
-\frac{1 \space billion}{(24 \space hrs \times 3600 \space seconds)} = \sim 12K \space requests/second
+100 миллионов × 10 действий = 1 миллиард в день
 $$
 
-### Storage
+**Каково будет количество запросов в секунду (RPS) для нашей системы?**
 
-If we assume each message on average is 400 bytes, we will require about 400 GB of database storage every day.
-
-$$
-1 \space billion \times 400 \space bytes = \sim 400 \space GB/day
-$$
-
-And for 10 years, we will require about 1.4 PB of storage.
+1 миллиард запросов в день соответствует 12 тысячам запросов в секунду.
 
 $$
-400 \space GB \times 10 \space years \times 365 \space days = \sim 1.4 \space PB
+1 миллиард (24 часа × 3600 секунд) = ~12 тыс. запросов в секунду
 $$
 
-### Bandwidth
+### Хранилище
 
-As our system is handling 400 GB of ingress every day, we will require a minimum bandwidth of around 5 MB per second.
+Если предположить, что каждое сообщение в среднем имеет размер 400 байт, то нам потребуется около 400 ГБ хранилища для базы данных каждый день.
 
 $$
-\frac{400 \space GB}{(24 \space hrs \times 3600 \space seconds)} = \sim 5 \space MB/second
+1 миллиард × 400 байт = ~400 ГБ/день
 $$
 
-### High-level estimate
+А за 10 лет нам потребуется около 1,4 ПБ хранилища.
 
-Here is our high-level estimate:
+$$
+400 ГБ × 10 лет × 365 дней = ~1,4 ПБ
+$$
 
-| Type                      | Estimate    |
+### Пропускная способность
+
+Поскольку наша система обрабатывает 400 ГБ входящего трафика ежедневно, нам потребуется минимальная пропускная способность около 5 МБ в секунду.
+
+$$
+\frac{400 \space ГБ}{(24 \space часа \times 3600 \space секунд)} = \sim 5 \space МБ/секунда
+$$
+
+### Оценка высокого уровня
+
+Вот наша приблизительная оценка:
+
+| Тип | Оценка |
 | ------------------------- | ----------- |
-| Daily active users (DAU)  | 100 million |
-| Requests per second (RPS) | 12K/s       |
-| Storage (per day)         | ~400 GB     |
-| Storage (10 years)        | ~1.4 PB     |
-| Bandwidth                 | ~5 MB/s     |
+| Ежедневно активных пользователей (DAU) | 100 миллионов |
+| Запросов в секунду (RPS) | 12K/с |
+| Объем хранилища (в день) | ~400 ГБ |
+| Срок хранения (10 лет) | ~1,4 ПБ |
+| Пропускная способность | ~5 МБ/с |
 
-## Data model design
+## Разработка модели данных
 
-This is the general data model which reflects our requirements.
+Это общая модель данных, отражающая наши требования.
 
 ![uber-datamodel](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/uber/uber-datamodel.png)
 
-We have the following tables:
+У нас имеются следующие таблицы:
 
-**customers**
+**клиенты**
 
-This table will contain a customer's information such as `name`, `email`, and other details.
+В этой таблице будет содержаться информация о клиенте, такая как имя, адрес электронной почты и другие данные.
 
-**drivers**
+**водители**
 
-This table will contain a driver's information such as `name`, `email`, `dob` and other details.
+В этой таблице будет содержаться информация о водителе, такая как имя, адрес электронной почты, дата рождения и другие данные.
 
-**trips**
+**поездки**
 
-This table represents the trip taken by the customer and stores data such as `source`, `destination`, and `status` of the trip.
+Эта таблица отображает поездку, совершенную клиентом, и хранит такие данные, как «источник», «пункт назначения» и «статус» поездки.
 
-**cabs**
+**такси**
 
-This table stores data such as the registration number, and type (like Uber Go, Uber XL, etc.) of the cab that the driver will be driving.
+В этой таблице хранятся такие данные, как регистрационный номер и тип (например, Uber Go, Uber XL и т. д.) такси, которым будет управлять водитель.
 
-**ratings**
+**рейтинги**
 
-As the name suggests, this table stores the `rating` and `feedback` for the trip.
+Как следует из названия, в этой таблице хранятся «рейтинг» и «отзывы» о поездке.
 
-**payments**
+**платежи**
 
-The payments table contains the payment-related data with the corresponding `tripID`.
+В таблице платежей содержатся данные, связанные с платежами, с соответствующим идентификатором поездки (tripID).
 
-### What kind of database should we use?
+### Какую базу данных нам следует использовать?
 
-While our data model seems quite relational, we don't necessarily need to store everything in a single database, as this can limit our scalability and quickly become a bottleneck.
+Хотя наша модель данных кажется достаточно реляционной, нам не обязательно хранить все в одной базе данных, поскольку это может ограничить масштабируемость и быстро стать узким местом.
 
-We will split the data between different services each having ownership over a particular table. Then we can use a relational database such as [PostgreSQL](https://www.postgresql.org) or a distributed NoSQL database such as [Apache Cassandra](https://cassandra.apache.org/_/index.html) for our use case.
+Мы разделим данные между различными сервисами, каждый из которых будет отвечать за определенную таблицу. Затем мы можем использовать реляционную базу данных, такую ​​как [PostgreSQL](https://www.postgresql.org), или распределенную NoSQL-базу данных, такую ​​как [Apache Cassandra](https://cassandra.apache.org/_/index.html), для нашего случая.
 
-## API design
+## Разработка API
 
-Let us do a basic API design for our services:
+Давайте разработаем базовый API-дизайн для наших сервисов:
 
-### Request a Ride
+### Заказать поездку
 
-Through this API, customers will be able to request a ride.
+С помощью этого API клиенты смогут заказать поездку.
 
 ```tsx
 requestRide(customerID: UUID, source: Tuple<float>, destination: Tuple<float>, cabType: Enum<string>, paymentMethod: Enum<string>): Ride
 ```
 
-**Parameters**
+**Параметры**
 
-Customer ID (`UUID`): ID of the customer.
+Идентификатор клиента (`UUID`): ID клиента.
 
-Source (`Tuple<float>`): Tuple containing the latitude and longitude of the trip's starting location.
+Источник (`Кортеж<float>`): Кортеж, содержащий широту и долготу начальной точки поездки.
 
-Destination (`Tuple<float>`): Tuple containing the latitude and longitude of the trip's destination.
+Пункт назначения (`Кортеж<float>`): Кортеж, содержащий широту и долготу пункта назначения поездки.
 
-**Returns**
+**Возврат товара**
 
-Result (`Ride`): Associated ride information of the trip.
+Результат (`Поездка`): Соответствующая информация о поездке.
 
-### Cancel the Ride
+### Отменить поездку
 
-This API will allow customers to cancel the ride.
+Этот API позволит клиентам отменить поездку.
 
 ```tsx
 cancelRide(customerID: UUID, reason?: string): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-Customer ID (`UUID`): ID of the customer.
+Идентификатор клиента (`UUID`): ID клиента.
 
-Reason (`UUID`): Reason for canceling the ride _(optional)_.
+Причина (`UUID`): Причина отмены поездки (необязательно).
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Accept or Deny the Ride
+### Принять или отклонить предложение
 
-This API will allow the driver to accept or deny the trip.
+Этот API позволит водителю принять или отклонить поездку.
 
 ```tsx
 acceptRide(driverID: UUID, rideID: UUID): boolean
 denyRide(driverID: UUID, rideID: UUID): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-Driver ID (`UUID`): ID of the driver.
+Идентификатор водителя (`UUID`): ID водителя.
 
-Ride ID (`UUID`): ID of the customer requested ride.
+Идентификатор поездки (`UUID`): идентификатор поездки, запрошенной клиентом.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Start or End the Trip
+### Начало или конец поездки
 
-Using this API, a driver will be able to start and end the trip.
+Используя этот API, водитель сможет начать и завершить поездку.
 
 ```tsx
-startTrip(driverID: UUID, tripID: UUID): boolean
+startTrip(driverID: UUID, tripID: UUID): логическое значение
 endTrip(driverID: UUID, tripID: UUID): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-Driver ID (`UUID`): ID of the driver.
+Идентификатор водителя (`UUID`): ID водителя.
 
-Trip ID (`UUID`): ID of the requested trip.
+Идентификатор поездки (`UUID`): ID запрошенной поездки.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-### Rate the Trip
+### Оцените поездку
 
-This API will enable customers to rate the trip.
+Этот API позволит клиентам оценивать поездки.
 
 ```tsx
 rateTrip(customerID: UUID, tripID: UUID, rating: int, feedback?: string): boolean
 ```
 
-**Parameters**
+**Параметры**
 
-Customer ID (`UUID`): ID of the customer.
+Идентификатор клиента (`UUID`): ID клиента.
 
-Trip ID (`UUID`): ID of the completed trip.
+Идентификатор поездки (`UUID`): идентификатор завершенной поездки.
 
-Rating (`int`): Rating of the trip.
+Рейтинг (`int`): Оценка поездки.
 
-Feedback (`string`): Feedback about the trip by the customer _(optional)_.
+Обратная связь (`строка`): Отзыв клиента о поездке _(необязательно)_.
 
-**Returns**
+**Возврат товара**
 
-Result (`boolean`): Represents whether the operation was successful or not.
+Результат (логическое значение): указывает, была ли операция успешной или нет.
 
-## High-level design
+## Проектирование высокого уровня
 
-Now let us do a high-level design of our system.
+Теперь давайте разработаем высокоуровневый проект нашей системы.
 
-### Architecture
+### Архитектура
 
-We will be using [microservices architecture](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices) since it will make it easier to horizontally scale and decouple our services. Each service will have ownership of its own data model. Let's try to divide our system into some core services.
+Мы будем использовать [микросервисную архитектуру](https://karanpratapsingh.com/courses/system-design/monoliths-microservices#microservices), поскольку она упростит горизонтальное масштабирование и децентрализацию наших сервисов. Каждый сервис будет владеть собственной моделью данных. Давайте попробуем разделить нашу систему на несколько основных сервисов.
 
-**Customer Service**
+**Обслуживание клиентов**
 
-This service handles customer-related concerns such as authentication and customer information.
+Данная служба обрабатывает вопросы, связанные с клиентами, такие как аутентификация и информация о клиентах.
 
-**Driver Service**
+**Водительское обслуживание**
 
-This service handles driver-related concerns such as authentication and driver information.
+Эта служба обрабатывает вопросы, связанные с водителями, такие как аутентификация и информация о водителях.
 
-**Ride Service**
+**Услуги трансфера**
 
-This service will be responsible for ride matching and quadtree aggregation. It will be discussed in detail separately.
+Данная служба будет отвечать за подбор поездок и агрегацию данных в Quadtree. Подробности будут обсуждаться отдельно.
 
-**Trip Service**
+**Услуги по организации поездок**
 
-This service handles trip-related functionality in our system.
+Данная служба обрабатывает функциональные возможности нашей системы, связанные с поездками.
 
-**Payment Service**
+**Платежный сервис**
 
-This service will be responsible for handling payments in our system.
+Данная служба будет отвечать за обработку платежей в нашей системе.
 
-**Notification Service**
+**Служба уведомлений**
 
-This service will simply send push notifications to the users. It will be discussed in detail separately.
+Данная услуга будет просто отправлять push-уведомления пользователям. Подробности будут рассмотрены отдельно.
 
-**Analytics Service**
+**Аналитическая служба**
 
-This service will be used for metrics and analytics use cases.
+Данный сервис будет использоваться для сбора метрик и аналитических данных.
 
-**What about inter-service communication and service discovery?**
+**А как насчет межведомственной коммуникации и поиска новых услуг?**
 
-Since our architecture is microservices-based, services will be communicating with each other as well. Generally, REST or HTTP performs well but we can further improve the performance using [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc) which is more lightweight and efficient.
+Поскольку наша архитектура основана на микросервисах, сервисы также будут взаимодействовать друг с другом. Как правило, REST или HTTP обеспечивают хорошую производительность, но мы можем еще больше повысить производительность, используя [gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc#grpc), который является более легковесным и эффективным.
 
-[Service discovery](https://karanpratapsingh.com/courses/system-design/service-discovery) is another thing we will have to take into account. We can also use a service mesh that enables managed, observable, and secure communication between individual services.
+Обнаружение сервисов — это еще один аспект, который нам необходимо учесть. Мы также можем использовать сервисную сетку, которая обеспечивает управляемую, наблюдаемую и безопасную связь между отдельными сервисами.
 
-_Note: Learn more about [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) and how they compare with each other._
+Примечание: Узнайте больше о [REST, GraphQL, gRPC](https://karanpratapsingh.com/courses/system-design/rest-graphql-grpc) и о том, чем они отличаются друг от друга.
 
-### How is the service expected to work?
+### Как предполагается, будет работать данный сервис?
 
-Here's how our service is expected to work:
+Вот как, по всей видимости, будет работать наш сервис:
 
 ![uber-working](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/uber/uber-working.png)
 
-1. Customer requests a ride by specifying the source, destination, cab type, payment method, etc.
-2. Ride service registers this request, finds nearby drivers, and calculates the estimated time of arrival (ETA).
-3. The request is then broadcasted to the nearby drivers for them to accept or deny.
-4. If the driver accepts, the customer is notified about the live location of the driver with the estimated time of arrival (ETA) while they wait for pickup.
-5. The customer is picked up and the driver can start the trip.
-6. Once the destination is reached, the driver will mark the ride as complete and collect payment.
-7. After the payment is complete, the customer can leave a rating and feedback for the trip if they like.
+1. Клиент заказывает поездку, указывая пункт отправления, пункт назначения, тип такси, способ оплаты и т.д.
+2. Сервис заказа поездок регистрирует этот запрос, находит водителей поблизости и рассчитывает предполагаемое время прибытия (ETA).
+3. Затем запрос передается находящимся поблизости водителям, которые могут принять или отклонить его.
+4. Если водитель принимает заказ, клиент получает уведомление о местоположении водителя в режиме реального времени, а также о предполагаемом времени прибытия (ETA), пока ожидает посадки.
+5. Клиента забирают, и водитель может начать поездку.
+6. По прибытии в пункт назначения водитель отметит поездку как завершенную и получит оплату.
+7. После завершения оплаты клиент может, при желании, оставить оценку и отзыв о поездке.
 
-### Location Tracking
+### Отслеживание местоположения
 
-How do we efficiently send and receive live location data from the client (customers and drivers) to our backend? We have two different options:
+Как эффективно передавать и получать данные о местоположении в режиме реального времени от клиента (клиентов и водителей) на наш бэкэнд? У нас есть два варианта:
 
-**Pull model**
+**Модель с тяговым механизмом**
 
-The client can periodically send an HTTP request to servers to report its current location and receive ETA and pricing information. This can be achieved via something like [Long polling](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#long-polling).
+Клиент может периодически отправлять HTTP-запросы на серверы, чтобы сообщить о своем текущем местоположении и получить информацию о предполагаемом времени прибытия и стоимости доставки. Этого можно достичь с помощью таких методов, как [долгосрочное опрос](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#long-polling).
 
-**Push model**
+**Модель с кнопкой**
 
-The client opens a long-lived connection with the server and once new data is available it will be pushed to the client. We can use [WebSockets](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#websockets) or [Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#server-sent-events-sse) for this.
+Клиент устанавливает долговременное соединение с сервером, и как только появляются новые данные, они передаются клиенту. Для этого можно использовать [WebSockets](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#websockets) или [Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#server-sent-events-sse).
 
-The pull model approach is not scalable as it will create unnecessary request overhead on our servers and most of the time the response will be empty, thus wasting our resources. To minimize latency, using the push model with [WebSockets](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#websockets) is a better choice because then we can push data to the client once it's available without any delay, given that the connection is open with the client. Also, WebSockets provide full-duplex communication, unlike [Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events#server-sent-events-sse) which are only unidirectional.
+Подход с использованием модели «запрос-запрос» не масштабируем, поскольку он создаст ненужную нагрузку на серверы, и в большинстве случаев ответ будет пустым, что приведет к растрате ресурсов. Для минимизации задержки лучше использовать модель «отправка-запрос» с [WebSockets], поскольку в этом случае мы можем отправлять данные клиенту сразу после их получения без задержки, при условии, что соединение с клиентом открыто. Кроме того, WebSockets обеспечивают полнодуплексную связь, в отличие от [Server-Sent Events (SSE)], которые являются только однонаправленными.
 
-Additionally, the client application should have some sort of background job mechanism to ping GPS location while the application is in the background.
+Кроме того, клиентское приложение должно иметь какой-либо механизм фоновой обработки запросов для определения местоположения по GPS, пока приложение работает в фоновом режиме.
 
-_Note: Learn more about [Long polling, WebSockets, Server-Sent Events (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events)._
+Примечание: Подробнее о [долгосрочном опросе, WebSockets, событиях, отправляемых сервером (SSE)](https://karanpratapsingh.com/courses/system-design/long-polling-websockets-server-sent-events).
 
-### Ride Matching
+### Подбор поездки
 
-We need a way to efficiently store and query nearby drivers. Let's explore different solutions we can incorporate into our design.
+Нам нужен эффективный способ хранения и запроса информации о водителях, находящихся поблизости. Давайте рассмотрим различные решения, которые мы можем включить в нашу разработку.
 
 **SQL**
 
-We already have access to the latitude and longitude of our customers, and with databases like [PostgreSQL](https://www.postgresql.org) and [MySQL](https://www.mysql.com) we can perform a query to find nearby driver locations given a latitude and longitude (X, Y) within a radius (R).
+У нас уже есть доступ к широте и долготе наших клиентов, и с помощью таких баз данных, как [PostgreSQL](https://www.postgresql.org) и [MySQL](https://www.mysql.com), мы можем выполнить запрос для поиска ближайших местоположений водителей, задав широту и долготу (X, Y) в пределах радиуса (R).
 
 ```sql
-SELECT * FROM locations WHERE lat BETWEEN X-R AND X+R AND long BETWEEN Y-R AND Y+R
+SELECT * FROM locations WHERE lat BETWEEN XR AND X+R AND long BETWEEN YR AND Y+R
 ```
 
-However, this is not scalable, and performing this query on large datasets will be quite slow.
+Однако это не масштабируемо, и выполнение этого запроса на больших наборах данных будет довольно медленным.
 
-**Geohashing**
+**Геохеширование**
 
-[Geohashing](https://karanpratapsingh.com/courses/system-design/geohashing-and-quadtrees#geohashing) is a [geocoding](https://en.wikipedia.org/wiki/Address_geocoding) method used to encode geographic coordinates such as latitude and longitude into short alphanumeric strings. It was created by [Gustavo Niemeyer](https://twitter.com/gniemeyer) in 2008.
+Геохеширование (Geohashing) — это метод геокодирования, используемый для кодирования географических координат, таких как широта и долгота, в короткие буквенно-цифровые строки. Он был создан Густаво Нимейером в 2008 году.
 
-Geohash is a hierarchical spatial index that uses Base-32 alphabet encoding, the first character in a geohash identifies the initial location as one of the 32 cells. This cell will also contain 32 cells. This means that to represent a point, the world is recursively divided into smaller and smaller cells with each additional bit until the desired precision is attained. The precision factor also determines the size of the cell.
+Геохеш — это иерархический пространственный индекс, использующий 32-битную кодировку алфавита. Первый символ геохеша определяет начальное местоположение как одну из 32 ячеек. Эта ячейка также будет содержать 32 ячейки. Это означает, что для представления точки мир рекурсивно делится на все меньшие и меньшие ячейки с каждым дополнительным битом, пока не будет достигнута желаемая точность. Коэффициент точности также определяет размер ячейки.
 
 ![geohashing](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/geohashing-and-quadtrees/geohashing.png)
 
-For example, San Francisco with coordinates `37.7564, -122.4016` can be represented in geohash as `9q8yy9mf`.
+Например, Сан-Франциско с координатами `37.7564, -122.4016` можно представить в формате geohash как `9q8yy9mf`.
 
-Now, using the customer's geohash we can determine the nearest available driver by simply comparing it with the driver's geohash. For better performance, we will index and store the geohash of the driver in memory for faster retrieval.
+Теперь, используя геохеш клиента, мы можем определить ближайшего доступного водителя, просто сравнив его с геохешем водителя. Для повышения производительности мы будем индексировать и сохранять геохеш водителя в памяти для более быстрого доступа.
 
-**Quadtrees**
+**Квадтри**
 
-A [Quadtree](https://karanpratapsingh.com/courses/system-design/geohashing-and-quadtrees#quadtrees) is a tree data structure in which each internal node has exactly four children. They are often used to partition a two-dimensional space by recursively subdividing it into four quadrants or regions. Each child or leaf node stores spatial information. Quadtrees are the two-dimensional analog of [Octrees](https://en.wikipedia.org/wiki/Octree) which are used to partition three-dimensional space.
+Кваддерево (Quadtree) — это древовидная структура данных, в которой каждый внутренний узел имеет ровно четыре дочерних узла. Они часто используются для разделения двумерного пространства путем рекурсивного разбиения его на четыре квадранта или области. Каждый дочерний или листовой узел хранит пространственную информацию. Кваддеревья являются двумерным аналогом октодеревьев (Octree), которые используются для разделения трехмерного пространства.
 
 ![quadtree](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/geohashing-and-quadtrees/quadtree.png)
 
-Quadtrees enable us to search points within a two-dimensional range efficiently, where those points are defined as latitude/longitude coordinates or as cartesian (x, y) coordinates.
+Кваддеревья позволяют эффективно осуществлять поиск точек в двумерном диапазоне, где эти точки определены как координаты широты/долготы или как декартовы координаты (x, y).
 
-We can save further computation by only subdividing a node after a certain threshold.
+Мы можем сэкономить на дальнейших вычислениях, подразделяя узел только после достижения определенного порогового значения.
 
 ![quadtree-subdivision](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/geohashing-and-quadtrees/quadtree-subdivision.png)
 
-[Quadtree](https://karanpratapsingh.com/courses/system-design/geohashing-and-quadtrees#quadtrees) seems perfect for our use case, we can update the Quadtree every time we receive a new location update from the driver. To reduce the load on the quadtree servers we can use an in-memory datastore such as [Redis](https://redis.io) to cache the latest updates. And with the application of mapping algorithms such as the [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve), we can perform efficient range queries to find nearby drivers for the customer.
+Квадритное дерево (Quadtree) идеально подходит для нашего случая: мы можем обновлять квадродерево каждый раз, когда получаем новое обновление местоположения от водителя. Чтобы уменьшить нагрузку на серверы квадродерева, мы можем использовать хранилище данных в оперативной памяти, такое как Redis, для кэширования последних обновлений. А с помощью алгоритмов отображения, таких как кривая Гильберта, мы можем эффективно выполнять запросы диапазона для поиска ближайших водителей для клиента.
 
-**What about race conditions?**
+**А как насчет расовой обстановки?**
 
-Race conditions can easily occur when a large number of customers will be requesting rides simultaneously. To avoid this, we can wrap our ride matching logic in a [Mutex](<https://en.wikipedia.org/wiki/Lock_(computer_science)>) to avoid any race conditions. Furthermore, every action should be transactional in nature.
+Состояние гонки может легко возникнуть, когда большое количество клиентов одновременно запрашивают поездки. Чтобы избежать этого, мы можем обернуть нашу логику сопоставления поездок в [Mutex](<https://en.wikipedia.org/wiki/Lock_(computer_science)>), чтобы предотвратить любые состояния гонки. Кроме того, каждое действие должно быть транзакционным по своей природе.
 
-_For more details, refer to [Transactions](https://karanpratapsingh.com/courses/system-design/transactions) and [Distributed Transactions](https://karanpratapsingh.com/courses/system-design/distributed-transactions)._
+Для получения более подробной информации обратитесь к разделам [Транзакции](https://karanpratapsingh.com/courses/system-design/transactions) и [Распределенные транзакции](https://karanpratapsingh.com/courses/system-design/distributed-transactions).
 
-**How to find the best drivers nearby?**
+**Как найти лучших водителей поблизости?**
 
-Once we have a list of nearby drivers from the Quadtree servers, we can perform some sort of ranking based on parameters like average ratings, relevance, past customer feedback, etc. This will allow us to broadcast notifications to the best available drivers first.
+Получив список водителей поблизости от серверов Quadtree, мы можем выполнить ранжирование на основе таких параметров, как средний рейтинг, релевантность, отзывы предыдущих клиентов и т. д. Это позволит нам в первую очередь рассылать уведомления наиболее подходящим водителям.
 
-**Dealing with high demand**
+**Работа в условиях высокого спроса**
 
-In cases of high demand, we can use the concept of Surge Pricing. Surge pricing is a dynamic pricing method where prices are temporarily increased as a reaction to increased demand and mostly limited supply. This surge price can be added to the base price of the trip.
+В случаях высокого спроса можно использовать концепцию динамического ценообразования. Динамическое ценообразование — это метод динамического ценообразования, при котором цены временно повышаются в ответ на увеличение спроса и, как правило, ограниченное предложение. Эта повышенная цена может быть добавлена ​​к базовой цене поездки.
 
-_For more details, learn how [surge pricing works](https://www.uber.com/us/en/drive/driver-app/how-surge-works) with Uber._
+Подробнее о том, как работает динамическое ценообразование в Uber, можно узнать здесь: (https://www.uber.com/us/en/drive/driver-app/how-surge-works).
 
-### Payments
+### Платежи
 
-Handling payments at scale is challenging, to simplify our system we can use a third-party payment processor like [Stripe](https://stripe.com) or [PayPal](https://www.paypal.com). Once the payment is complete, the payment processor will redirect the user back to our application and we can set up a [webhook](https://en.wikipedia.org/wiki/Webhook) to capture all the payment-related data.
+Обработка платежей в больших масштабах — сложная задача, поэтому для упрощения нашей системы мы можем использовать стороннего обработчика платежей, такого как [Stripe](https://stripe.com) или [PayPal](https://www.paypal.com). После завершения платежа обработчик перенаправит пользователя обратно в наше приложение, и мы сможем настроить [веб-хук](https://en.wikipedia.org/wiki/Webhook) для сбора всех данных, связанных с платежом.
 
-### Notifications
+### Уведомления
 
-Push notifications will be an integral part of our platform. We can use a message queue or a message broker such as [Apache Kafka](https://kafka.apache.org) with the notification service to dispatch requests to [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging) or [Apple Push Notification Service (APNS)](https://developer.apple.com/documentation/usernotifications) which will handle the delivery of the push notifications to user devices.
+Push-уведомления станут неотъемлемой частью нашей платформы. Мы можем использовать очередь сообщений или брокер сообщений, такой как [Apache Kafka](https://kafka.apache.org), со службой уведомлений для отправки запросов в [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging) или [Apple Push Notification Service (APNS)](https://developer.apple.com/documentation/usernotifications), которые будут обрабатывать доставку push-уведомлений на устройства пользователей.
 
-_For more details, refer to the [WhatsApp](https://karanpratapsingh.com/courses/system-design/whatsapp#notifications) system design where we discuss push notifications in detail._
+Для получения более подробной информации обратитесь к [WhatsApp](https://karanpratapsingh.com/courses/system-design/whatsapp#notifications), где мы подробно обсуждаем push-уведомления._
 
-## Detailed design
+## Детальный дизайн
 
-It's time to discuss our design decisions in detail.
+Пришло время подробно обсудить наши проектные решения.
 
-### Data Partitioning
+### Разделение данных
 
-To scale out our databases we will need to partition our data. Horizontal partitioning (aka [Sharding](https://karanpratapsingh.com/courses/system-design/sharding)) can be a good first step. We can shard our database either based on existing [partition schemes](https://karanpratapsingh.com/courses/system-design/sharding#partitioning-criteria) or regions. If we divide the locations into regions using let's say zip codes, we can effectively store all the data in a given region on a fixed node. But this can still cause uneven data and load distribution, we can solve this using [Consistent hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing).
+Для масштабирования наших баз данных нам потребуется разделить данные на сегменты. Хорошим первым шагом может стать горизонтальное сегментирование (также известное как шардинг). Мы можем сегментировать нашу базу данных либо на основе существующих схем сегментирования, либо по регионам. Если мы разделим местоположения на регионы, используя, скажем, почтовые индексы, мы сможем эффективно хранить все данные в данном регионе на фиксированном узле. Но это все еще может привести к неравномерному распределению данных и нагрузки, и мы можем решить эту проблему с помощью согласованного хеширования.
 
-_For more details, refer to [Sharding](https://karanpratapsingh.com/courses/system-design/sharding) and [Consistent Hashing](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
+Для получения более подробной информации обратитесь к разделам [Шардинг](https://karanpratapsingh.com/courses/system-design/sharding) и [Последовательное хеширование](https://karanpratapsingh.com/courses/system-design/consistent-hashing)._
 
-### Metrics and Analytics
+### Метрики и аналитика
 
-Recording analytics and metrics is one of our extended requirements. We can capture the data from different services and run analytics on the data using [Apache Spark](https://spark.apache.org) which is an open-source unified analytics engine for large-scale data processing. Additionally, we can store critical metadata in the views table to increase data points within our data.
+Запись аналитических данных и метрик — одно из наших дополнительных требований. Мы можем собирать данные из различных сервисов и проводить аналитику с помощью Apache Spark (https://spark.apache.org), открытого унифицированного аналитического движка для обработки больших объемов данных. Кроме того, мы можем хранить важные метаданные в таблице представлений, чтобы увеличить количество точек данных в нашей базе данных.
 
-### Caching
+### Кэширование
 
-In a location services-based platform, caching is important. We have to be able to cache the recent locations of the customers and drivers for fast retrieval. We can use solutions like [Redis](https://redis.io) or [Memcached](https://memcached.org) but what kind of cache eviction policy would best fit our needs?
+В платформе, основанной на геолокационных сервисах, кэширование имеет важное значение. Нам необходимо кэшировать последние данные о местоположении клиентов и водителей для быстрого доступа. Мы можем использовать такие решения, как [Redis](https://redis.io) или [Memcached](https://memcached.org), но какая политика удаления кэшированных данных лучше всего подойдет для наших нужд?
 
-**Which cache eviction policy to use?**
+**Какую политику удаления кэша использовать?**
 
-[Least Recently Used (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) can be a good policy for our system. In this policy, we discard the least recently used key first.
+Политика [наименее недавно использованного ключа (LRU)](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>) может быть хорошей политикой для нашей системы. В этой политике мы сначала отбрасываем наименее недавно использованный ключ.
 
-**How to handle cache miss?**
+**Как справиться с промахом кэша?**
 
-Whenever there is a cache miss, our servers can hit the database directly and update the cache with the new entries.
+В случае промаха кэша наши серверы могут напрямую обращаться к базе данных и обновлять кэш новыми записями.
 
-_For more details, refer to [Caching](https://karanpratapsingh.com/courses/system-design/caching)._
+Для получения более подробной информации обратитесь к разделу [Кэширование](https://karanpratapsingh.com/courses/system-design/caching)._
 
-## Identify and resolve bottlenecks
+## Выявление и устранение узких мест
 
 ![uber-advanced-design](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-V/uber/uber-advanced-design.png)
 
-Let us identify and resolve bottlenecks such as single points of failure in our design:
+Давайте выявим и устраним узкие места, такие как единые точки отказа в нашей конструкции:
 
-- "What if one of our services crashes?"
-- "How will we distribute our traffic between our components?"
-- "How can we reduce the load on our database?"
-- "How to improve the availability of our cache?"
-- "How can we make our notification system more robust?"
+— А что, если один из наших сервисов выйдет из строя?
+— «Как мы будем распределять трафик между нашими компонентами?»
+— «Как мы можем снизить нагрузку на нашу базу данных?»
+— «Как повысить доступность нашего кэша?»
+— «Как мы можем сделать нашу систему оповещений более надежной?»
 
-To make our system more resilient we can do the following:
+Для повышения отказоустойчивости нашей системы мы можем сделать следующее:
 
-- Running multiple instances of each of our services.
-- Introducing [load balancers](https://karanpratapsingh.com/courses/system-design/load-balancing) between clients, servers, databases, and cache servers.
-- Using multiple read replicas for our databases.
-- Multiple instances and replicas for our distributed cache.
-- Exactly once delivery and message ordering is challenging in a distributed system, we can use a dedicated [message broker](https://karanpratapsingh.com/courses/system-design/message-brokers) such as [Apache Kafka](https://kafka.apache.org) or [NATS](https://nats.io) to make our notification system more robust.
+- Запуск нескольких экземпляров каждой из наших служб.
+- Представляем [балансировщики нагрузки](https://karanpratapsingh.com/courses/system-design/load-balancing) между клиентами, серверами, базами данных и кэш-серверами.
+- Использование нескольких реплик для чтения в наших базах данных.
+- Множество экземпляров и реплик для нашего распределенного кэша.
+— Именно тогда, когда доставка и упорядочивание сообщений становятся сложной задачей в распределенной системе, мы можем использовать специализированный [брокер сообщений](https://karanpratapsingh.com/courses/system-design/message-brokers), такой как [Apache Kafka](https://kafka.apache.org) или [NATS](https://nats.io), чтобы сделать нашу систему уведомлений более надежной.
 
-# Next Steps
+# Следующие шаги
 
-Congratulations, you've finished the course!
+Поздравляем, вы успешно завершили курс!
 
-Now that you know the fundamentals of System Design, here are some additional resources:
+Теперь, когда вы знаете основы системного проектирования, вот несколько дополнительных ресурсов:
 
-- [Distributed Systems](https://www.youtube.com/watch?v=UEAMfLPZZhE&list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB) (by Dr. Martin Kleppmann)
-- [System Design Interview: An Insider's Guide](https://www.amazon.in/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
-- [Microservices](https://microservices.io) (by Chris Richardson)
-- [Serverless computing](https://en.wikipedia.org/wiki/Serverless_computing)
+- [Распределенные системы](https://www.youtube.com/watch?v=UEAMfLPZZhE&list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB) (автор: д-р Мартин Клеппманн)
+- [Интервью по системному проектированию: руководство для инсайдера](https://www.amazon.in/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
+- [Микросервисы](https://microservices.io) (автор: Крис Ричардсон)
+- [Бессерверные вычисления](https://en.wikipedia.org/wiki/Serverless_computing)
 - [Kubernetes](https://kubernetes.io)
 
-It is also recommended to actively follow engineering blogs of companies putting what we learned in the course into practice at scale:
+Также рекомендуется активно следить за инженерными блогами компаний, которые применяют полученные на курсе знания на практике в масштабах целого ряда:
 
-- [Microsoft Engineering](https://engineering.microsoft.com)
-- [Google Research Blog](http://googleresearch.blogspot.com)
-- [Netflix Tech Blog](http://techblog.netflix.com)
-- [AWS Blog](https://aws.amazon.com/blogs/aws)
+- [Инженерный отдел Microsoft](https://engineering.microsoft.com)
+— [Блог Google Research](http://googleresearch.blogspot.com)
+- [Технический блог Netflix](http://techblog.netflix.com)
+- [Блог AWS](https://aws.amazon.com/blogs/aws)
 - [Facebook Engineering](https://www.facebook.com/Engineering)
-- [Uber Engineering Blog](http://eng.uber.com)
-- [Airbnb Engineering](http://nerds.airbnb.com)
-- [GitHub Engineering Blog](https://github.blog/category/engineering)
-- [Intel Software Blog](https://software.intel.com/en-us/blogs)
+- [Блог инженеров Uber](http://eng.uber.com)
+- [Инженерный отдел Airbnb](http://nerds.airbnb.com)
+- [Блог инженеров GitHub](https://github.blog/category/engineering)
+- [Блог Intel Software](https://software.intel.com/en-us/blogs)
 - [LinkedIn Engineering](http://engineering.linkedin.com/blog)
-- [Paypal Developer Blog](https://medium.com/paypal-engineering)
-- [Twitter Engineering](https://blog.twitter.com/engineering)
+- [Блог разработчиков PayPal](https://medium.com/paypal-engineering)
+- [Инженерный отдел Twitter](https://blog.twitter.com/engineering)
 
-Last but not least, volunteer for new projects at your company, and learn from senior engineers and architects to further improve your system design skills.
+И наконец, что не менее важно, участвуйте в новых проектах вашей компании в качестве волонтера и учитесь у опытных инженеров и архитекторов, чтобы еще больше улучшить свои навыки проектирования систем.
 
-I hope this course was a great learning experience. I would love to hear feedback from you.
+Надеюсь, этот курс стал для вас отличным опытом обучения. Буду рад услышать ваши отзывы.
 
-Wishing you all the best for further learning!
+Желаю вам всего наилучшего в дальнейшем обучении!
 
-# References
+# Ссылки
 
-Here are the resources that were referenced while creating this course.
+Вот ресурсы, которые были использованы при создании этого курса.
 
-- [Cloudflare learning center](https://www.cloudflare.com/learning)
-- [IBM Blogs](https://www.ibm.com/blogs)
-- [Fastly Blogs](https://www.fastly.com/blog)
-- [NS1 Blogs](https://ns1.com/blog)
-- [Grokking the System Design Interview](https://www.designgurus.io/course/grokking-the-system-design-interview)
-- [Grokking Microservices Design Patterns](https://www.designgurus.io/course/grokking-microservices-design-patterns)
-- [System Design Primer](https://github.com/donnemartin/system-design-primer)
-- [AWS Blogs](https://aws.amazon.com/blogs)
-- [Architecture Patterns by Microsoft](https://learn.microsoft.com/en-us/azure/architecture/patterns)
-- [Martin Fowler](https://martinfowler.com)
-- [PagerDuty resources](https://www.pagerduty.com/resources)
-- [VMWare Blogs](https://blogs.vmware.com/learning)
+- [Учебный центр Cloudflare](https://www.cloudflare.com/learning)
+- [Блоги IBM](https://www.ibm.com/blogs)
+- [Блоги Fastly](https://www.fastly.com/blog)
+- [Блоги NS1](https://ns1.com/blog)
+- [Понимание собеседования по системному проектированию](https://www.designgurus.io/course/grokking-the-system-design-interview)
+- [Изучение шаблонов проектирования микросервисов](https://www.designgurus.io/course/grokking-microservices-design-patterns)
+- [Введение в проектирование систем](https://github.com/donnemartin/system-design-primer)
+- [Блоги AWS](https://aws.amazon.com/blogs)
+- [Архитектурные шаблоны от Microsoft](https://learn.microsoft.com/en-us/azure/architecture/patterns)
+- [Мартин Фаулер](https://martinfowler.com)
+- [Ресурсы PagerDuty](https://www.pagerduty.com/resources)
+- [Блоги VMWare](https://blogs.vmware.com/learning)
 
-_All the diagrams were made using [Excalidraw](https://excalidraw.com) and are available [here](https://github.com/karanpratapsingh/system-design/tree/main/diagrams)._
+Все диаграммы были созданы с помощью [Excalidraw](https://excalidraw.com) и доступны [здесь](https://github.com/karanpratapsingh/system-design/tree/main/diagrams)._
